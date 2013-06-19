@@ -34,9 +34,15 @@
 [submodule "site-lisp/elib"]
 	path = site-lisp/elib
 	url = https://github.com/webdsl/elib.git
-[submodule "site-lisp/pymacs"]
-	path = site-lisp/pymacs
-	url = https://github.com/pinard/Pymacs.git
 [submodule "site-lisp/auto-complete"]
 	path = site-lisp/auto-complete
 	url = https://github.com/auto-complete/auto-complete.git
+[submodule "site-lisp/cl-lib"]
+	path = site-lisp/cl-lib
+	url = https://github.com/emacsmirror/cl-lib.git
+[submodule "site-lisp/popup"]
+	path = site-lisp/popup
+	url = https://github.com/auto-complete/popup-el.git
+[submodule "site-lisp/deferred"]
+	path = site-lisp/deferred
+	url = https://github.com/medikoo/deferred.git
