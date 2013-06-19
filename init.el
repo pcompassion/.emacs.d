@@ -469,7 +469,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 ;; autocomplete mode
-(add-to-list 'load-path  (expand-file-name "site-lisp/auto-complete-1.3.1" emacs_home))
+(add-to-list 'load-path  (expand-file-name "site-lisp/auto-complete" emacs_home))
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/autocomplete/ac-dict")
 (ac-config-default)

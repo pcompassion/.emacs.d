@@ -6,3 +6,4 @@
 *.lst
 .emacs.d/history
 .emacs.d/ac-comphist.dat
+el-get/
