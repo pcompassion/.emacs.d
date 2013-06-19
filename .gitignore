@@ -1,0 +1,8 @@
+*.elc
+*.*~
+*#
+.#*#
+*.pyc
+*.lst
+.emacs.d/history
+.emacs.d/ac-comphist.dat

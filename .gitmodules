@@ -1,0 +1,42 @@
+[submodule "site-lisp/emacs-for-python"]
+	path = site-lisp/emacs-for-python
+	url = https://github.com/gabrielelanaro/emacs-for-python.git
+[submodule "site-lisp/pycscope"]
+	path = site-lisp/pycscope
+	url = https://github.com/portante/pycscope.git
+[submodule "site-lisp/django-mode"]
+	path = site-lisp/django-mode
+	url = https://github.com/myfreeweb/django-mode.git
+[submodule "site-lisp/magit"]
+	path = site-lisp/magit
+	url = https://github.com/magit/magit.git
+[submodule "site-lisp/org"]
+	path = site-lisp/org
+	url = https://github.com/jwiegley/org-mode.git
+[submodule "site-lisp/js2-mode"]
+	path = site-lisp/js2-mode
+	url = https://github.com/mooz/js2-mode.git
+[submodule "site-lisp/jdee"]
+	path = site-lisp/jdee
+	url = https://github.com/emacsmirror/jdee.git
+[submodule "site-lisp/pony-mode"]
+	path = site-lisp/pony-mode
+	url = https://github.com/davidmiller/pony-mode.git
+[submodule "site-lisp/nxhtml"]
+	path = site-lisp/nxhtml
+	url = https://github.com/emacsmirror/nxhtml.git
+[submodule "site-lisp/yasnippet"]
+	path = site-lisp/yasnippet
+	url = https://github.com/capitaomorte/yasnippet.git
+[submodule "site-lisp/cedet"]
+	path = site-lisp/cedet
+	url = https://github.com/emacsmirror/cedet.git
+[submodule "site-lisp/elib"]
+	path = site-lisp/elib
+	url = https://github.com/webdsl/elib.git
+[submodule "site-lisp/pymacs"]
+	path = site-lisp/pymacs
+	url = https://github.com/pinard/Pymacs.git
+[submodule "site-lisp/auto-complete"]
+	path = site-lisp/auto-complete
+	url = https://github.com/auto-complete/auto-complete.git
