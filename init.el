@@ -66,9 +66,11 @@
 ;; (require 'redo)
 
 ;; ido
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+;; (require 'ido)
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching t) ;; enable fuzzy matching
+
+;; or iswitchb
 ;; (iswitchb-mode 1)
 ;; (setq iswitchb-case t)
 
@@ -284,7 +286,7 @@
 					  magic-mode-regexp-match-limit t)))
 	       . objc-mode))
 
-(require 'php-mode)
+;; (require 'php-mode)
 
 (defvar sqlite-program  "/usr/bin/sqlite3"
     "Full path name of the SQLITE executable.")
@@ -574,7 +576,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (setq find-grep-options "-q -i")
 
 
-
+(add-to-list 'load-path (expand-file-name "site-lisp/icicles" emacs_home))
+(require 'icicles)
 
 ;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
 
