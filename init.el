@@ -369,6 +369,7 @@
 ;;                 (width . 88)
 ;;                 (height . 49) ))
 
+(add-to-list 'load-path (expand-file-name "site-lisp/cl-lib" emacs_home))
 (add-to-list 'load-path (expand-file-name "site-lisp/magit" emacs_home))
 (require 'magit)
 
@@ -381,6 +382,7 @@
 (make-variable-buffer-local 'beginning-of-defun-function)
 (make-variable-buffer-local 'end-of-defun-function)
 
+(add-to-list 'load-path (expand-file-name "site-lisp/popup" emacs_home))
 
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/ensime/elisp"))
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/scala-mode"))
@@ -492,11 +494,12 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (add-to-list 'load-path (expand-file-name "site-lisp/pony-mode/src" emacs_home))
 ;; (require 'pony-mode)
 
+(add-to-list 'load-path (expand-file-name "site-lisp/deferred" emacs_home))
 
 ;; pymacs
 ;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
 ;; http://pymacs.progiciels-bpi.ca/pymacs.html#installation
-(add-to-list 'load-path (expand-file-name "site-lisp/pymacs" emacs_home))
+(add-to-list 'load-path (expand-file-name "site-lisp/Pymacs" emacs_home))
 (require 'pymacs)
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
@@ -505,6 +508,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (autoload 'pymacs-load "pymacs" nil t)
 ;; (eval-after-load "pymacs"
 ;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp/Pymacs" emacs_home)))
+
 
 
 ;; (pymacs-load "ropemacs" "rope-")
@@ -568,6 +572,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 
 (setq find-grep-options "-q -i")
+
+
+
 
 ;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
 
