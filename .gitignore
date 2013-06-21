@@ -4,6 +4,6 @@
 .#*#
 *.pyc
 *.lst
-.emacs.d/history
-.emacs.d/ac-comphist.dat
+history
+ac-comphist.dat
 el-get/

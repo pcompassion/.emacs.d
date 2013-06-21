@@ -46,3 +46,6 @@
 [submodule "site-lisp/deferred"]
 	path = site-lisp/deferred
 	url = https://github.com/medikoo/deferred.git
+[submodule "site-lisp/Pymacs"]
+	path = site-lisp/Pymacs
+	url = https://github.com/pinard/Pymacs.git
