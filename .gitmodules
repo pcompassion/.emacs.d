@@ -52,3 +52,12 @@
 [submodule "site-lisp/Pymacs"]
 	path = site-lisp/Pymacs
 	url = https://github.com/pinard/Pymacs.git
+[submodule "site-lisp/emacs-project-mode"]
+	path = site-lisp/emacs-project-mode
+	url = https://github.com/timfel/emacs-project-mode.git
+[submodule "site-lisp/helm"]
+	path = site-lisp/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "site-lisp/helm-ls-git"]
+	path = site-lisp/helm-ls-git
+	url = https://github.com/emacs-helm/helm-ls-git.git

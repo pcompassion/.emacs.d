@@ -21,6 +21,7 @@ git submodule add https://...foo.git site-lisp/foo
 
 Fetch updated submodules 
 
+git submodule init  
 git submodule update
 
 

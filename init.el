@@ -66,9 +66,9 @@
 ;; (require 'redo)
 
 ;; ido
-;; (require 'ido)
-;; (ido-mode t)
-;; (setq ido-enable-flex-matching t) ;; enable fuzzy matching
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
 ;; or iswitchb
 ;; (iswitchb-mode 1)
@@ -576,8 +576,22 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (setq find-grep-options "-q -i")
 
 
-(add-to-list 'load-path (expand-file-name "site-lisp/icicles" emacs_home))
-(require 'icicles)
+;; (add-to-list 'load-path (expand-file-name "site-lisp/icicles" emacs_home))
+;; (require 'icicles)
+
+;; (add-to-list 'load-path (expand-file-name "site-lisp/emacs-project-mode" emacs_home))
+;; (require 'project-mode)
+
+(add-to-list 'load-path (expand-file-name "site-lisp/helm" emacs_home))
+(require 'helm-config)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;; (helm-dired-bindings 1) 				;To enable some of the usual commands of dired, put in init.el:
+
+(add-to-list 'load-path (expand-file-name "site-lisp/helm-ls-git" emacs_home))
+(require 'helm-ls-git)
+
+
+(global-set-key (kbd "C-x M-p") 'helm-ls-git-ls)
 
 ;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
 
