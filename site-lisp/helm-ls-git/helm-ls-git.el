@@ -150,6 +150,7 @@ Valid values are symbol 'abs (default) or 'relative."
 
 (defun helm-ls-git-grep (candidate)
   (let* ((helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
+		 (message candidate)
          helm-grep-default-recurse-command
          (exts (helm-grep-guess-extensions (helm-marked-candidates)))
          (globs (format "'%s'" (mapconcat 'identity exts " ")))
@@ -343,6 +344,21 @@ Valid values are symbol 'abs (default) or 'relative."
    helm-source-find-files
    'helm-ls-git-ff-dir-git-p
    4))
+
+
+(defun helm-ls-git-grep-custom ()
+  (interactive)
+  (helm :sources '(helm-source-ls-git-status
+                   helm-source-ls-git)
+        ;; When `helm-ls-git-ls' is called from lisp
+        ;; `default-directory' is normally let-bounded,
+        ;; to some other value;
+        ;; we now set this new let-bounded value local
+        ;; to `helm-default-directory'.
+        :default-directory default-directory
+        :buffer "*helm lsgit*")
+  (helm-ls-git-grep helm-source-ls-git)
+  )
 
 (provide 'helm-ls-git)
 

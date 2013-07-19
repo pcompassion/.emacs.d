@@ -11,6 +11,7 @@ git submodule init
 git submodule update
 
 cd site-lisp/Pymacs && sudo make install
+M-x el-get-install jedi
 
 
 Install more submodules

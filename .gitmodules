@@ -61,3 +61,6 @@
 [submodule "site-lisp/helm-ls-git"]
 	path = site-lisp/helm-ls-git
 	url = https://github.com/emacs-helm/helm-ls-git.git
+[submodule "site-lisp/emacs-jedi"]
+	path = site-lisp/emacs-jedi
+	url = https://github.com/tkf/emacs-jedi.git

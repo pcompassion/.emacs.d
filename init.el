@@ -373,7 +373,9 @@
 
 (add-to-list 'load-path (expand-file-name "site-lisp/cl-lib" emacs_home))
 (add-to-list 'load-path (expand-file-name "site-lisp/magit" emacs_home))
+(add-to-list 'load-path (expand-file-name "site-lisp/magit/contrib" emacs_home))
 (require 'magit)
+(require 'magit-blame)
 
 ;; Debugger entered--Lisp error: (error "c-where-wrt-brace-construct: c-beginning-of-decl-1 returned label")
 ;;   signal(error ("c-where-wrt-brace-construct: c-beginning-of-decl-1 returned label"))
@@ -521,28 +523,28 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-	(let* ((temp-file (flymake-init-create-temp-buffer-copy
-					   'flymake-create-temp-inplace))
-		   (local-file (file-relative-name
-						temp-file
-						(file-name-directory buffer-file-name))))
-	  (list "pyflakes" (list local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-			   '("\\.py\\'" flymake-pyflakes-init)))
-(add-hook 'python-mode-hook 'flymake-mode)
-;; do not use flymake for html file
-(delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
+;; (when (load "flymake" t)
+;;   (defun flymake-pyflakes-init ()
+;; 	(let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 					   'flymake-create-temp-inplace))
+;; 		   (local-file (file-relative-name
+;; 						temp-file
+;; 						(file-name-directory buffer-file-name))))
+;; 	  (list "pyflakes" (list local-file))))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;; 			   '("\\.py\\'" flymake-pyflakes-init)))
+;; (add-hook 'python-mode-hook 'flymake-mode)
+;; ;; do not use flymake for html file
+;; (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
 
-;; Flymake marks the errors with red. But it does not prints the error on screen. So I found a script that writes the errors on the current line to mini-buffer. Here is the script that I added to my .emacs file
-(defun my-flymake-show-help ()
-    (when (get-char-property (point) 'flymake-overlay)
-	     (let ((help (get-char-property (point) 'help-echo)))
-		       (if help (message "%s" help)))))
+;; ;; Flymake marks the errors with red. But it does not prints the error on screen. So I found a script that writes the errors on the current line to mini-buffer. Here is the script that I added to my .emacs file
+;; (defun my-flymake-show-help ()
+;;     (when (get-char-property (point) 'flymake-overlay)
+;; 	     (let ((help (get-char-property (point) 'help-echo)))
+;; 		       (if help (message "%s" help)))))
 
-(add-hook 'post-command-hook 'my-flymake-show-help)
+;; (add-hook 'post-command-hook 'my-flymake-show-help)
 
 
 ;; Add autocomplete rope integration
@@ -592,6 +594,47 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 
 (global-set-key (kbd "C-x M-p") 'helm-ls-git-ls)
+
+
+;; (defun ls-git-grep ()
+;;   (interactive)
+;;   (let* ((candidate helm-source-ls-git)
+;; 		 (helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
+;;          helm-grep-default-recurse-command
+;;          ;; (exts (helm-grep-guess-extensions (helm-marked-candidates)))
+;; 		 (exts '("*.py"))
+;;          (globs (format "'%s'" (mapconcat 'identity exts " ")))
+;;          (files (cond ((equal helm-current-prefix-arg '(4))
+;;                        (list "--" (read-string "OnlyExt(*.[ext]): " globs)))
+;;                       (t '("--"))))
+;;          ;; Expand filename of each candidate with the git root dir.
+;;          ;; The filename will be in the help-echo prop.
+;;          (helm-grep-default-directory-fn 'helm-ls-git-root-dir)
+;;          ;; `helm-grep-init' initialize `default-directory' to this value,
+;;          ;; So set this value (i.e `helm-ff-default-directory') to
+;;          ;; something else.
+;;          (helm-ff-default-directory (file-name-directory candidate)))
+;;     (helm-do-grep-1 files)))
+;; (global-set-key (kbd "C-x M-u") 'ls-git-grep)
+
+;; (global-set-key (kbd "C-x M-u") 'helm-ls-git-grep-custom)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-ff-transformer-show-only-basename nil)
+ '(helm-ls-git-show-abs-or-relative (quote relative))
+ '(jde-global-classpath (quote ("../" "~/local/play-2.0.4" "~/local/play-2.0.4/repository/local" "~/local/play-2.0.4/repository/local/play/play_2.9.1/2.0.4/jars/")))
+ '(tab-width 4))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(flymake-errline ((t (:underline t)))))
+
 
 ;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
 
