@@ -64,3 +64,6 @@
 [submodule "site-lisp/emacs-jedi"]
 	path = site-lisp/emacs-jedi
 	url = https://github.com/tkf/emacs-jedi.git
+[submodule "site-lisp/markdown-mode"]
+	path = site-lisp/markdown-mode
+	url = git://jblevins.org/git/markdown-mode.git

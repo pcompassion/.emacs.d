@@ -1,4 +1,39 @@
 
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(flymake-errline ((t (:underline t)))))
+
+
+;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
+
+
+;; help doc
+;; The mark ring. You should never have to scroll around randomly in a buffer to find "that place you were just looking at". Whenever you take a diversion (e.g. by searching, or pressing M-< or M->), Emacs uses the mark to save your previous position, kind of like sticking your finger behind one page of a book while you go to glance at another page. You can return to the mark with C-x C-x. However, Emacs saves up to 16 previous values of the mark, and you can jump to previous ones with C-u C-SPC. This makes mark and the mark ring a valuable navigation tool. You can use it somewhat mindlessly: if you ever find yourself asking "where was I just now?" you can often just press C-u C-SPC until you find yourself back in the right place.
+
+;; (You can also set the mark explicitly yourself with C-SPC, but I almost never need to do that for navigation purposes, only for marking regions.)
+
+
+;; M-x find-name-dired
+
+
+;; http://www.emacswiki.org/emacs/InteractivelyDoThings
+;; ido
+;; To restrict the list after a first filtering:
+;; type some characters appearing in the buffer/file name(say .cpp)
+;; type C-SPC (C-@)
+
+;; M-s to search for a file matching your input
+
+
+;; find function defs
+;; M-x occur
+;; ^def 
+
+
+
 
 (setq auto-mode-alist
       (cons '("\\.m$" . objc-mode) auto-mode-alist))
@@ -628,37 +663,25 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(jde-global-classpath (quote ("../" "~/local/play-2.0.4" "~/local/play-2.0.4/repository/local" "~/local/play-2.0.4/repository/local/play/play_2.9.1/2.0.4/jars/")))
  '(tab-width 4))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(flymake-errline ((t (:underline t)))))
 
 
-;; http://stackoverflow.com/questions/2855378/ropemacs-usage-tutorial
+
+;; Workaround the annoying warnings:
+;;    Warning (mumamo-per-buffer-local-vars):
+;;    Already 'permanent-local t: buffer-file-name
+(when (and (equal emacs-major-version 24)
+		   (>= emacs-minor-version 2))
+  (eval-after-load "mumamo"
+	'(setq mumamo-per-buffer-local-vars
+		   (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
 
 
-;; help doc
-;; The mark ring. You should never have to scroll around randomly in a buffer to find "that place you were just looking at". Whenever you take a diversion (e.g. by searching, or pressing M-< or M->), Emacs uses the mark to save your previous position, kind of like sticking your finger behind one page of a book while you go to glance at another page. You can return to the mark with C-x C-x. However, Emacs saves up to 16 previous values of the mark, and you can jump to previous ones with C-u C-SPC. This makes mark and the mark ring a valuable navigation tool. You can use it somewhat mindlessly: if you ever find yourself asking "where was I just now?" you can often just press C-u C-SPC until you find yourself back in the right place.
+;; http://stackoverflow.com/questions/8865867/python-shell-in-emacs-24/10176706#10176706
+(add-to-list 'package-archives
+			 '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-;; (You can also set the mark explicitly yourself with C-SPC, but I almost never need to do that for navigation purposes, only for marking regions.)
+;; Note: For some reason, py-shell wasn't available the next time I loaded Emacs. I fixed this by adding:
+;; (load "~/.emacs.d/elpa/python-mode-6.0.3/python-mode.el")
 
-
-;; M-x find-name-dired
-
-
-;; http://www.emacswiki.org/emacs/InteractivelyDoThings
-;; ido
-;; To restrict the list after a first filtering:
-;; type some characters appearing in the buffer/file name(say .cpp)
-;; type C-SPC (C-@)
-
-;; M-s to search for a file matching your input
-
-
-;; find function defs
-;; M-x occur
-;; ^def 
-
-
+;; (require 'python-mode)
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
