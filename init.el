@@ -685,3 +685,11 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 ;; (require 'python-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+
+
+(add-to-list 'load-path (expand-file-name "site-lisp/markdown-mode" emacs_home))
+
+(autoload 'markdown-mode "markdown-mode"
+     "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
