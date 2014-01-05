@@ -67,3 +67,21 @@
 [submodule "site-lisp/markdown-mode"]
 	path = site-lisp/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "site-lisp/w3m"]
+	path = site-lisp/w3m
+	url = https://github.com/emacsmirror/w3m.git
+[submodule "site-lisp/web-mode"]
+	path = site-lisp/web-mode
+	url = https://github.com/fxbois/web-mode.git
+[submodule "site-lisp/less-css-mode"]
+	path = site-lisp/less-css-mode
+	url = https://github.com/purcell/less-css-mode.git
+[submodule "site-lisp/grep-o-matic"]
+	path = site-lisp/grep-o-matic
+	url = https://github.com/ZungBang/emacs-grep-o-matic.git
+[submodule "site-lisp/repository-root"]
+	path = site-lisp/repository-root
+	url = https://github.com/ZungBang/emacs-repository-root.git
+[submodule "site-lisp/helm-git-grep"]
+	path = site-lisp/helm-git-grep
+	url = https://github.com/yasuyk/helm-git-grep.git
