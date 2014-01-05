@@ -693,3 +693,43 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
      "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(defun url-decode-region (start end)
+  "Replace a region with the same contents, only URL decoded."
+  (interactive "r")
+  (let ((text (url-unhex-string (buffer-substring start end))))
+	(delete-region start end)
+	(insert text)))
+
+(defun replace-html-chars-region (start end)
+  "Replace some HTML entities in region …."
+  (interactive "r")
+  (save-restriction
+	(narrow-to-region start end)
+
+	(goto-char (point-min))
+	(while (search-forward "&lsquo;" nil t) (replace-match "‘" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&rsquo;" nil t) (replace-match "’" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&ldquo;" nil t) (replace-match "“" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&rdquo;" nil t) (replace-match "”" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&eacute;" nil t) (replace-match "é" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&gt;" nil t) (replace-match ">" nil t))
+
+	(goto-char (point-min))
+	(while (search-forward "&lt;" nil t) (replace-match "<" nil t))
+
+
+	
+	;; more here
+	)
+  )
