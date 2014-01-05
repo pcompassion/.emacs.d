@@ -341,14 +341,14 @@
 	   (equal emacs-minor-version 1))
   (eval-after-load "bytecomp"
     '(add-to-list 'byte-compile-not-obsolete-vars
-		  'font-lock-beginning-of-syntax-function))
+		  'syntax-begin-function))
   (eval-after-load "bytecomp"
     '(add-to-list 'byte-compile-not-obsolete-vars
-		  'font-lock-syntactic-keywords))
+		  'syntax-propertize-function))
   ;; tramp-compat.el clobbers this variable!
   (eval-after-load "tramp-compat"
     '(add-to-list 'byte-compile-not-obsolete-vars
-		  'font-lock-beginning-of-syntax-function)))
+		  'syntax-begin-function)))
 
 
 ;; (add-to-list 'load-path (expand-file-name "site-lisp/org/lisp" emacs_home))
@@ -467,7 +467,6 @@
 (global-set-key "\C-x," 'tags-loop-continue)
 
 
-(global-set-key (kbd "C-c C-c") 'comment-region)
 (global-set-key (kbd "C-M-;") 'comment-region)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-.") 'redo)
@@ -498,16 +497,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (setq diff-command "ediff")
 
 
-;; http://web-mode.org
-;; (require 'web-mode)
-;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 ;; autocomplete mode
 (add-to-list 'load-path  (expand-file-name "site-lisp/auto-complete" emacs_home))
@@ -516,14 +505,14 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (ac-config-default)
 
 
-(defun my-html-mode-hook ()
-    "Switch to `django-html-mumamo-mode' if Django template was opened."
-	  (save-excursion
-		    (if (or (search-forward "{%")
-					            (search-forward "{{"))
-				        (django-html-mumamo-mode))))
+;; (defun my-html-mode-hook ()
+;;     "Switch to `django-html-mumamo-mode' if Django template was opened."
+;; 	  (save-excursion
+;; 		    (if (or (search-forward "{%")
+;; 					            (search-forward "{{"))
+;; 				        (django-html-mumamo-mode))))
 
-(add-hook 'nxhtml-mumamo-mode-hook 'my-html-mode-hook)
+;; (add-hook 'nxhtml-mumamo-mode-hook 'my-html-mode-hook)
 
 (add-to-list 'load-path (expand-file-name "site-lisp/js2-mode" emacs_home))
 (require 'js2-mode)
@@ -693,3 +682,60 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
      "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(add-to-list 'load-path (expand-file-name "site-lisp/w3m" emacs_home))
+(require 'w3m-load)
+
+;; --> web-mode
+
+(require 'web-mode)
+
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; <-- web-mode
+
+(add-to-list 'load-path (expand-file-name "site-lisp/less-css-mode" emacs_home))
+(require 'less-css-mode)
+
+
+;; repository-root
+(add-to-list 'load-path (expand-file-name "site-lisp/repository-root" emacs_home))
+(require 'repository-root)
+
+;; grep-o-matic
+
+
+(add-to-list 'load-path (expand-file-name "site-lisp/grep-o-matic" emacs_home))
+(require 'grep-o-matic)
+
+
+;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2009-09/msg00130.html
+(setenv "PAGER" "/bin/cat")
+
+;; http://stackoverflow.com/questions/2566632/using-emacs-for-big-big-projects
+;; There's something similar (but fancier) in vc-git.el: vc-git-grep
+;; -I means don't search through binary files
+(defcustom git-grep-switches "--extended-regexp -I -n --ignore-case --no-color"
+  "Switches to pass to `git grep'."
+  :type 'string)
+
+;; https://gist.github.com/offby1/1240799
+(defcustom git-grep-default-work-tree (expand-file-name "~/Documents/momsplanner")
+  "Top of your favorite git working tree.  \\[git-grep] will search from here if it cannot figure out where else to look."
+  :type 'directory
+  )
+
+(defun git-grep (command-args)
+  (interactive
+   (list (read-shell-command "Run git-grep (like this): "
+							 (format "git grep %s -e "
+									 git-grep-switches)
+							 'git-grep-history)))
+  (let ((grep-use-null-device nil))
+	(grep command-args)))
+
+
+(add-to-list 'load-path (expand-file-name "site-lisp/helm-git-grep" emacs_home))
+(require 'helm-git-grep)
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+
+
