@@ -1,3 +1,7 @@
+;; tutorials
+;; http://stackoverflow.com/a/1242760/433570
+;; tutorials
+
 (when (>= emacs-major-version 24)
   (require 'package)
   (package-initialize)
@@ -5,6 +9,25 @@
   )
 
 (package-initialize)
+
+
+(defconst home-dir
+    (getenv "HOME")
+      "The full path of the user's home directory.")
+
+(defconst tbh-hostname
+    (car (split-string system-name "\\." t))
+      "The hostname for the current system.")
+
+;; Set up load path to include all user-local directories that may contain
+;; configuration or library files.
+(defconst emacs_home
+    (expand-file-name ".emacs.d" home-dir)
+      "Top level directory for local configuration and code.")
+
+;; (setq emacs_home `"/usr/share/emacs23/")
+(add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
+
 
 ;; --> ac-helm				
 (require 'auto-complete)
@@ -131,22 +154,22 @@
 ;; mac
 
 ;; xcscope
-(cscope-setup)
-(defun cscope-select-entry-this-window ()
-  (interactive)
-  (let ((file (get-text-property (point) `cscope-file))
-	(line-number (get-text-property (point) `cscope-line-number)) 
-	window)
-    (setq window (cscope-show-entry-internal file line-number t (selected-window)))
-    (if (windowp window)
-	(progn 
-	  (select-window window)
-	  ))
-    ))
+;; (cscope-setup)
+;; (defun cscope-select-entry-this-window ()
+;;   (interactive)
+;;   (let ((file (get-text-property (point) `cscope-file))
+;; 	(line-number (get-text-property (point) `cscope-line-number)) 
+;; 	window)
+;;     (setq window (cscope-show-entry-internal file line-number t (selected-window)))
+;;     (if (windowp window)
+;; 	(progn 
+;; 	  (select-window window)
+;; 	  ))
+;;     ))
 
-(define-key cscope-list-entry-keymap (kbd "m") `cscope-select-entry-this-window)
-(add-hook 'objc-mode-hook (function cscope:hook))
-(add-hook 'java-mode-hook (function cscope:hook))
+;; (define-key cscope-list-entry-keymap (kbd "m") `cscope-select-entry-this-window)
+;; (add-hook 'objc-mode-hook (function cscope:hook))
+;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; xcscope
 
 ;; http://kldp.org/node/110942
@@ -156,7 +179,7 @@
 
 
 (global-set-key (kbd "C-o") 'newline-and-indent)
-(global-set-key (kbd "M-/") 'dabbrev-expand)
+(global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "C-M-;") 'comment-region)
 (global-set-key (kbd "M-g") 'goto-line)
@@ -195,6 +218,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
+;; helm
+(global-set-key (kbd "C-c C-h") 'helm-resume)
+;; helm
 ;; helm-ls-git
 (global-set-key (kbd "C-x M-p") 'helm-ls-git-ls)
 ;; helm-ls-git
@@ -227,8 +253,12 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-ls-git-show-abs-or-relative (quote relative))
+ '(js3-auto-indent-p t)
+ '(js3-enter-indents-newline t)
+ '(js3-indent-on-enter-key t)
  '(safe-local-variable-values (quote ((python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python")))))
@@ -238,6 +268,74 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(highlight-indentation-current-column-face ((t nil)))
- '(highlight-indentation-face ((t nil))))
+ '(highlight-indentation-face ((t nil)))
+ '(magit-item-highlight ((t (:box (:line-width 2 :color "magenta" :style released-button))))))
+
+;; for smarter dynamic expansion
+(setq dabbrev-case-fold-search nil)
+(setq dabbrev-case-replace nil)
+(global-subword-mode 1)
+;; for smarter dynamic expansion
+
+;; uniquify
+(require 'uniquify) 
+(setq 
+  uniquify-buffer-name-style 'post-forward
+  uniquify-separator ":")
+;; uniquify
+
+
+;; flymake
+;; http://stackoverflow.com/a/1393590/433570
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+	(let* ((temp-file (flymake-init-create-temp-buffer-copy
+					   'flymake-create-temp-inplace))
+		   (local-file (file-relative-name
+						temp-file
+						(file-name-directory buffer-file-name))))
+	  (list "pycheckers"  (list local-file))))
+
+  (add-to-list 'flymake-allowed-file-name-masks
+			   '("\\.py\\'" flymake-pyflakes-init)))
+;; flymake
+
+
+;; repository-root
+(add-to-list 'load-path (expand-file-name "site-lisp/repository-root" emacs_home))
+(require 'repository-root)
+;; repository-root
+;; grep-o-matic
+(add-to-list 'load-path (expand-file-name "site-lisp/grep-o-matic" emacs_home))
+(require 'grep-o-matic)
+;; grep-o-matic
+
+;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2009-09/msg00130.html
+(setenv "PAGER" "/bin/cat")
+
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+(global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
+
+
+
+(add-hook 'lisp-mode-hook '(lambda ()
+							 (local-set-key (kbd "RET") 'newline-and-indent)))
+
+;; put two spaces before comment
+(defun my-comment-indent ()
+  (interactive)
+  (end-of-line)
+  (let ((comment-column (+ 2 (current-column))))
+	(comment-indent)))
+;; put two spaces before comment
+
+;; js3
+;; js3
+
+;; jedi
+;; http://tkf.github.io/emacs-jedi/latest/
+(add-hook 'python-mode-hook 'jedi:setup)
+;; jedi
+
 
 
