@@ -5,7 +5,7 @@
 
 ;;;### (autoloads (highlight-indentation-current-column-mode highlight-indentation-set-offset
 ;;;;;;  highlight-indentation-mode) "highlight-indentation" "highlight-indentation.el"
-;;;;;;  (21207 54747 0 0))
+;;;;;;  (21221 1918 0 0))
 ;;; Generated autoloads from highlight-indentation.el
 
 (autoload 'highlight-indentation-mode "highlight-indentation" "\
@@ -29,8 +29,8 @@ a vertical bar corresponding to the indentation of the current line
 
 ;;;***
 
-;;;### (autoloads nil nil ("highlight-indentation-pkg.el") (21207
-;;;;;;  54748 50609 47000))
+;;;### (autoloads nil nil ("highlight-indentation-pkg.el") (21221
+;;;;;;  1918 883525 188000))
 
 ;;;***
 

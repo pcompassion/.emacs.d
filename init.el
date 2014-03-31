@@ -2,12 +2,11 @@
 ;; http://stackoverflow.com/a/1242760/433570
 ;; tutorials
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
-
+(require 'package)
+(add-to-list 'package-archives
+			              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(when (< emacs-major-version 24)
+    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
 
@@ -48,10 +47,6 @@
 ;; helm
 (helm-mode 1)
 ;; helm
-
-;; helm-git-grep
-(global-set-key (kbd "C-c g") 'helm-git-grep)
-;; helm-git-grep
 
 ;; magit-find-file
 (global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
@@ -102,10 +97,6 @@
 (setq ediff-merge-split-window-function 'split-window-horizontally)
 ;; ediff default split 
 
-
-(global-set-key (kbd "M-n") 'next-error)
-(global-set-key (kbd "M-p") 'previous-error)
-(setq compilation-scroll-output t)
 
 
 (add-hook 'c-mode-common-hook
@@ -172,22 +163,7 @@
 ;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; xcscope
 
-;; http://kldp.org/node/110942
-(prefer-coding-system 'utf-8)
 
-(setq-default tab-width 4)
-
-
-(global-set-key (kbd "C-o") 'newline-and-indent)
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "M-c") 'capitalize-word)
-(global-set-key (kbd "C-M-;") 'comment-region)
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "C-.") 'redo)
-(global-set-key (kbd "M-.") 'undo)
-(global-set-key (kbd "M-,") 'redo)
-(global-set-key (kbd "C-m") 'newline-and-indent)
-(global-set-key (kbd "C-c r") 'revert-buffer)
 
 
 ;; Use ediff and not diff
@@ -253,13 +229,14 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(elpy-default-minor-modes (quote (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
  '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
- '(safe-local-variable-values (quote ((python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+ '(safe-local-variable-values (quote ((encoding . utf-8) (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python")))))
 (custom-set-faces
@@ -314,7 +291,12 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (setenv "PAGER" "/bin/cat")
 
 (global-set-key (kbd "C-c g") 'helm-git-grep)
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+
 (global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
+(global-set-key (kbd "C-c l") 'helm-git-grep-with-exclude-file-pattern)
 
 
 
@@ -337,5 +319,89 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+    (with-current-buffer
+		      (url-retrieve-synchronously
+			          "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+	      (let (el-get-master-branch)
+			      (goto-char (point-max))
+				        (eval-print-last-sexp))))
+
+(el-get 'sync)
+;; el-get
+
+;; pymacs
+;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
+;; http://pymacs.progiciels-bpi.ca/pymacs.html#installation
+(require 'pymacs)
 
 
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+;; (eval-after-load "pymacs"
+;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
+(pymacs-load "ropemacs" "rope-")
+
+;; http://stackoverflow.com/a/6806217/433570
+(eval-after-load "elpy"
+  '(progn
+	 ;; Unbind M-o from the local keymap
+	 (define-key elpy-mode-map (kbd "M-n") nil)
+	 (define-key elpy-mode-map (kbd "M-p") nil)
+	 
+	 ;; Add an alternative local binding for the command
+	 ;; bound to M-o
+	 ;; (define-key dired-mode-map (kbd "C-c o")
+	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
+
+	 ))
+
+(define-key ropemacs-local-keymap "\C-cg" nil)
+(define-key ropemacs-local-keymap (kbd "M-/") nil)
+;; ;; pymacs
+
+
+
+
+;; http://kldp.org/node/110942
+(prefer-coding-system 'utf-8)
+
+(setq-default tab-width 4)
+
+
+(global-set-key (kbd "C-o") 'newline-and-indent)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-c") 'capitalize-word)
+(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "C-.") 'redo)
+(global-set-key (kbd "M-.") 'undo)
+(global-set-key (kbd "M-,") 'redo)
+(global-set-key (kbd "C-m") 'newline-and-indent)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+(global-set-key (kbd "M-n") 'next-error)
+(global-set-key (kbd "M-p") 'previous-error)
+(global-set-key (kbd "C-c m m v") 'vc-git-grep)
+(setq compilation-scroll-output t)
+
+;; http://stackoverflow.com/a/10093312/433570
+
+;; package-activated-list
+;; (pyvenv ac-helm ace-jump-buffer ace-window ace-jump-mode auto-compile bash-completion buffer-move cmake-mode dummy-h-mode elpy find-file-in-project find-file-in-repository fuzzy helm-backup helm-git helm-git-files helm-git-grep helm-helm-commands helm helm-ls-git highlight highlight-indentation idomenu iedit jedi-direx direx jedi auto-complete epc ctable concurrent js3-mode less-css-mode magit-filenotify magit-find-file magit-gh-pulls gh logito magit-push-remote markdown-mode mo-git-blame nose packed magit git-rebase-mode git-commit-mode pcache pg popup py-import-check pymacs python-django python-environment deferred python-mode redo+ virtualenv virtualenvwrapper s dash web-beautify web-mode xcscope yasnippet)
+
+;; list the packages you want
+;; (setq package-list '(package1 package2))
+;; fetch the list of packages available
+;; (unless package-archive-contents
+;;     (package-refresh-contents))
+
+;; install the missing packages
+;; (dolist (package package-list)
+;;     (unless (package-installed-p package)
+;; 	      (package-install package)))
