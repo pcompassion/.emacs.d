@@ -28,7 +28,7 @@
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
 
-;; --> ac-helm				
+;; --> ac-helm
 (require 'auto-complete)
 (global-set-key (kbd "C-:") 'ac-complete-with-helm)
 (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
@@ -53,7 +53,7 @@
 ;; magit-find-file
 
 ;; redo+
-(require 'redo+)
+;;(require 'redo+)
 ;; redo+
 
 
@@ -79,7 +79,6 @@
 (global-set-key (kbd "C-x f") 'find-file-in-repository)
 ;; find-file-in-repository
 
-(show-paren-mode 1)
 
 
 ;; ido
@@ -92,10 +91,10 @@
 ;; wordwrap when vertically seperated buffer
 
 
-;; ediff default split 
+;; ediff default split
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-merge-split-window-function 'split-window-horizontally)
-;; ediff default split 
+;; ediff default split
 
 
 
@@ -106,7 +105,7 @@
 	    (setq indent-tabs-mode t)
 	    (setq c-basic-offset 4)
 	    (setq c-subword-mode t)
-	    (c-set-offset 'innamespace 0)	;do not indent { inside a namespace 
+	    (c-set-offset 'innamespace 0)	;do not indent { inside a namespace
 	    (c-set-offset 'substatement-open 0)
 	    (c-set-offset 'brace-list-open 0)
 	    (c-set-offset 'case-label '+)
@@ -149,11 +148,11 @@
 ;; (defun cscope-select-entry-this-window ()
 ;;   (interactive)
 ;;   (let ((file (get-text-property (point) `cscope-file))
-;; 	(line-number (get-text-property (point) `cscope-line-number)) 
+;; 	(line-number (get-text-property (point) `cscope-line-number))
 ;; 	window)
 ;;     (setq window (cscope-show-entry-internal file line-number t (selected-window)))
 ;;     (if (windowp window)
-;; 	(progn 
+;; 	(progn
 ;; 	  (select-window window)
 ;; 	  ))
 ;;     ))
@@ -180,7 +179,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 	(ediff-load-version-control)
 	(funcall
 	 (intern (format "ediff-%S-internal" ediff-version-control-package))
-	 "" "" nil))) 
+	 "" "" nil)))
 
 
 (setq diff-command "ediff")
@@ -188,6 +187,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 ;; auto-complete
 (global-auto-complete-mode t)
+(add-to-list 'ac-modes 'less-css-mode)
 ;; auto-complete
 
 ;; jedi
@@ -229,6 +229,15 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+ '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
+ '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
+ '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
+ '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
+ '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
+ '(back-button-local-keystrokes (quote ("C-c <SPC>")))
+ '(back-button-smartrep-prefix "C-c")
+ '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes (quote (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
  '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
  '(helm-ff-transformer-show-only-basename nil)
@@ -244,9 +253,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(highlight-indentation-current-column-face ((t nil)))
- '(highlight-indentation-face ((t nil)))
- '(magit-item-highlight ((t (:box (:line-width 2 :color "magenta" :style released-button))))))
+ )
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -255,8 +262,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; for smarter dynamic expansion
 
 ;; uniquify
-(require 'uniquify) 
-(setq 
+(require 'uniquify)
+(setq
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 ;; uniquify
@@ -276,6 +283,17 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
   (add-to-list 'flymake-allowed-file-name-masks
 			   '("\\.py\\'" flymake-pyflakes-init)))
 ;; flymake
+
+;; python setup instruction (pymacs/elpy/flymake)
+;; pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
+;; cd $VIRTUAL_ENV/src/pymacs
+;; make
+;; python -c 'import Pymacs'
+
+;; pymacs.el 을 module path 에 copy 한다
+;; http://stackoverflow.com/a/1393590/433570 : pychecker 파일을 만든다
+;; pip install --upgrade rope ropemacs elpy
+;; python setup instruction
 
 
 ;; repository-root
@@ -320,17 +338,17 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; jedi
 
 ;; el-get
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-		      (url-retrieve-synchronously
-			          "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-	      (let (el-get-master-branch)
-			      (goto-char (point-max))
-				        (eval-print-last-sexp))))
+;; (unless (require 'el-get nil 'noerror)
+;;     (with-current-buffer
+;; 		      (url-retrieve-synchronously
+;; 			          "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;; 	      (let (el-get-master-branch)
+;; 			      (goto-char (point-max))
+;; 				        (eval-print-last-sexp))))
 
-(el-get 'sync)
+;; (el-get 'sync)
 ;; el-get
 
 ;; pymacs
@@ -354,7 +372,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 	 ;; Unbind M-o from the local keymap
 	 (define-key elpy-mode-map (kbd "M-n") nil)
 	 (define-key elpy-mode-map (kbd "M-p") nil)
-	 
+
 	 ;; Add an alternative local binding for the command
 	 ;; bound to M-o
 	 ;; (define-key dired-mode-map (kbd "C-c o")
@@ -380,7 +398,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
 (global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "C-.") 'redo)
 (global-set-key (kbd "M-.") 'undo)
 (global-set-key (kbd "M-,") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
@@ -388,6 +405,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (global-set-key (kbd "M-n") 'next-error)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "C-c m m v") 'vc-git-grep)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-.") 'imenu-anywhere)
+
 (setq compilation-scroll-output t)
 
 ;; http://stackoverflow.com/a/10093312/433570
@@ -405,3 +425,119 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; (dolist (package package-list)
 ;;     (unless (package-installed-p package)
 ;; 	      (package-install package)))
+
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+
+(define-key input-decode-map "\e[1;31" (kbd "C-;"))
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
+(define-key input-decode-map "\e[1;33" (kbd "C-:"))
+(define-key input-decode-map "\e[1;34" (kbd "C-`"))
+(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+(define-key input-decode-map "\e[1;37" (kbd "C-."))
+(define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+
+
+(load "init-smartparens")
+
+
+;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
+(defun push-mark-no-activate ()
+    "Pushes `point' to `mark-ring' and does not activate the region
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+	  (interactive)
+	    (push-mark (point) t nil)
+		  (message "Pushed mark to ring"))
+
+(global-set-key (kbd "C-`") 'push-mark-no-activate)
+
+
+(defun jump-to-mark ()
+    "Jumps to the local mark, respecting the `mark-ring' order.
+This is the same as using \\[set-mark-command] with the prefix argument."
+	  (interactive)
+	    (set-mark-command 1))
+(global-set-key (kbd "M-`") 'jump-to-mark)
+
+
+(defun exchange-point-and-mark-no-activate ()
+    "Identical to \\[exchange-point-and-mark] but will not activate the region."
+	  (interactive)
+	    (exchange-point-and-mark)
+		  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+
+(require 'back-button)
+
+(back-button-mode 1)
+
+(smartscan-mode 1)
+
+(defun add-smartscan-keys ()
+  (define-key smartscan-map (kbd "M-j") 'smartscan-symbol-go-forward)
+  (define-key smartscan-map (kbd "M-k") 'smartscan-symbol-go-backward)
+)
+
+(add-hook 'c-mode-hook 'add-smartscan-keys)
+(add-hook 'python-mode-hook 'add-smartscan-keys)
+(add-hook 'web-mode-hook 'add-smartscan-keys)
+(add-hook 'js-mode-hook 'add-smartscan-keys)
+(add-hook 'js2-mode-hook 'add-smartscan-keys)
+
+
+;; http://www.emacswiki.org/emacs/DeletingWhitespace
+ (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; ssh xforwarding
+;; http://people.csail.mit.edu/wentzlaf/faq/ssh_X.html
+;; http://tylerkieft.com/archives/2006/10/05/redefine-the-x11-meta-key-in-mac-os-x/
+
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
+
+
+
+;; (load-theme 'solarized-light t)
+
+(set-default-font "DejaVu Sans Mono 11")
+;; (set-default-font "Source Code Pro Medium 12")
+
+
+(global-undo-tree-mode)
+
+(require 'flycheck)
+(flycheck-define-checker javascript-jslint-reporter
+  "A JavaScript syntax and style checker based on JSLint Reporter.
+
+See URL `https://github.com/FND/jslint-reporter'."
+  :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
+  :error-patterns
+  ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
+  :modes (js-mode js2-mode js3-mode))
+(add-hook 'js-mode-hook (lambda ()
+                          (flycheck-select-checker 'javascript-jslint-reporter)
+                          (flycheck-mode)))
+
+
+(setq helm-ff-skip-boring-files t)
+(loop for ext in '("migrations/*")
+      do (add-to-list 'helm-boring-file-regexp-list ext))
+
+;; (setq mac-option-modifier 'super) ; sets the Option key to Super
+
+;; http://stackoverflow.com/a/2627298/433570
+(delete-selection-mode 1)
+
+;; http://stackoverflow.com/a/23013184/433570
+(defun my-ido-setup-hook ()
+  (define-key
+	ido-buffer-completion-map
+	" "
+	'ido-restrict-to-matches))
+
+(add-hook 'ido-setup-hook 'my-ido-setup-hook)

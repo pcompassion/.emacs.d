@@ -85,3 +85,6 @@
 [submodule "site-lisp/helm-git-grep"]
 	path = site-lisp/helm-git-grep
 	url = https://github.com/yasuyk/helm-git-grep.git
+[submodule "site-lisp/jslint-reporter"]
+	path = site-lisp/jslint-reporter
+	url = https://github.com/FND/jslint-reporter.git
