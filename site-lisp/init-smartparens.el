@@ -91,3 +91,9 @@
 (sp-local-pair 'web-mode "{" "}" :actions nil)
 
 (setq sp-highlight-pair-overlay nil)
+(setq sp-autoescape-string-quote nil)
+
+
+(add-hook 'ruby-mode-hook
+		  (lambda ()
+			(turn-off-smartparens-mode)))

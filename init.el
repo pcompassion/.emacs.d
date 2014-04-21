@@ -247,7 +247,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(js3-indent-on-enter-key t)
  '(safe-local-variable-values (quote ((encoding . utf-8) (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
-") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python")))))
+") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python"))))
+ '(sp-autoinsert-pair nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
