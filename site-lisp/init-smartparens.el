@@ -17,9 +17,6 @@
 (define-key sp-keymap (kbd "C-S-a") 'sp-beginning-of-sexp)
 (define-key sp-keymap (kbd "C-S-d") 'sp-end-of-sexp)
 
-(define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
-(define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
-(define-key sp-keymap (kbd "C-M-u") 'sp-backward-up-sexp)
 (define-key sp-keymap (kbd "C-M-t") 'sp-transpose-sexp)
 
 (define-key sp-keymap (kbd "C-M-n") 'sp-next-sexp)
@@ -94,6 +91,6 @@
 (setq sp-autoescape-string-quote nil)
 
 
-(add-hook 'ruby-mode-hook
+(add-hook 'python-mode-hook
 		  (lambda ()
 			(turn-off-smartparens-mode)))
