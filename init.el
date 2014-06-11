@@ -254,7 +254,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(js2-external-variable ((t (:foreground "red")))))
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -490,7 +490,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; http://www.emacswiki.org/emacs/DeletingWhitespace
- (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ssh xforwarding
 ;; http://people.csail.mit.edu/wentzlaf/faq/ssh_X.html
@@ -542,3 +542,12 @@ See URL `https://github.com/FND/jslint-reporter'."
 	'ido-restrict-to-matches))
 
 (add-hook 'ido-setup-hook 'my-ido-setup-hook)
+
+;; (setq bell-volume 0)
+;; (setq sound-alist nil)
+
+
+;; http://blog.mpacula.com/2012/01/28/howto-prevent-emacs-from-splitting-windows/
+;; do not split my windows
+(setq split-height-threshold 1200)
+(setq split-width-threshold 2000)
