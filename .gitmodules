@@ -1,6 +1,3 @@
-[submodule "site-lisp/emacs-for-python"]
-	path = site-lisp/emacs-for-python
-	url = https://github.com/gabrielelanaro/emacs-for-python.git
 [submodule "site-lisp/pycscope"]
 	path = site-lisp/pycscope
 	url = https://github.com/portante/pycscope.git
