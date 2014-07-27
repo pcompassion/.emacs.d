@@ -2,6 +2,9 @@
 ;; http://stackoverflow.com/a/1242760/433570
 ;; tutorials
 
+;; emacs mac
+;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
+
 (require 'package)
 (add-to-list 'package-archives
 			              '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -122,11 +125,6 @@
 
 	    )
 	  )
-
-;; save minibuffer history
-(savehist-mode 1)
-;; save minibuffer history
-
 
 ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
 (setenv "PATH" (concat "/usr/local/mysql/bin:" (getenv "PATH")))
@@ -286,10 +284,12 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; flymake
 
 ;; python setup instruction (pymacs/elpy/flymake)
-;; pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
+;; sudo pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
 ;; cd $VIRTUAL_ENV/src/pymacs
 ;; make
 ;; python -c 'import Pymacs'
+;; sudo python setup.py install
+
 
 ;; pymacs.el 을 module path 에 copy 한다
 ;; http://stackoverflow.com/a/1393590/433570 : pychecker 파일을 만든다
@@ -551,3 +551,12 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; do not split my windows
 (setq split-height-threshold 1200)
 (setq split-width-threshold 2000)
+
+;; magit-gitflow - need magit 1.3
+;; (require 'magit-gitflow)
+;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+
+;; save minibuffer history
+(savehist-mode 1)
+;; save minibuffer history
