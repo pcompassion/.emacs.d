@@ -42,9 +42,8 @@
 ;; bash-completion
 
 ;; elpy
+(package-initialize)
 (elpy-enable)
-(elpy-use-ipython)
-(elpy-clean-modeline) 			;If you find the (Python Elpy yas AC ElDoc Fill) mode line annoying, also add:
 ;; elpy
 
 ;; helm
@@ -214,8 +213,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 
 ;; highlight-D4D47C
-(set-face-background 'highlight-indentation-face "#D6D694")
-(set-face-background 'highlight-indentation-current-column-face "#D6D694")
+;; (set-face-background 'highlight-indentation-face "#D6D694")
+;; (set-face-background 'highlight-indentation-current-column-face "#D6D694")
 ;; highlight-indentation
 
 
@@ -227,7 +226,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
  '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
  '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
@@ -235,23 +235,43 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
  '(back-button-local-keystrokes (quote ("C-c <SPC>")))
  '(back-button-smartrep-prefix "C-c")
- '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
- '(elpy-default-minor-modes (quote (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
- '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
+ '(custom-safe-themes
+   (quote
+	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(elpy-default-minor-modes
+   (quote
+	(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+ '(flycheck-flake8-maximum-line-length 140)
+ '(grep-find-ignored-directories
+   (quote
+	("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
+ '(helm-boring-file-regexp-list
+   (quote
+	("migrations/*" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*")))
  '(helm-ff-transformer-show-only-basename nil)
+ '(helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
+ '(js2-strict-trailing-comma-warning nil)
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
- '(safe-local-variable-values (quote ((encoding . utf-8) (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
-") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
-") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python"))))
+ '(safe-local-variable-values
+   (quote
+	((encoding . utf-8)
+	 (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+")
+	 (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
+")
+	 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
+	 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
+	 (python-shell-interpreter . "python"))))
  '(sp-autoinsert-pair nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(highlight-indentation-face ((t nil)))
  '(js2-external-variable ((t (:foreground "red")))))
 
 ;; for smarter dynamic expansion
@@ -270,17 +290,18 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 ;; flymake
 ;; http://stackoverflow.com/a/1393590/433570
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-	(let* ((temp-file (flymake-init-create-temp-buffer-copy
-					   'flymake-create-temp-inplace))
-		   (local-file (file-relative-name
-						temp-file
-						(file-name-directory buffer-file-name))))
-	  (list "pycheckers"  (list local-file))))
+;; (when (load "flymake" t)
+;;   (defun flymake-pyflakes-init ()
+;; 	(let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 					   'flymake-create-temp-inplace))
+;; 		   (local-file (file-relative-name
+;; 						temp-file
+;; 						(file-name-directory buffer-file-name))))
+;; 	  (list "pycheckers"  (list local-file))))
 
-  (add-to-list 'flymake-allowed-file-name-masks
-			   '("\\.py\\'" flymake-pyflakes-init)))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;; 			   '("\\.py\\'" flymake-pyflakes-init)))
+
 ;; flymake
 
 ;; python setup instruction (pymacs/elpy/flymake)
@@ -316,7 +337,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 (global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
 (global-set-key (kbd "C-c l") 'helm-git-grep-with-exclude-file-pattern)
-
+(setq helm-git-grep-candidate-number-limit nil)
 
 
 (add-hook 'lisp-mode-hook '(lambda ()
@@ -358,14 +379,16 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (require 'pymacs)
 
 
+;; http://stackoverflow.com/a/22496541/433570
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
 (autoload 'pymacs-eval "pymacs" nil t)
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
 ;; (eval-after-load "pymacs"
 ;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
-(pymacs-load "ropemacs" "rope-")
+;; (pymacs-load "ropemacs" "rope-")
 
 ;; http://stackoverflow.com/a/6806217/433570
 (eval-after-load "elpy"
@@ -381,8 +404,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 	 ))
 
-(define-key ropemacs-local-keymap "\C-cg" nil)
-(define-key ropemacs-local-keymap (kbd "M-/") nil)
+;; (define-key ropemacs-local-keymap "\C-cg" nil)
+;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
 ;; ;; pymacs
 
 
@@ -512,6 +535,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-undo-tree-mode)
 
 (require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 (flycheck-define-checker javascript-jslint-reporter
   "A JavaScript syntax and style checker based on JSLint Reporter.
 
@@ -560,3 +585,30 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; save minibuffer history
 (savehist-mode 1)
 ;; save minibuffer history
+
+
+;; magit-gitflow
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+;; git-gutter
+(global-git-gutter-mode +1)
+
+
+;; elpy
+
+(setq ac-sources
+	  (delq 'ac-source-jedi-direct
+			(delq 'ac-source-nropemacs
+				  ac-sources)))
+
+
+;; Set your lisp system and, optionally, some contribs
+;; (setq inferior-lisp-program "/opt/sbcl/bin/sbcl")
+;;  (setq slime-contribs '(slime-fancy))
+
+
+(global-set-key [f5] 'slime-js-reload)
+(add-hook 'js2-mode-hook
+		  (lambda ()
+			(slime-js-minor-mode 1)))
