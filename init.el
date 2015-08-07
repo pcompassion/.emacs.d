@@ -47,7 +47,11 @@
 ;; elpy
 
 ;; helm
+(require 'helm-config)
 (helm-mode 1)
+(global-set-key (kbd "C-M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 ;; helm
 
 ;; magit-find-file
@@ -251,6 +255,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
+ '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
@@ -338,7 +343,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
 (global-set-key (kbd "C-c l") 'helm-git-grep-with-exclude-file-pattern)
 (setq helm-git-grep-candidate-number-limit nil)
-
+(setq helm-candidate-number-limit 999)
 
 (add-hook 'lisp-mode-hook '(lambda ()
 							 (local-set-key (kbd "RET") 'newline-and-indent)))
@@ -577,9 +582,6 @@ See URL `https://github.com/FND/jslint-reporter'."
 (setq split-height-threshold 1200)
 (setq split-width-threshold 2000)
 
-;; magit-gitflow - need magit 1.3
-;; (require 'magit-gitflow)
-;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 
 ;; save minibuffer history
@@ -588,8 +590,8 @@ See URL `https://github.com/FND/jslint-reporter'."
 
 
 ;; magit-gitflow
-(require 'magit-gitflow)
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+;; (require 'magit-gitflow)
+;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; git-gutter
 (global-git-gutter-mode +1)
@@ -608,7 +610,22 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;;  (setq slime-contribs '(slime-fancy))
 
 
-(global-set-key [f5] 'slime-js-reload)
-(add-hook 'js2-mode-hook
-		  (lambda ()
-			(slime-js-minor-mode 1)))
+;; (global-set-key [f5] 'slime-js-reload)
+;; (add-hook 'js2-mode-hook
+;; 		  (lambda ()
+;; 			(slime-js-minor-mode 1)))
+
+;;----------
+;; Keybinding to add breakpoint:
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+    (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+
+(define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
+
+
+(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+
+(mapc #'package-install my-package-list)
