@@ -38,6 +38,7 @@
 (bash-completion-setup)
 ;; bash-completion
 
+
 ;; elpy
 (elpy-enable)
 (elpy-use-ipython)
@@ -137,10 +138,11 @@
 (midnight-delay-set 'midnight-delay "7:00am")
 
 ;; mac
-(setq mac-option-key-is-meta t)
-(setq mac-command-key-is-meta t)
+;;(setq mac-option-key-is-meta t)
+;;(setq mac-command-key-is-meta t)
+(setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+
 ;; mac
 
 ;; xcscope
@@ -162,6 +164,8 @@
 ;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; xcscope
 
+(add-hook 'java-mode-hook (lambda ()
+							 (setq c-basic-offset 4)))
 
 
 
@@ -237,6 +241,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
  '(back-button-local-keystrokes (quote ("C-c <SPC>")))
  '(back-button-smartrep-prefix "C-c")
+ '(cc-other-file-alist (quote (("\\.cc\\'" (".hh" ".h")) ("\\.hh\\'" (".cc" ".C")) ("\\.c\\'" (".h")) ("\\.h\\'" (".c" ".cc" ".C" ".CC" ".cxx" ".cpp" ".m" ".mm")) ("\\.C\\'" (".H" ".hh" ".h")) ("\\.H\\'" (".C" ".CC")) ("\\.CC\\'" (".HH" ".H" ".hh" ".h")) ("\\.HH\\'" (".CC")) ("\\.c\\+\\+\\'" (".h++" ".hh" ".h")) ("\\.h\\+\\+\\'" (".c++")) ("\\.cpp\\'" (".hpp" ".hh" ".h")) ("\\.hpp\\'" (".cpp")) ("\\.cxx\\'" (".hxx" ".hh" ".h")) ("\\.hxx\\'" (".cxx")) ("\\.m\\'" (".h")))))
  '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes (quote (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
  '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
@@ -254,7 +259,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(js2-external-variable ((t (:foreground "red")))))
+ '(js2-external-variable ((t (:foreground "red"))))
+ '(magit-item-highlight ((t (:inherit nil)))))
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -551,3 +557,12 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; do not split my windows
 (setq split-height-threshold 1200)
 (setq split-width-threshold 2000)
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+;; http://www.emacswiki.org/emacs/ObjectiveCMode
+(require 'find-file) ;; for the "cc-other-file-alist" variable
+(nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
+(nconc (cadr (assoc "\\.m\\'" cc-other-file-alist)) '(".h"))
+;; http://www.emacswiki.org/emacs/ObjectiveCMode
