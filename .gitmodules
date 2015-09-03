@@ -1,48 +1,18 @@
 [submodule "site-lisp/pycscope"]
 	path = site-lisp/pycscope
 	url = https://github.com/portante/pycscope.git
-[submodule "site-lisp/django-mode"]
-	path = site-lisp/django-mode
-	url = https://github.com/myfreeweb/django-mode.git
-[submodule "site-lisp/org"]
-	path = site-lisp/org
-	url = https://github.com/jwiegley/org-mode.git
 [submodule "site-lisp/pony-mode"]
 	path = site-lisp/pony-mode
 	url = https://github.com/davidmiller/pony-mode.git
 [submodule "site-lisp/nxhtml"]
 	path = site-lisp/nxhtml
 	url = https://github.com/emacsmirror/nxhtml.git
-[submodule "site-lisp/yasnippet"]
-	path = site-lisp/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "site-lisp/icicles"]
-	path = site-lisp/icicles
-	url = https://github.com/emacsmirror/icicles.git
-[submodule "site-lisp/popup"]
-	path = site-lisp/popup
-	url = https://github.com/auto-complete/popup-el.git
 [submodule "site-lisp/deferred"]
 	path = site-lisp/deferred
 	url = https://github.com/medikoo/deferred.git
-[submodule "site-lisp/emacs-project-mode"]
-	path = site-lisp/emacs-project-mode
-	url = https://github.com/timfel/emacs-project-mode.git
-[submodule "site-lisp/markdown-mode"]
-	path = site-lisp/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "site-lisp/web-mode"]
-	path = site-lisp/web-mode
-	url = https://github.com/fxbois/web-mode.git
-[submodule "site-lisp/less-css-mode"]
-	path = site-lisp/less-css-mode
-	url = https://github.com/purcell/less-css-mode.git
 [submodule "site-lisp/grep-o-matic"]
 	path = site-lisp/grep-o-matic
 	url = https://github.com/ZungBang/emacs-grep-o-matic.git
 [submodule "site-lisp/repository-root"]
 	path = site-lisp/repository-root
 	url = https://github.com/ZungBang/emacs-repository-root.git
-[submodule "site-lisp/jslint-reporter"]
-	path = site-lisp/jslint-reporter
-	url = https://github.com/FND/jslint-reporter.git
