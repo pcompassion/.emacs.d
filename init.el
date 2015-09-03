@@ -1,6 +1,11 @@
+;/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
 ;; tutorials
+
+;; emacs mac
+;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
 
 (require 'package)
 (add-to-list 'package-archives
@@ -8,6 +13,11 @@
 (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+
+(mapc #'package-install my-package-list)
+
 
 
 (defconst home-dir
@@ -27,6 +37,9 @@
 ;; (setq emacs_home `"/usr/share/emacs23/")
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
+;; dash
+(require 'dash)
+;; dash
 
 ;; --> ac-helm
 (require 'auto-complete)
@@ -38,15 +51,17 @@
 (bash-completion-setup)
 ;; bash-completion
 
-
 ;; elpy
+(package-initialize)
 (elpy-enable)
-(elpy-use-ipython)
-(elpy-clean-modeline) 			;If you find the (Python Elpy yas AC ElDoc Fill) mode line annoying, also add:
 ;; elpy
 
 ;; helm
+(require 'helm-config)
 (helm-mode 1)
+(global-set-key (kbd "C-M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 ;; helm
 
 ;; magit-find-file
@@ -124,11 +139,6 @@
 	    )
 	  )
 
-;; save minibuffer history
-(savehist-mode 1)
-;; save minibuffer history
-
-
 ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
 (setenv "PATH" (concat "/usr/local/mysql/bin:" (getenv "PATH")))
 (setq exec-path (cons "/usr/local/mysql/bin" exec-path))
@@ -138,11 +148,10 @@
 (midnight-delay-set 'midnight-delay "7:00am")
 
 ;; mac
-;;(setq mac-option-key-is-meta t)
-;;(setq mac-command-key-is-meta t)
-(setq mac-option-modifier 'super)
+(setq mac-option-key-is-meta t)
+(setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
-
+(setq mac-option-modifier nil)
 ;; mac
 
 ;; xcscope
@@ -164,29 +173,31 @@
 ;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; xcscope
 
-(add-hook 'java-mode-hook (lambda ()
-							 (setq c-basic-offset 4)))
 
 
 
 ;; Use ediff and not diff
-(defun ediff-current-buffer-revision ()
-  "Run Ediff to diff current buffer's file against VC depot.
-Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
-  (interactive)
-  (let ((file (or (buffer-file-name)
-				  (error "Current buffer is not visiting a file"))))
-	(if (and (buffer-modified-p)
-			 (y-or-n-p (message "Buffer %s is modified. Save buffer? "
-								(buffer-name))))
-		(save-buffer (current-buffer)))
-	(ediff-load-version-control)
-	(funcall
-	 (intern (format "ediff-%S-internal" ediff-version-control-package))
-	 "" "" nil)))
+;; http://stackoverflow.com/a/3712903/433570
+(eval-after-load "vc-hooks"
+  '(define-key vc-prefix-map "=" 'ediff-revision))
+
+;; (defun ediff-current-buffer-revision ()
+;;   "Run Ediff to diff current buffer's file against VC depot.
+;; Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
+;;   (interactive)
+;;   (let ((file (or (buffer-file-name)
+;; 				  (error "Current buffer is not visiting a file"))))
+;; 	(if (and (buffer-modified-p)
+;; 			 (y-or-n-p (message "Buffer %s is modified. Save buffer? "
+;; 								(buffer-name))))
+;; 		(save-buffer (current-buffer)))
+;; 	(ediff-load-version-control)
+;; 	(funcall
+;; 	 (intern (format "ediff-%S-internal" ediff-version-control-package))
+;; 	 "" "" nil)))
 
 
-(setq diff-command "ediff")
+;; (setq diff-command "ediff")
 ;; Use ediff and not diff
 
 ;; auto-complete
@@ -220,8 +231,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 
 ;; highlight-D4D47C
-(set-face-background 'highlight-indentation-face "#D6D694")
-(set-face-background 'highlight-indentation-current-column-face "#D6D694")
+;; (set-face-background 'highlight-indentation-face "#D6D694")
+;; (set-face-background 'highlight-indentation-current-column-face "#D6D694")
 ;; highlight-indentation
 
 
@@ -233,7 +244,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
  '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
  '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
@@ -241,26 +253,45 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
  '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
  '(back-button-local-keystrokes (quote ("C-c <SPC>")))
  '(back-button-smartrep-prefix "C-c")
- '(cc-other-file-alist (quote (("\\.cc\\'" (".hh" ".h")) ("\\.hh\\'" (".cc" ".C")) ("\\.c\\'" (".h")) ("\\.h\\'" (".c" ".cc" ".C" ".CC" ".cxx" ".cpp" ".m" ".mm")) ("\\.C\\'" (".H" ".hh" ".h")) ("\\.H\\'" (".C" ".CC")) ("\\.CC\\'" (".HH" ".H" ".hh" ".h")) ("\\.HH\\'" (".CC")) ("\\.c\\+\\+\\'" (".h++" ".hh" ".h")) ("\\.h\\+\\+\\'" (".c++")) ("\\.cpp\\'" (".hpp" ".hh" ".h")) ("\\.hpp\\'" (".cpp")) ("\\.cxx\\'" (".hxx" ".hh" ".h")) ("\\.hxx\\'" (".cxx")) ("\\.m\\'" (".h")))))
- '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
- '(elpy-default-minor-modes (quote (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
- '(grep-find-ignored-directories (quote ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
+ '(custom-safe-themes
+   (quote
+	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(elpy-default-minor-modes
+   (quote
+	(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+ '(flycheck-flake8-maximum-line-length 140)
+ '(grep-find-ignored-directories
+   (quote
+	("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
+ '(helm-boring-file-regexp-list
+   (quote
+	("migrations/*" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*")))
  '(helm-ff-transformer-show-only-basename nil)
+ '(helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
+ '(helm-split-window-default-side (quote right))
+ '(js2-strict-trailing-comma-warning nil)
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
- '(safe-local-variable-values (quote ((encoding . utf-8) (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
-") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
-") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell") (python-shell-interpreter . "python"))))
+ '(safe-local-variable-values
+   (quote
+	((encoding . utf-8)
+	 (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+")
+	 (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
+")
+	 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
+	 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
+	 (python-shell-interpreter . "python"))))
  '(sp-autoinsert-pair nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(js2-external-variable ((t (:foreground "red"))))
- '(magit-item-highlight ((t (:inherit nil)))))
+ '(highlight-indentation-face ((t nil)))
+ '(js2-external-variable ((t (:foreground "red")))))
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -278,24 +309,27 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 ;; flymake
 ;; http://stackoverflow.com/a/1393590/433570
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-	(let* ((temp-file (flymake-init-create-temp-buffer-copy
-					   'flymake-create-temp-inplace))
-		   (local-file (file-relative-name
-						temp-file
-						(file-name-directory buffer-file-name))))
-	  (list "pycheckers"  (list local-file))))
+;; (when (load "flymake" t)
+;;   (defun flymake-pyflakes-init ()
+;; 	(let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 					   'flymake-create-temp-inplace))
+;; 		   (local-file (file-relative-name
+;; 						temp-file
+;; 						(file-name-directory buffer-file-name))))
+;; 	  (list "pycheckers"  (list local-file))))
 
-  (add-to-list 'flymake-allowed-file-name-masks
-			   '("\\.py\\'" flymake-pyflakes-init)))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;; 			   '("\\.py\\'" flymake-pyflakes-init)))
+
 ;; flymake
 
 ;; python setup instruction (pymacs/elpy/flymake)
-;; pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
+;; sudo pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
 ;; cd $VIRTUAL_ENV/src/pymacs
 ;; make
 ;; python -c 'import Pymacs'
+;; sudo python setup.py install
+
 
 ;; pymacs.el 을 module path 에 copy 한다
 ;; http://stackoverflow.com/a/1393590/433570 : pychecker 파일을 만든다
@@ -322,8 +356,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 (global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
 (global-set-key (kbd "C-c l") 'helm-git-grep-with-exclude-file-pattern)
-
-
+(setq helm-git-grep-candidate-number-limit nil)
+(setq helm-candidate-number-limit 999)
 
 (add-hook 'lisp-mode-hook '(lambda ()
 							 (local-set-key (kbd "RET") 'newline-and-indent)))
@@ -364,14 +398,16 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 (require 'pymacs)
 
 
+;; http://stackoverflow.com/a/22496541/433570
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
 (autoload 'pymacs-eval "pymacs" nil t)
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
 ;; (eval-after-load "pymacs"
 ;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
-(pymacs-load "ropemacs" "rope-")
+;; (pymacs-load "ropemacs" "rope-")
 
 ;; http://stackoverflow.com/a/6806217/433570
 (eval-after-load "elpy"
@@ -387,8 +423,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 	 ))
 
-(define-key ropemacs-local-keymap "\C-cg" nil)
-(define-key ropemacs-local-keymap (kbd "M-/") nil)
+;; (define-key ropemacs-local-keymap "\C-cg" nil)
+;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
 ;; ;; pymacs
 
 
@@ -518,6 +554,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-undo-tree-mode)
 
 (require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 (flycheck-define-checker javascript-jslint-reporter
   "A JavaScript syntax and style checker based on JSLint Reporter.
 
@@ -558,11 +596,49 @@ See URL `https://github.com/FND/jslint-reporter'."
 (setq split-height-threshold 1200)
 (setq split-width-threshold 2000)
 
-(require 'magit-gitflow)
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
-;; http://www.emacswiki.org/emacs/ObjectiveCMode
-(require 'find-file) ;; for the "cc-other-file-alist" variable
-(nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
-(nconc (cadr (assoc "\\.m\\'" cc-other-file-alist)) '(".h"))
-;; http://www.emacswiki.org/emacs/ObjectiveCMode
+
+;; save minibuffer history
+(savehist-mode 1)
+;; save minibuffer history
+
+
+;; magit-gitflow
+;; (require 'magit-gitflow)
+;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+;; git-gutter
+(global-git-gutter-mode +1)
+
+
+;; elpy
+
+(setq ac-sources
+	  (delq 'ac-source-jedi-direct
+			(delq 'ac-source-nropemacs
+				  ac-sources)))
+
+
+;; Set your lisp system and, optionally, some contribs
+;; (setq inferior-lisp-program "/opt/sbcl/bin/sbcl")
+;;  (setq slime-contribs '(slime-fancy))
+
+
+;; (global-set-key [f5] 'slime-js-reload)
+;; (add-hook 'js2-mode-hook
+;; 		  (lambda ()
+;; 			(slime-js-minor-mode 1)))
+
+;;----------
+;; Keybinding to add breakpoint:
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+    (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+
+(define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
+
+
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")

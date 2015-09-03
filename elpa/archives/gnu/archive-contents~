@@ -71,7 +71,11 @@
 	       ((:url . "http://github.com/defunkt/coffee-mode")
 		(:keywords "coffeescript" "major" "mode"))])
  (company .
+<<<<<<< HEAD
 	  [(0 8 6)
+=======
+	  [(0 8 5)
+>>>>>>> daacc8794391cf2b8e06a0e9732b052576713c43
 	   ((emacs
 	     (24 1))
 	    (cl-lib
@@ -354,11 +358,14 @@
 	 nil "A collaborative editing framework for Emacs" tar
 	 ((:keywords "rudel" "collaboration")
 	  (:url . "http://rudel.sourceforge.net/"))])
+<<<<<<< HEAD
  (scroll-restore .
 		 [(1 0)
 		  nil "restore original position after scrolling" single
 		  ((:url . "http://elpa.gnu.org/packages/scroll-restore.html")
 		   (:keywords "scrolling"))])
+=======
+>>>>>>> daacc8794391cf2b8e06a0e9732b052576713c43
  (shen-mode .
 	    [(0 1)
 	     nil "A major mode for editing shen source code" tar

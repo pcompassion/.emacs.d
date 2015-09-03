@@ -9,3 +9,5 @@ ac-comphist.dat
 el-get/
 elpa/
 archive-contents
+*~
+old
