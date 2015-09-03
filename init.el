@@ -18,6 +18,18 @@
 
 (mapc #'package-install my-package-list)
 
+;; http://stackoverflow.com/a/10093312/433570
+
+;; list the packages you want
+;; (setq package-list '(package1 package2))
+;; fetch the list of packages available
+;; (unless package-archive-contents
+;;     (package-refresh-contents))
+
+;; install the missing packages
+;; (dolist (package package-list)
+;;     (unless (package-installed-p package)
+;; 	      (package-install package)))
 
 
 (defconst home-dir
@@ -453,21 +465,6 @@
 
 (setq compilation-scroll-output t)
 
-;; http://stackoverflow.com/a/10093312/433570
-
-;; package-activated-list
-;; (pyvenv ac-helm ace-jump-buffer ace-window ace-jump-mode auto-compile bash-completion buffer-move cmake-mode dummy-h-mode elpy find-file-in-project find-file-in-repository fuzzy helm-backup helm-git helm-git-files helm-git-grep helm-helm-commands helm helm-ls-git highlight highlight-indentation idomenu iedit jedi-direx direx jedi auto-complete epc ctable concurrent js3-mode less-css-mode magit-filenotify magit-find-file magit-gh-pulls gh logito magit-push-remote markdown-mode mo-git-blame nose packed magit git-rebase-mode git-commit-mode pcache pg popup py-import-check pymacs python-django python-environment deferred python-mode redo+ virtualenv virtualenvwrapper s dash web-beautify web-mode xcscope yasnippet)
-
-;; list the packages you want
-;; (setq package-list '(package1 package2))
-;; fetch the list of packages available
-;; (unless package-archive-contents
-;;     (package-refresh-contents))
-
-;; install the missing packages
-;; (dolist (package package-list)
-;;     (unless (package-installed-p package)
-;; 	      (package-install package)))
 
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
