@@ -28,18 +28,9 @@
 [submodule "site-lisp/cedet"]
 	path = site-lisp/cedet
 	url = https://github.com/emacsmirror/cedet.git
-[submodule "site-lisp/elib"]
-	path = site-lisp/elib
-	url = https://github.com/webdsl/elib.git
-[submodule "site-lisp/auto-complete"]
-	path = site-lisp/auto-complete
-	url = https://github.com/auto-complete/auto-complete.git
 [submodule "site-lisp/icicles"]
 	path = site-lisp/icicles
 	url = https://github.com/emacsmirror/icicles.git
-[submodule "site-lisp/cl-lib"]
-	path = site-lisp/cl-lib
-	url = https://github.com/emacsmirror/cl-lib.git
 [submodule "site-lisp/popup"]
 	path = site-lisp/popup
 	url = https://github.com/auto-complete/popup-el.git

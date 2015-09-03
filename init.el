@@ -1,3 +1,5 @@
+;/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
 ;; tutorials
@@ -11,6 +13,11 @@
 (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+
+(mapc #'package-install my-package-list)
+
 
 
 (defconst home-dir
@@ -30,6 +37,9 @@
 ;; (setq emacs_home `"/usr/share/emacs23/")
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
+;; dash
+(require 'dash)
+;; dash
 
 ;; --> ac-helm
 (require 'auto-complete)
@@ -630,6 +640,5 @@ See URL `https://github.com/FND/jslint-reporter'."
 (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
 
 
-(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
-
-(mapc #'package-install my-package-list)
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
