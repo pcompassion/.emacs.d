@@ -1,10 +1,10 @@
 ;;; helm-backup-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (helm-backup helm-backup-versioning) "helm-backup"
-;;;;;;  "helm-backup.el" (21301 6482 0 0))
+;;;### (autoloads nil "helm-backup" "helm-backup.el" (22011 35475
+;;;;;;  443072 195000))
 ;;; Generated autoloads from helm-backup.el
 
 (autoload 'helm-backup-versioning "helm-backup" "\
@@ -19,16 +19,9 @@ Main function used to call `helm-backup`.
 
 ;;;***
 
-;;;### (autoloads nil nil ("helm-backup-pkg.el") (21301 6482 178584
-;;;;;;  385000))
-
-;;;***
-
-(provide 'helm-backup-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; helm-backup-autoloads.el ends here
