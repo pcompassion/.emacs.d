@@ -247,6 +247,10 @@
 ;; (set-face-background 'highlight-indentation-current-column-face "#D6D694")
 ;; highlight-indentation
 
+;; (require 'back-button)
+
+;; (back-button-mode 1)
+
 
 ;; python-django
 (global-set-key (kbd "C-x j") 'python-django-open-project)
@@ -258,13 +262,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
- '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
- '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
- '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
- '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
- '(back-button-local-keystrokes (quote ("C-c <SPC>")))
- '(back-button-smartrep-prefix "C-c")
+ ;; '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
+ ;; '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
+ ;; '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
+ ;; '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
+ ;; '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
+ ;; '(back-button-local-keystrokes (quote ("C-c <SPC>")))
+ ;; '(back-button-smartrep-prefix "C-c")
  '(custom-safe-themes
    (quote
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
@@ -510,9 +514,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 
-(require 'back-button)
-
-(back-button-mode 1)
 
 (smartscan-mode 1)
 
