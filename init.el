@@ -14,7 +14,7 @@
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(setq my-package-list '(auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+(setq my-package-list '(undo-tree idomenu json-snatcher helm dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat nose jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project elpy packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s helm-ls-git imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent helm-git-grep epl color-theme-approximate helm-git-files auto-compile epc elpy))
 
 (mapc #'package-install my-package-list)
 
@@ -218,7 +218,7 @@
 ;; auto-complete
 
 ;; jedi
-(add-hook 'python-mode-hook 'jedi:setup)
+;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
 ;; helm
@@ -391,7 +391,7 @@
 
 ;; jedi
 ;; http://tkf.github.io/emacs-jedi/latest/
-(add-hook 'python-mode-hook 'jedi:setup)
+;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
 ;; el-get
@@ -411,39 +411,39 @@
 ;; pymacs
 ;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
 ;; http://pymacs.progiciels-bpi.ca/pymacs.html#installation
-(add-to-list 'load-path (expand-file-name "site-lisp/pymacs" emacs_home))
+;; (add-to-list 'load-path (expand-file-name "site-lisp/pymacs" emacs_home))
 
-(require 'pymacs)
+;; (require 'pymacs)
 
 
-;; http://stackoverflow.com/a/22496541/433570
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(autoload 'pymacs-autoload "pymacs")
-;; (eval-after-load "pymacs"
-;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
-;; (pymacs-load "ropemacs" "rope-")
+;; ;; http://stackoverflow.com/a/22496541/433570
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; (autoload 'pymacs-autoload "pymacs")
+;; ;; (eval-after-load "pymacs"
+;; ;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
+;; ;; (pymacs-load "ropemacs" "rope-")
 
-;; http://stackoverflow.com/a/6806217/433570
-(eval-after-load "elpy"
-  '(progn
-	 ;; Unbind M-o from the local keymap
-	 (define-key elpy-mode-map (kbd "M-n") nil)
-	 (define-key elpy-mode-map (kbd "M-p") nil)
+;; ;; http://stackoverflow.com/a/6806217/433570
+;; (eval-after-load "elpy"
+;;   '(progn
+;; 	 ;; Unbind M-o from the local keymap
+;; 	 (define-key elpy-mode-map (kbd "M-n") nil)
+;; 	 (define-key elpy-mode-map (kbd "M-p") nil)
 
-	 ;; Add an alternative local binding for the command
-	 ;; bound to M-o
-	 ;; (define-key dired-mode-map (kbd "C-c o")
-	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
+;; 	 ;; Add an alternative local binding for the command
+;; 	 ;; bound to M-o
+;; 	 ;; (define-key dired-mode-map (kbd "C-c o")
+;; 	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
 
-	 ))
+;; 	 ))
 
-;; (define-key ropemacs-local-keymap "\C-cg" nil)
-;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
-;; ;; pymacs
+;; ;; (define-key ropemacs-local-keymap "\C-cg" nil)
+;; ;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
+;; ;; ;; pymacs
 
 
 
