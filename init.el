@@ -14,10 +14,22 @@
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+(setq my-package-list '(auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
 
 (mapc #'package-install my-package-list)
 
+;; http://stackoverflow.com/a/10093312/433570
+
+;; list the packages you want
+;; (setq package-list '(package1 package2))
+;; fetch the list of packages available
+;; (unless package-archive-contents
+;;     (package-refresh-contents))
+
+;; install the missing packages
+;; (dolist (package package-list)
+;;     (unless (package-installed-p package)
+;; 	      (package-install package)))
 
 
 (defconst home-dir
@@ -235,6 +247,10 @@
 ;; (set-face-background 'highlight-indentation-current-column-face "#D6D694")
 ;; highlight-indentation
 
+;; (require 'back-button)
+
+;; (back-button-mode 1)
+
 
 ;; python-django
 (global-set-key (kbd "C-x j") 'python-django-open-project)
@@ -246,13 +262,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
- '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
- '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
- '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
- '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
- '(back-button-local-keystrokes (quote ("C-c <SPC>")))
- '(back-button-smartrep-prefix "C-c")
+ ;; '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
+ ;; '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
+ ;; '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
+ ;; '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
+ ;; '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
+ ;; '(back-button-local-keystrokes (quote ("C-c <SPC>")))
+ ;; '(back-button-smartrep-prefix "C-c")
  '(custom-safe-themes
    (quote
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
@@ -395,6 +411,8 @@
 ;; pymacs
 ;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
 ;; http://pymacs.progiciels-bpi.ca/pymacs.html#installation
+(add-to-list 'load-path (expand-file-name "site-lisp/pymacs" emacs_home))
+
 (require 'pymacs)
 
 
@@ -453,21 +471,6 @@
 
 (setq compilation-scroll-output t)
 
-;; http://stackoverflow.com/a/10093312/433570
-
-;; package-activated-list
-;; (pyvenv ac-helm ace-jump-buffer ace-window ace-jump-mode auto-compile bash-completion buffer-move cmake-mode dummy-h-mode elpy find-file-in-project find-file-in-repository fuzzy helm-backup helm-git helm-git-files helm-git-grep helm-helm-commands helm helm-ls-git highlight highlight-indentation idomenu iedit jedi-direx direx jedi auto-complete epc ctable concurrent js3-mode less-css-mode magit-filenotify magit-find-file magit-gh-pulls gh logito magit-push-remote markdown-mode mo-git-blame nose packed magit git-rebase-mode git-commit-mode pcache pg popup py-import-check pymacs python-django python-environment deferred python-mode redo+ virtualenv virtualenvwrapper s dash web-beautify web-mode xcscope yasnippet)
-
-;; list the packages you want
-;; (setq package-list '(package1 package2))
-;; fetch the list of packages available
-;; (unless package-archive-contents
-;;     (package-refresh-contents))
-
-;; install the missing packages
-;; (dolist (package package-list)
-;;     (unless (package-installed-p package)
-;; 	      (package-install package)))
 
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -515,9 +518,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 
-(require 'back-button)
-
-(back-button-mode 1)
 
 (smartscan-mode 1)
 

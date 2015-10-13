@@ -4,8 +4,8 @@
 
 ;; Author: Anthony HAMON <hamon.anth@gmail.com>
 ;; URL: http://github.com/antham/helm-backup
-;; Version: 20140124.1404
-;; X-Original-Version: 0.2.0
+;; Package-Version: 20140124.1404
+;; Version: 0.2.0
 ;; Package-Requires: ((helm "1.5.5") (s "1.8.0"))
 ;; Keywords: backup
 

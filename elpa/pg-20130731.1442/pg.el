@@ -2,8 +2,8 @@
 ;;;
 ;;; Author: Eric Marsden <emarsden@laas.fr>
 ;;; Maintainer: Helmut Eller <heller@common-lisp.net>
-;; Version: 20130731.1442
-;;; X-Original-Version: 0.13+ (sorta)
+;;; Version: 0.13+ (sorta)
+;; Package-Version: 20130731.1442
 ;;; Keywords: data comm database postgresql
 ;;;
 ;;; Copyright: (C) 1999-2005  Eric Marsden

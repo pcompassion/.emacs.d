@@ -1,18 +1,15 @@
 ;;; pg-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil nil ("pg-pkg.el" "pg.el") (21207 55557 92805
-;;;;;;  652000))
+;;;### (autoloads nil nil ("pg.el") (22011 35585 153147 298000))
 
 ;;;***
 
-(provide 'pg-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; pg-autoloads.el ends here
