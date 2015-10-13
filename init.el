@@ -473,15 +473,17 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
-(define-key input-decode-map "\e[1;31" (kbd "C-;"))
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
-(define-key input-decode-map "\e[1;33" (kbd "C-:"))
-(define-key input-decode-map "\e[1;34" (kbd "C-`"))
-(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
-(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
-(define-key input-decode-map "\e[1;37" (kbd "C-."))
-(define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
-
+(defadvice terminal-init-xterm (after map-S-up-escape-sequence
+									  activate)
+  (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+  (define-key input-decode-map "\e[1;32" (kbd "C-="))
+  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
+  (define-key input-decode-map "\e[1;34" (kbd "C-`"))
+  (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+  (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+  (define-key input-decode-map "\e[1;37" (kbd "C-."))
+  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+  )
 
 (load "init-smartparens")
 
