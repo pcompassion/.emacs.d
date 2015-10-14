@@ -16,3 +16,6 @@
 [submodule "site-lisp/repository-root"]
 	path = site-lisp/repository-root
 	url = https://github.com/ZungBang/emacs-repository-root.git
+[submodule "site-lisp/emacs-for-python"]
+	path = site-lisp/emacs-for-python
+	url = https://github.com/gabrielelanaro/emacs-for-python.git

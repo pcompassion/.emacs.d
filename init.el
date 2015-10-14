@@ -14,7 +14,7 @@
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(setq my-package-list '(undo-tree idomenu json-snatcher helm dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat nose jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project elpy packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s helm-ls-git imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent helm-git-grep epl color-theme-approximate helm-git-files auto-compile epc elpy))
+(setq my-package-list '(undo-tree idomenu json-snatcher helm dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s helm-ls-git imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent helm-git-grep epl color-theme-approximate helm-git-files auto-compile epc))
 
 (mapc #'package-install my-package-list)
 
@@ -64,8 +64,8 @@
 ;; bash-completion
 
 ;; elpy
-(package-initialize)
-(elpy-enable)
+;; (package-initialize)
+;; (elpy-enable)
 ;; elpy
 
 ;; helm
@@ -217,9 +217,6 @@
 (add-to-list 'ac-modes 'less-css-mode)
 ;; auto-complete
 
-;; jedi
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; jedi
 
 ;; helm
 (global-set-key (kbd "C-c C-h") 'helm-resume)
@@ -631,6 +628,20 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; 		  (lambda ()
 ;; 			(slime-js-minor-mode 1)))
 
+
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+
+
+(add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
+(require 'epy-setup)      ;; It will setup other loads, it is required!
+(require 'epy-python)     ;; If you want the python facilities [optional]
+(require 'epy-completion) ;; If you want the autocompletion settings [optional]
+(require 'epy-editing)    ;; For configurations related to editing [optional]
+(require 'epy-bindings)   ;; For my suggested keybindings [optional]
+;; (require 'epy-nose)       ;; For nose integration
+
+
 ;;----------
 ;; Keybinding to add breakpoint:
 (defun python-add-breakpoint ()
@@ -642,5 +653,6 @@ See URL `https://github.com/FND/jslint-reporter'."
 (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
 
 
-;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
-(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+;; jedi
+(add-hook 'python-mode-hook 'jedi:setup)
+;; jedi
