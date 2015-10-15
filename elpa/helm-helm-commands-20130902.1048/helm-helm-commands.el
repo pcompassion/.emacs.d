@@ -6,8 +6,8 @@
 ;; Maintainer: Joe Bloggs <vapniks@yahoo.com>
 ;; Copyleft (Ↄ) 2013, Joe Bloggs, all rites reversed.
 ;; Created: 2013-09-02 15:25:22
-;; Version: 20130902.1048
-;; X-Original-Version: 0.2
+;; Version: 0.2
+;; Package-Version: 20130902.1048
 ;; Last-Updated: 2013-09-02 15:25:22
 ;;           By: Joe Bloggs
 ;; URL: https://github.com/vapniks/helm-helm-commands

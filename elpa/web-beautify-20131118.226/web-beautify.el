@@ -3,8 +3,8 @@
 ;; Copyright (C) 2013 Yasuyuki Oka <yasuyk@gmail.com>
 
 ;; Author: Yasuyuki Oka <yasuyk@gmail.com>
-;; Version: 20131118.226
-;; X-Original-Version: 0.1
+;; Version: 0.1
+;; Package-Version: 20131118.226
 ;; URL: https://github.com/yasuyk/web-beautify
 
 ;; This program is free software; you can redistribute it and/or modify

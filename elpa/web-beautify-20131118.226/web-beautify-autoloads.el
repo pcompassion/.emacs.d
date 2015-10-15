@@ -1,11 +1,10 @@
 ;;; web-beautify-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (web-beautify-js-buffer web-beautify-js web-beautify-css-buffer
-;;;;;;  web-beautify-css web-beautify-html-buffer web-beautify-html)
-;;;;;;  "web-beautify" "web-beautify.el" (21207 54653 0 0))
+;;;### (autoloads nil "web-beautify" "web-beautify.el" (22011 35790
+;;;;;;  63061 346000))
 ;;; Generated autoloads from web-beautify.el
 
 (autoload 'web-beautify-html "web-beautify" "\
@@ -46,16 +45,9 @@ Format the current buffer according to the js-beautify command.
 
 ;;;***
 
-;;;### (autoloads nil nil ("web-beautify-pkg.el") (21207 54654 36634
-;;;;;;  352000))
-
-;;;***
-
-(provide 'web-beautify-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; web-beautify-autoloads.el ends here
