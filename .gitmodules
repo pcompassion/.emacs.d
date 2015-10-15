@@ -1,12 +1,6 @@
 [submodule "site-lisp/pycscope"]
 	path = site-lisp/pycscope
 	url = https://github.com/portante/pycscope.git
-[submodule "site-lisp/pony-mode"]
-	path = site-lisp/pony-mode
-	url = https://github.com/davidmiller/pony-mode.git
-[submodule "site-lisp/nxhtml"]
-	path = site-lisp/nxhtml
-	url = https://github.com/emacsmirror/nxhtml.git
 [submodule "site-lisp/deferred"]
 	path = site-lisp/deferred
 	url = https://github.com/medikoo/deferred.git
