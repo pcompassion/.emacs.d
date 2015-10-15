@@ -451,21 +451,6 @@
 (setq-default tab-width 4)
 
 
-(global-set-key (kbd "C-o") 'newline-and-indent)
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "M-c") 'capitalize-word)
-(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "M-.") 'undo)
-(global-set-key (kbd "M-,") 'redo)
-(global-set-key (kbd "C-m") 'newline-and-indent)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-n") 'next-error)
-(global-set-key (kbd "M-p") 'previous-error)
-(global-set-key (kbd "C-c m m v") 'vc-git-grep)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-.") 'imenu-anywhere)
-
 (setq compilation-scroll-output t)
 
 
@@ -484,6 +469,16 @@
   (define-key input-decode-map "\e[1;37" (kbd "C-."))
   (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
   )
+
+(define-key input-decode-map "\e[1;31" (kbd "C-;"))
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
+(define-key input-decode-map "\e[1;33" (kbd "C-:"))
+(define-key input-decode-map "\e[1;34" (kbd "C-`"))
+(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+(define-key input-decode-map "\e[1;37" (kbd "C-."))
+(define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+
 
 (load "init-smartparens")
 
@@ -656,3 +651,19 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; jedi
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
+
+
+(global-set-key (kbd "C-o") 'newline-and-indent)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-c") 'capitalize-word)
+(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "M-.") 'undo)
+(global-set-key (kbd "M-,") 'redo)
+(global-set-key (kbd "C-m") 'newline-and-indent)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+(global-set-key (kbd "M-n") 'next-error)
+(global-set-key (kbd "M-p") 'previous-error)
+(global-set-key (kbd "C-c m m v") 'vc-git-grep)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-.") 'imenu-anywhere)
