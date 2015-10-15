@@ -1,4 +1,6 @@
-;/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+
+
+;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
@@ -303,7 +305,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(highlight-indentation-face ((t nil)))
- '(js2-external-variable ((t (:foreground "red")))))
+ '(js2-external-variable ((t (:foreground "red"))))
+ '(magit-hash ((t (:foreground "white")))))
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -469,9 +472,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
+(defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
 
 (define-key input-decode-map "\e[1;31" (kbd "C-;"))
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
 (define-key input-decode-map "\e[1;33" (kbd "C-:"))
 (define-key input-decode-map "\e[1;34" (kbd "C-`"))
 (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
@@ -479,6 +484,7 @@
 (define-key input-decode-map "\e[1;37" (kbd "C-."))
 (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
 
+  )
 
 (load "init-smartparens")
 
@@ -639,3 +645,6 @@ See URL `https://github.com/FND/jslint-reporter'."
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+
+(eval-after-load "sql"
+    '(load-library "sql-indent"))
