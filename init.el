@@ -56,6 +56,7 @@
 
 ;; magit-find-file
 (global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
+(global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
 ;; magit-find-file
 
 ;; redo+
@@ -214,6 +215,7 @@
 
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; web-mode
 
 
@@ -365,7 +367,7 @@
 
 ;; jedi
 ;; http://tkf.github.io/emacs-jedi/latest/
-(add-hook 'python-mode-hook 'jedi:setup)
+;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
 ;; el-get
