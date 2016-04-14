@@ -31,11 +31,6 @@
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
 
-;; --> ac-helm
-(require 'auto-complete)
-(global-set-key (kbd "C-:") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-;; <-- ac-helm
 
 ;; bash-completion
 (bash-completion-setup)
@@ -47,16 +42,38 @@
 ;; elpy
 
 ;; helm
+(require 'helm)
 (require 'helm-config)
-(helm-mode 1)
+
+(setq helm-boring-file-regexp-list
+	  '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
+
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
 (global-set-key (kbd "C-M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+
+(global-set-key (kbd "C-c C-h") 'helm-resume)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 ;; helm
+
+;; --> ac-helm
+(require 'auto-complete)
+(global-set-key (kbd "C-:") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+;; <-- ac-helm
 
 ;; magit-find-file
 (global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
 (global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 ;; magit-find-file
 
 ;; redo+
@@ -89,8 +106,8 @@
 
 
 ;; ido
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 ;; ido
 
 ;; wordwrap when vertically seperated buffer
@@ -201,8 +218,6 @@
 ;; jedi
 
 ;; helm
-(global-set-key (kbd "C-c C-h") 'helm-resume)
-;; helm
 ;; helm-ls-git
 (global-set-key (kbd "C-x M-p") 'helm-ls-git-ls)
 ;; helm-ls-git
@@ -259,7 +274,7 @@
    (quote
 	("migrations/*" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*")))
  '(helm-ff-transformer-show-only-basename nil)
- '(helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
+ '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
@@ -571,13 +586,13 @@ See URL `https://github.com/FND/jslint-reporter'."
 (delete-selection-mode 1)
 
 ;; http://stackoverflow.com/a/23013184/433570
-(defun my-ido-setup-hook ()
-  (define-key
-	ido-buffer-completion-map
-	" "
-	'ido-restrict-to-matches))
+;; (defun my-ido-setup-hook ()
+;;   (define-key
+;; 	ido-buffer-completion-map
+;; 	" "
+;; 	'ido-restrict-to-matches))
 
-(add-hook 'ido-setup-hook 'my-ido-setup-hook)
+;; (add-hook 'ido-setup-hook 'my-ido-setup-hook)
 
 ;; (setq bell-volume 0)
 ;; (setq sound-alist nil)
