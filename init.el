@@ -1,3 +1,7 @@
+
+
+;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
 ;; tutorials
@@ -11,6 +15,23 @@
 (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+(setq my-package-list '(undo-tree idomenu json-snatcher helm dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s helm-ls-git imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent helm-git-grep epl color-theme-approximate helm-git-files auto-compile epc))
+
+(mapc #'package-install my-package-list)
+
+;; http://stackoverflow.com/a/10093312/433570
+
+;; list the packages you want
+;; (setq package-list '(package1 package2))
+;; fetch the list of packages available
+;; (unless package-archive-contents
+;;     (package-refresh-contents))
+
+;; install the missing packages
+;; (dolist (package package-list)
+;;     (unless (package-installed-p package)
+;; 	      (package-install package)))
 
 
 (defconst home-dir
@@ -30,6 +51,9 @@
 ;; (setq emacs_home `"/usr/share/emacs23/")
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
+;; dash
+(require 'dash)
+;; dash
 
 
 ;; bash-completion
@@ -37,8 +61,8 @@
 ;; bash-completion
 
 ;; elpy
-(package-initialize)
-(elpy-enable)
+;; (package-initialize)
+;; (elpy-enable)
 ;; elpy
 
 ;; helm
@@ -213,9 +237,6 @@
 (add-to-list 'ac-modes 'less-css-mode)
 ;; auto-complete
 
-;; jedi
-(add-hook 'python-mode-hook 'jedi:setup)
-;; jedi
 
 ;; helm
 ;; helm-ls-git
@@ -242,6 +263,10 @@
 ;; (set-face-background 'highlight-indentation-current-column-face "#D6D694")
 ;; highlight-indentation
 
+;; (require 'back-button)
+
+;; (back-button-mode 1)
+
 
 ;; python-django
 (global-set-key (kbd "C-x j") 'python-django-open-project)
@@ -253,13 +278,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
- '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
- '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
- '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
- '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
- '(back-button-local-keystrokes (quote ("C-c <SPC>")))
- '(back-button-smartrep-prefix "C-c")
+ ;; '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
+ ;; '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
+ ;; '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
+ ;; '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
+ ;; '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
+ ;; '(back-button-local-keystrokes (quote ("C-c <SPC>")))
+ ;; '(back-button-smartrep-prefix "C-c")
  '(custom-safe-themes
    (quote
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
@@ -298,7 +323,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(highlight-indentation-face ((t nil)))
- '(js2-external-variable ((t (:foreground "red")))))
+ '(js2-external-variable ((t (:foreground "red"))))
+ '(magit-hash ((t (:foreground "white")))))
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -402,37 +428,39 @@
 ;; pymacs
 ;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
 ;; http://pymacs.progiciels-bpi.ca/pymacs.html#installation
-(require 'pymacs)
+;; (add-to-list 'load-path (expand-file-name "site-lisp/pymacs" emacs_home))
+
+;; (require 'pymacs)
 
 
-;; http://stackoverflow.com/a/22496541/433570
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(autoload 'pymacs-autoload "pymacs")
-;; (eval-after-load "pymacs"
-;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
-;; (pymacs-load "ropemacs" "rope-")
+;; ;; http://stackoverflow.com/a/22496541/433570
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; (autoload 'pymacs-autoload "pymacs")
+;; ;; (eval-after-load "pymacs"
+;; ;;  '(add-to-list 'pymacs-load-path (expand-file-name "site-lisp" emacs_home)))
+;; ;; (pymacs-load "ropemacs" "rope-")
 
-;; http://stackoverflow.com/a/6806217/433570
-(eval-after-load "elpy"
-  '(progn
-	 ;; Unbind M-o from the local keymap
-	 (define-key elpy-mode-map (kbd "M-n") nil)
-	 (define-key elpy-mode-map (kbd "M-p") nil)
+;; ;; http://stackoverflow.com/a/6806217/433570
+;; (eval-after-load "elpy"
+;;   '(progn
+;; 	 ;; Unbind M-o from the local keymap
+;; 	 (define-key elpy-mode-map (kbd "M-n") nil)
+;; 	 (define-key elpy-mode-map (kbd "M-p") nil)
 
-	 ;; Add an alternative local binding for the command
-	 ;; bound to M-o
-	 ;; (define-key dired-mode-map (kbd "C-c o")
-	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
+;; 	 ;; Add an alternative local binding for the command
+;; 	 ;; bound to M-o
+;; 	 ;; (define-key dired-mode-map (kbd "C-c o")
+;; 	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
 
-	 ))
+;; 	 ))
 
-;; (define-key ropemacs-local-keymap "\C-cg" nil)
-;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
-;; ;; pymacs
+;; ;; (define-key ropemacs-local-keymap "\C-cg" nil)
+;; ;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
+;; ;; ;; pymacs
 
 
 
@@ -443,45 +471,29 @@
 (setq-default tab-width 4)
 
 
-(global-set-key (kbd "C-o") 'newline-and-indent)
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "M-c") 'capitalize-word)
-(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "M-.") 'undo)
-(global-set-key (kbd "M-,") 'redo)
-(global-set-key (kbd "C-m") 'newline-and-indent)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-n") 'next-error)
-(global-set-key (kbd "M-p") 'previous-error)
-(global-set-key (kbd "C-c m m v") 'vc-git-grep)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-.") 'imenu-anywhere)
-
 (setq compilation-scroll-output t)
 
-;; http://stackoverflow.com/a/10093312/433570
-
-;; package-activated-list
-;; (pyvenv ac-helm ace-jump-buffer ace-window ace-jump-mode auto-compile bash-completion buffer-move cmake-mode dummy-h-mode elpy find-file-in-project find-file-in-repository fuzzy helm-backup helm-git helm-git-files helm-git-grep helm-helm-commands helm helm-ls-git highlight highlight-indentation idomenu iedit jedi-direx direx jedi auto-complete epc ctable concurrent js3-mode less-css-mode magit-filenotify magit-find-file magit-gh-pulls gh logito magit-push-remote markdown-mode mo-git-blame nose packed magit git-rebase-mode git-commit-mode pcache pg popup py-import-check pymacs python-django python-environment deferred python-mode redo+ virtualenv virtualenvwrapper s dash web-beautify web-mode xcscope yasnippet)
-
-;; list the packages you want
-;; (setq package-list '(package1 package2))
-;; fetch the list of packages available
-;; (unless package-archive-contents
-;;     (package-refresh-contents))
-
-;; install the missing packages
-;; (dolist (package package-list)
-;;     (unless (package-installed-p package)
-;; 	      (package-install package)))
 
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
+(defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
+
+(defadvice terminal-init-xterm (after map-S-up-escape-sequence
+									  activate)
+  (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+  (define-key input-decode-map "\e[1;32" (kbd "C-="))
+  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
+  (define-key input-decode-map "\e[1;34" (kbd "C-`"))
+  (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+  (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+  (define-key input-decode-map "\e[1;37" (kbd "C-."))
+  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+  )
 
 (define-key input-decode-map "\e[1;31" (kbd "C-;"))
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
 (define-key input-decode-map "\e[1;33" (kbd "C-:"))
 (define-key input-decode-map "\e[1;34" (kbd "C-`"))
 (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
@@ -489,6 +501,7 @@
 (define-key input-decode-map "\e[1;37" (kbd "C-."))
 (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
 
+  )
 
 (load "init-smartparens")
 
@@ -520,9 +533,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 
-(require 'back-button)
-
-(back-button-mode 1)
 
 (smartscan-mode 1)
 
@@ -563,17 +573,17 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-(flycheck-define-checker javascript-jslint-reporter
-  "A JavaScript syntax and style checker based on JSLint Reporter.
+;; (flycheck-define-checker javascript-jslint-reporter
+;;   "A JavaScript syntax and style checker based on JSLint Reporter.
 
-See URL `https://github.com/FND/jslint-reporter'."
-  :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
-  :modes (js-mode js2-mode js3-mode))
-(add-hook 'js-mode-hook (lambda ()
-                          (flycheck-select-checker 'javascript-jslint-reporter)
-                          (flycheck-mode)))
+;; See URL `https://github.com/FND/jslint-reporter'."
+;;   :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
+;;   :error-patterns
+;;   ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
+;;   :modes (js-mode js2-mode js3-mode))
+;; (add-hook 'js-mode-hook (lambda ()
+;;                           (flycheck-select-checker 'javascript-jslint-reporter)
+;;                           (flycheck-mode)))
 
 
 (setq helm-ff-skip-boring-files t)
@@ -636,6 +646,20 @@ See URL `https://github.com/FND/jslint-reporter'."
 ;; 		  (lambda ()
 ;; 			(slime-js-minor-mode 1)))
 
+
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+
+
+(add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
+(require 'epy-setup)      ;; It will setup other loads, it is required!
+(require 'epy-python)     ;; If you want the python facilities [optional]
+(require 'epy-completion) ;; If you want the autocompletion settings [optional]
+(require 'epy-editing)    ;; For configurations related to editing [optional]
+(require 'epy-bindings)   ;; For my suggested keybindings [optional]
+;; (require 'epy-nose)       ;; For nose integration
+
+
 ;;----------
 ;; Keybinding to add breakpoint:
 (defun python-add-breakpoint ()
@@ -647,6 +671,27 @@ See URL `https://github.com/FND/jslint-reporter'."
 (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
 
 
-(setq my-package-list '(ac-helm popup auto-complete popup helm helm-core async async ace-jump-buffer dash ace-jump-mode ace-window ace-jump-mode anything-git-grep anything auto-compile packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash back-button pcache persistent-soft list-utils pcache list-utils ucs-utils list-utils pcache persistent-soft list-utils pcache smartrep nav-flash bash-completion buffer-move cmake-mode color-theme-approximate color-theme-sanityinc-solarized color-theme-solarized color-theme dired+ dummy-h-mode elpy yasnippet pyvenv highlight-indentation find-file-in-project company evil-leader evil goto-chg undo-tree expand-region f dash s find-file-in-project find-file-in-repository flycheck let-alist pkg-info epl dash fuzzy git-blame git-gutter+ git-commit with-editor dash dash git-gutter goto-chg handlebars-sgml-mode helm-anything anything helm helm-core async async helm-backup s helm helm-core async async helm-git helm-git-files helm helm-core async async helm-git-grep helm helm-core async async helm-helm-commands helm helm-core async async helm-ls-git helm helm-core async async highlight highlight-indentation idomenu iedit image+ image-dired+ imenu+ imenu-anywhere jedi-direx direx jedi auto-complete popup jedi-core python-environment deferred epc ctable concurrent deferred js2-mode json-mode json-snatcher json-reformat json-reformat json-snatcher less-css-mode let-alist magit-filenotify magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-find-file dash magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-gh-pulls s pcache magit magit-popup dash git-commit with-editor dash dash with-editor dash dash gh logito pcache magit-gitflow magit magit-popup dash git-commit with-editor dash dash with-editor dash dash magit-push-remote magit magit-popup dash git-commit with-editor dash dash with-editor dash dash markdown-mode mo-git-blame nav-flash nodejs-repl nose packed magit magit-popup dash git-commit with-editor dash dash with-editor dash dash pg pkg-info epl popup py-import-check pymacs python-django python-environment deferred python-mode pyvenv redo+ smartparens dash smartrep smartscan solarized-theme ucs-utils list-utils pcache persistent-soft list-utils pcache undo-tree virtualenv virtualenvwrapper s dash visible-mark web-beautify web-mode wgrep-helm wgrep with-editor dash xcscope yasnippet))
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
 
-(mapc #'package-install my-package-list)
+(eval-after-load "sql"
+    '(load-library "sql-indent"))
+;; jedi
+(add-hook 'python-mode-hook 'jedi:setup)
+;; jedi
+
+
+(global-set-key (kbd "C-o") 'newline-and-indent)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-c") 'capitalize-word)
+(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "M-.") 'undo)
+(global-set-key (kbd "M-,") 'redo)
+(global-set-key (kbd "C-m") 'newline-and-indent)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+(global-set-key (kbd "M-n") 'next-error)
+(global-set-key (kbd "M-p") 'previous-error)
+(global-set-key (kbd "C-c m m v") 'vc-git-grep)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-.") 'imenu-anywhere)

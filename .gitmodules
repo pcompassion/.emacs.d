@@ -1,87 +1,15 @@
 [submodule "site-lisp/pycscope"]
 	path = site-lisp/pycscope
 	url = https://github.com/portante/pycscope.git
-[submodule "site-lisp/django-mode"]
-	path = site-lisp/django-mode
-	url = https://github.com/myfreeweb/django-mode.git
-[submodule "site-lisp/magit"]
-	path = site-lisp/magit
-	url = https://github.com/magit/magit.git
-[submodule "site-lisp/org"]
-	path = site-lisp/org
-	url = https://github.com/jwiegley/org-mode.git
-[submodule "site-lisp/js2-mode"]
-	path = site-lisp/js2-mode
-	url = https://github.com/mooz/js2-mode.git
-[submodule "site-lisp/jdee"]
-	path = site-lisp/jdee
-	url = https://github.com/emacsmirror/jdee.git
-[submodule "site-lisp/pony-mode"]
-	path = site-lisp/pony-mode
-	url = https://github.com/davidmiller/pony-mode.git
-[submodule "site-lisp/nxhtml"]
-	path = site-lisp/nxhtml
-	url = https://github.com/emacsmirror/nxhtml.git
-[submodule "site-lisp/yasnippet"]
-	path = site-lisp/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "site-lisp/cedet"]
-	path = site-lisp/cedet
-	url = https://github.com/emacsmirror/cedet.git
-[submodule "site-lisp/elib"]
-	path = site-lisp/elib
-	url = https://github.com/webdsl/elib.git
-[submodule "site-lisp/auto-complete"]
-	path = site-lisp/auto-complete
-	url = https://github.com/auto-complete/auto-complete.git
-[submodule "site-lisp/icicles"]
-	path = site-lisp/icicles
-	url = https://github.com/emacsmirror/icicles.git
-[submodule "site-lisp/cl-lib"]
-	path = site-lisp/cl-lib
-	url = https://github.com/emacsmirror/cl-lib.git
-[submodule "site-lisp/popup"]
-	path = site-lisp/popup
-	url = https://github.com/auto-complete/popup-el.git
 [submodule "site-lisp/deferred"]
 	path = site-lisp/deferred
 	url = https://github.com/medikoo/deferred.git
-[submodule "site-lisp/Pymacs"]
-	path = site-lisp/Pymacs
-	url = https://github.com/pinard/Pymacs.git
-[submodule "site-lisp/emacs-project-mode"]
-	path = site-lisp/emacs-project-mode
-	url = https://github.com/timfel/emacs-project-mode.git
-[submodule "site-lisp/helm"]
-	path = site-lisp/helm
-	url = https://github.com/emacs-helm/helm.git
-[submodule "site-lisp/helm-ls-git"]
-	path = site-lisp/helm-ls-git
-	url = https://github.com/emacs-helm/helm-ls-git.git
-[submodule "site-lisp/emacs-jedi"]
-	path = site-lisp/emacs-jedi
-	url = https://github.com/tkf/emacs-jedi.git
-[submodule "site-lisp/markdown-mode"]
-	path = site-lisp/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "site-lisp/w3m"]
-	path = site-lisp/w3m
-	url = https://github.com/emacsmirror/w3m.git
-[submodule "site-lisp/web-mode"]
-	path = site-lisp/web-mode
-	url = https://github.com/fxbois/web-mode.git
-[submodule "site-lisp/less-css-mode"]
-	path = site-lisp/less-css-mode
-	url = https://github.com/purcell/less-css-mode.git
 [submodule "site-lisp/grep-o-matic"]
 	path = site-lisp/grep-o-matic
 	url = https://github.com/ZungBang/emacs-grep-o-matic.git
 [submodule "site-lisp/repository-root"]
 	path = site-lisp/repository-root
 	url = https://github.com/ZungBang/emacs-repository-root.git
-[submodule "site-lisp/helm-git-grep"]
-	path = site-lisp/helm-git-grep
-	url = https://github.com/yasuyk/helm-git-grep.git
-[submodule "site-lisp/jslint-reporter"]
-	path = site-lisp/jslint-reporter
-	url = https://github.com/FND/jslint-reporter.git
+[submodule "site-lisp/emacs-for-python"]
+	path = site-lisp/emacs-for-python
+	url = https://github.com/gabrielelanaro/emacs-for-python.git

@@ -1,10 +1,10 @@
 ;;; virtualenv-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (virtualenv-minor-mode virtualenv-deactivate virtualenv-workon)
-;;;;;;  "virtualenv" "virtualenv.el" (21301 14396 0 0))
+;;;### (autoloads nil "virtualenv" "virtualenv.el" (22011 35786 963061
+;;;;;;  453000))
 ;;; Generated autoloads from virtualenv.el
 
 (autoload 'virtualenv-workon "virtualenv" "\
@@ -30,16 +30,9 @@ the mode if ARG is omitted or nil, and toggle it if ARG is `toggle'.
 
 ;;;***
 
-;;;### (autoloads nil nil ("virtualenv-pkg.el") (21301 14396 369281
-;;;;;;  931000))
-
-;;;***
-
-(provide 'virtualenv-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; virtualenv-autoloads.el ends here

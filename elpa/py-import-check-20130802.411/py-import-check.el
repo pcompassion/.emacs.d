@@ -3,8 +3,8 @@
 ;; Copyright (C) 2013 Sibi
 
 ;; Author: Sibi <sibi@psibi.in>
-;; Version: 20130802.411
-;; X-Original-Version: 0.2
+;; Version: 0.2
+;; Package-Version: 20130802.411
 ;; URL: https://github.com/psibi/emacs-py-import-check
 ;; Keywords: python, import, check
 
