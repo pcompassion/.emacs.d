@@ -74,7 +74,7 @@
 
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
-
+(global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
@@ -478,9 +478,6 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
-(defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
-
 (defadvice terminal-init-xterm (after map-S-up-escape-sequence
 									  activate)
   (define-key input-decode-map "\e[1;31" (kbd "C-;"))
@@ -490,18 +487,22 @@
   (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
   (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
   (define-key input-decode-map "\e[1;37" (kbd "C-."))
-  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+
+  (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+  (define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
+
   )
 
 (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
 (define-key input-decode-map "\e[1;33" (kbd "C-:"))
 (define-key input-decode-map "\e[1;34" (kbd "C-`"))
 (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
 (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
 (define-key input-decode-map "\e[1;37" (kbd "C-."))
-(define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+(define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+(define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
 
-  )
 
 (load "init-smartparens")
 
@@ -616,7 +617,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; save minibuffer history
-(savehist-mode 1)
+;;(savehist-mode 1)
 ;; save minibuffer history
 
 
@@ -687,6 +688,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
+
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-.") 'undo)
 (global-set-key (kbd "M-,") 'redo)
