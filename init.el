@@ -82,22 +82,23 @@
 (global-set-key (kbd "C-c C-h") 'helm-resume)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 ;; helm
 
 ;; --> ac-helm
 (require 'auto-complete)
-(global-set-key (kbd "C-:") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+(require 'ac-helm)
+(global-set-key (kbd "C-;") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-;") 'ac-complete-with-helm)
 ;; <-- ac-helm
 
 ;; magit-find-file
 (global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
 (global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
 
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 ;; magit-find-file
 
 ;; redo+
@@ -250,12 +251,12 @@
 
 
 ;; web-mode
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 ;; web-mode
 
 
-(add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
 
 
 ;; highlight-D4D47C
@@ -482,7 +483,6 @@
 									  activate)
   (define-key input-decode-map "\e[1;31" (kbd "C-;"))
   (define-key input-decode-map "\e[1;32" (kbd "C-="))
-  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
   (define-key input-decode-map "\e[1;34" (kbd "C-`"))
   (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
   (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
@@ -495,7 +495,6 @@
 
 (define-key input-decode-map "\e[1;31" (kbd "C-;"))
 (define-key input-decode-map "\e[1;32" (kbd "C-="))
-(define-key input-decode-map "\e[1;33" (kbd "C-:"))
 (define-key input-decode-map "\e[1;34" (kbd "C-`"))
 (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
 (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
