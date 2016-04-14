@@ -290,7 +290,7 @@
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes
    (quote
-	(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+	(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
  '(grep-find-ignored-directories
    (quote
@@ -651,12 +651,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
 
 
-(add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
-(require 'epy-setup)      ;; It will setup other loads, it is required!
-(require 'epy-python)     ;; If you want the python facilities [optional]
-(require 'epy-completion) ;; If you want the autocompletion settings [optional]
-(require 'epy-editing)    ;; For configurations related to editing [optional]
-(require 'epy-bindings)   ;; For my suggested keybindings [optional]
+;; (add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
+;; (require 'epy-setup)      ;; It will setup other loads, it is required!
+;; (require 'epy-python)     ;; If you want the python facilities [optional]
+;; (require 'epy-completion) ;; If you want the autocompletion settings [optional]
+;; (require 'epy-editing)    ;; For configurations related to editing [optional]
+;; (require 'epy-bindings)   ;; For my suggested keybindings [optional]
 ;; (require 'epy-nose)       ;; For nose integration
 
 
@@ -668,7 +668,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (insert "import pdb; pdb.set_trace()")
     (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-(define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
+(add-hook 'python-mode-hook
+		  (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+		  )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
