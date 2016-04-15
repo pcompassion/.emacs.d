@@ -76,10 +76,38 @@
 (define-key ac-complete-mode-map (kbd "C-;") 'ac-complete-with-helm)
 ;; <-- ac-helm
 
+;; magit-find-file
+(global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
+(global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
+
+;; magit-find-file
 
 ;; redo+
 ;;(require 'redo+)
 ;; redo+
+
+
+;; virtualenvwrapper
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells) ;; if you want interactive shell support
+(venv-initialize-eshell) ;; if you want eshell support
+(setq venv-location "~/virtualenvs/")
+;; virtualenvwrapper
+
+;; web-beautify
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'sgml-mode
+  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+;; web-beautify
+
+;; find-file-in-repository
+(global-set-key (kbd "C-x f") 'find-file-in-repository)
+;; find-file-in-repository
 
 
 
@@ -217,6 +245,9 @@
 ;; (back-button-mode 1)
 
 
+;; python-django
+(global-set-key (kbd "C-x j") 'python-django-open-project)
+;; python-django
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -304,7 +335,7 @@
 
 ;; python setup instruction (pymacs/elpy/flymake)
 ;; sudo pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
-;; cd $VIRTUAL
+;; cd $VIRTUAL_ENV/src/pymacs
 ;; make
 ;; python -c 'import Pymacs'
 ;; sudo python setup.py install
@@ -425,8 +456,6 @@
 
   (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
   (define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
-  (define-key input-decode-map "\e[1;51" (kbd "C-<up>"))
-  (define-key input-decode-map "\e[1;52" (kbd "C-<down>"))
 
   )
 
@@ -438,8 +467,6 @@
 (define-key input-decode-map "\e[1;37" (kbd "C-."))
 (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
 (define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
-(define-key input-decode-map "\e[1;51" (kbd "C-<up>"))
-(define-key input-decode-map "\e[1;52" (kbd "C-<down>"))
 
 
 (load "init-smartparens")
@@ -551,14 +578,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; save minibuffer history
-(savehist-mode t)
-(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
 ;; save minibuffer history
 
 
 ;; magit-gitflow
 ;; (require 'magit-gitflow)
 ;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+;; git-gutter
+(global-git-gutter-mode +1)
 
 
 ;; elpy
@@ -580,6 +609,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; 			(slime-js-minor-mode 1)))
 
 
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+
 
 ;; (add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
 ;; (require 'epy-setup)      ;; It will setup other loads, it is required!
@@ -592,9 +624,24 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;----------
 ;; Keybinding to add breakpoint:
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+
+(add-hook 'python-mode-hook
+		  (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+		  )
+
+
+;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
+
 (eval-after-load "sql"
   '(load-library "sql-indent"))
 ;; jedi
+(add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
 
@@ -620,12 +667,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package
  helm
- :ensure helm-swoop
+ :ensure t
  :diminish helm-mode
  :init
  (progn
    (require 'helm)
    (require 'helm-config)
+   (require 'helm-swoop)
    (setq helm-boring-file-regexp-list
 		 '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
@@ -647,9 +695,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (helm-mode))
  :bind (
 		("C-h a" . helm-apropos)
- 		("C-x C-b" . helm-mini)
+		("C-x b" . helm-mini)
 		("C-M-y" . helm-show-kill-ring)
-		;; ("M-x" . helm-M-x)
+		("M-x" . helm-M-x)
 		("C-c h o" . helm-occur)
 		("C-c h s" . helm-swoop)
 		("C-c h y" . helm-yas-complete)
@@ -704,177 +752,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :bind (
 		 ("C-x M-p" . helm-ls-git-ls)
 		 )
-  )
-
-(use-package
-  magit
-  :ensure t
-  :init
-  (progn
-	(set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
-	)
-  :bind(
-		("C-x v k" . magit-log-buffer-file)
-		)
-  )
-
-(use-package
-  git-gutter
-  :ensure t
-  :init
-  (progn
-	(global-git-gutter-mode +1)
-	)
-  )
-
-;; (require 'virtualenvwrapper)
-;; (venv-initialize-interactive-shells) ;; if you want interactive shell support
-;; (venv-initialize-eshell) ;; if you want eshell support
-;; (setq venv-location "~/virtualenvs/")
-
-(use-package
-  virtualenvwrapper
-  :ensure t
-  :init
-  (progn
-	(venv-initialize-interactive-shells) ;; if you want interactive shell support
-	(venv-initialize-eshell) ;; if you want eshell support
-	(setq venv-location "~/virtualenvs/")
-	)
-  )
-
-(use-package
-  python-mode
-  :ensure t
-  :init
-  (progn
-	(defun python-add-breakpoint ()
-	  (interactive)
-	  (newline-and-indent)
-	  (insert "import pdb; pdb.set_trace()")
-	  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
-
-	(add-hook 'python-mode-hook
-			  (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
-			  )
-	(add-hook 'python-mode-hook 'jedi:setup)
-	)
-  )
-
-
-
-
-(use-package js2-mode
-  :no-require t
-  :config
-  (progn
-	(require 'web-beautify)
-	(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js)
-	)
-  )
-
-(use-package json-mode
-  :no-require t
-  :config
-  (progn
-	(require 'web-beautify)
-	(define-key json-mode-map (kbd "C-c b") 'web-beautify-js)
-	)
-  )
-
-(use-package sgml-mode
-  :no-require t
-  :config
-  (progn
-	(require 'web-beautify)
-	(define-key html-mode-map (kbd "C-c b") 'web-beautify-js)
-	)
-  )
-
-(use-package css-mode
-  :no-require t
-  :config
-  (progn
-	(require 'web-beautify)
-	(define-key css-mode-map (kbd "C-c b") 'web-beautify-js)
-	)
-  )
-
-;; https://ebzzry.github.io/emacs-pairs.html
-(use-package smartparens-config
-  :ensure smartparens
-  :init
-  (progn
-	(sp-local-pair 'web-mode "{%" "%}")
-	)
-  :config
-  (progn
-	(show-smartparens-global-mode t))
-  )
-
-(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-
-(bind-keys
-:map smartparens-mode-map
-("C-M-a" . sp-beginning-of-sexp)
-("C-M-e" . sp-end-of-sexp)
-
-("C-<down>" . sp-down-sexp)
-("C-<up>"   . sp-up-sexp)
-("M-<down>" . sp-backward-down-sexp)
-("M-<up>"   . sp-backward-up-sexp)
-
-("C-M-f" . sp-forward-sexp)
-("C-M-b" . sp-backward-sexp)
-
-("C-M-n" . sp-next-sexp)
-("C-M-p" . sp-previous-sexp)
-
-("C-S-f" . sp-forward-symbol)
-("C-S-b" . sp-backward-symbol)
-
-("C-<right>" . sp-forward-slurp-sexp)
-("M-<right>" . sp-forward-barf-sexp)
-("C-<left>"  . sp-backward-slurp-sexp)
-("M-<left>"  . sp-backward-barf-sexp)
-
-("C-M-t" . sp-transpose-sexp)
-("C-M-k" . sp-kill-sexp)
-("C-k"   . sp-kill-hybrid-sexp)
-("M-k"   . sp-backward-kill-sexp)
-("C-M-w" . sp-copy-sexp)
-
-("C-M-d" . delete-sexp)
-
-("M-<backspace>" . backward-kill-word)
-("C-<backspace>" . sp-backward-kill-word)
-([remap sp-backward-kill-word] . backward-kill-word)
-
-("M-[" . sp-backward-unwrap-sexp)
-("M-]" . sp-unwrap-sexp)
-
-("C-x C-t" . sp-transpose-hybrid-sexp)
-
-("C-c ("  . wrap-with-parens)
-("C-c ["  . wrap-with-brackets)
-("C-c {"  . wrap-with-braces)
-("C-c '"  . wrap-with-single-quotes)
-("C-c \"" . wrap-with-double-quotes)
-("C-c _"  . wrap-with-underscores)
-("C-c `"  . wrap-with-back-quotes)
 )
 
-;; This small snippet gives visual indications of the status of git-managed files in a Dired buffer. Pressing g reloads the buffer, then updates the status.
-;; (use-package dired-k
-;;   :ensure t
-;;   :config
-;;   (progn
-;; 	    (add-hook 'dired-initial-position-hook 'dired-k)))
 
-
-(setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete less-css-mode nav-flash git-gutter+ imenu+ iedit evil concurrent epl color-theme-approximate auto-compile epc))
+(setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
 
 (mapc #'package-install my-package-list)
-
-(setq debug-on-error t)
