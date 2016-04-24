@@ -10,15 +10,18 @@
 ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
 
 (require 'package)
+(setq package-enable-at-startup nil)
 (add-to-list 'package-archives
-			              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+			 '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (when (< emacs-major-version 24)
-    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(setq my-package-list '(undo-tree idomenu json-snatcher helm dired+ find-file-in-repository  highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s helm-ls-git imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent helm-git-grep epl color-theme-approximate helm-git-files auto-compile epc))
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(mapc #'package-install my-package-list)
 
 ;; http://stackoverflow.com/a/10093312/433570
 
@@ -35,18 +38,18 @@
 
 
 (defconst home-dir
-    (getenv "HOME")
-      "The full path of the user's home directory.")
+  (getenv "HOME")
+  "The full path of the user's home directory.")
 
 (defconst tbh-hostname
-    (car (split-string system-name "\\." t))
-      "The hostname for the current system.")
+  (car (split-string system-name "\\." t))
+  "The hostname for the current system.")
 
 ;; Set up load path to include all user-local directories that may contain
 ;; configuration or library files.
 (defconst emacs_home
-    (expand-file-name ".emacs.d" home-dir)
-      "Top level directory for local configuration and code.")
+  (expand-file-name ".emacs.d" home-dir)
+  "Top level directory for local configuration and code.")
 
 ;; (setq emacs_home `"/usr/share/emacs23/")
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
@@ -55,11 +58,6 @@
 (require 'dash)
 ;; dash
 
-;; --> ac-helm
-(require 'auto-complete)
-(global-set-key (kbd "C-:") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-;; <-- ac-helm
 
 ;; bash-completion
 (bash-completion-setup)
@@ -70,16 +68,18 @@
 ;; (elpy-enable)
 ;; elpy
 
-;; helm
-(require 'helm-config)
-(helm-mode 1)
-(global-set-key (kbd "C-M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-;; helm
+
+;; --> ac-helm
+(require 'auto-complete)
+(require 'ac-helm)
+(global-set-key (kbd "C-;") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-;") 'ac-complete-with-helm)
+;; <-- ac-helm
 
 ;; magit-find-file
 (global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
+(global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
+
 ;; magit-find-file
 
 ;; redo+
@@ -112,8 +112,8 @@
 
 
 ;; ido
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 ;; ido
 
 ;; wordwrap when vertically seperated buffer
@@ -129,29 +129,29 @@
 
 
 (add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (c-set-style "gnu")
-	    (setq tab-width 4)
-	    (setq indent-tabs-mode t)
-	    (setq c-basic-offset 4)
-	    (setq c-subword-mode t)
-	    (c-set-offset 'innamespace 0)	;do not indent { inside a namespace
-	    (c-set-offset 'substatement-open 0)
-	    (c-set-offset 'brace-list-open 0)
-	    (c-set-offset 'case-label '+)
-	    (c-set-offset 'arglist-cont-nonempty '+)
-	    (c-set-offset 'arglist-intro '+)
-	    (c-set-offset 'topmost-intro-cont '+)
-	    (c-set-offset 'string '+)
-	    (c-set-offset 'statement-case-open 0)
-	    (c-toggle-hungry-state 1)
-	    (c-toggle-electric-state 1)
-	    ;; 		(gtags-mode 1)
-					;		(define-key c++-mode-map (kbd "<C-return>") 'semantic-complete-analyze-inline)
-	    (local-set-key  (kbd "C-x z") 'ff-find-other-file)
+		  (lambda ()
+			(c-set-style "gnu")
+			(setq tab-width 4)
+			(setq indent-tabs-mode t)
+			(setq c-basic-offset 4)
+			(setq c-subword-mode t)
+			(c-set-offset 'innamespace 0)	;do not indent { inside a namespace
+			(c-set-offset 'substatement-open 0)
+			(c-set-offset 'brace-list-open 0)
+			(c-set-offset 'case-label '+)
+			(c-set-offset 'arglist-cont-nonempty '+)
+			(c-set-offset 'arglist-intro '+)
+			(c-set-offset 'topmost-intro-cont '+)
+			(c-set-offset 'string '+)
+			(c-set-offset 'statement-case-open 0)
+			(c-toggle-hungry-state 1)
+			(c-toggle-electric-state 1)
+			;; 		(gtags-mode 1)
+										;		(define-key c++-mode-map (kbd "<C-return>") 'semantic-complete-analyze-inline)
+			(local-set-key  (kbd "C-x z") 'ff-find-other-file)
 
-	    )
-	  )
+			)
+		  )
 
 ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
 (setenv "PATH" (concat "/usr/local/mysql/bin:" (getenv "PATH")))
@@ -220,26 +220,20 @@
 ;; auto-complete
 
 
-;; helm
-(global-set-key (kbd "C-c C-h") 'helm-resume)
-;; helm
-;; helm-ls-git
-(global-set-key (kbd "C-x M-p") 'helm-ls-git-ls)
-;; helm-ls-git
-
 (autoload 'markdown-mode "markdown-mode"
-     "Major mode for editing Markdown files" t)
+  "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 
 ;; web-mode
+(add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; web-mode
 
 
-(add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
 
 
 ;; highlight-D4D47C
@@ -262,19 +256,12 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- ;; '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
- ;; '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
- ;; '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
- ;; '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
- ;; '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
- ;; '(back-button-local-keystrokes (quote ("C-c <SPC>")))
- ;; '(back-button-smartrep-prefix "C-c")
  '(custom-safe-themes
    (quote
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes
    (quote
-	(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+	(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
  '(grep-find-ignored-directories
    (quote
@@ -283,7 +270,7 @@
    (quote
 	("migrations/*" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*")))
  '(helm-ff-transformer-show-only-basename nil)
- '(helm-grep-default-command "git grep -n%cH --full-name -e %p %f")
+ '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
@@ -319,8 +306,8 @@
 ;; uniquify
 (require 'uniquify)
 (setq
-  uniquify-buffer-name-style 'post-forward
-  uniquify-separator ":")
+ uniquify-buffer-name-style 'post-forward
+ uniquify-separator ":")
 ;; uniquify
 
 
@@ -365,16 +352,6 @@
 
 ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2009-09/msg00130.html
 (setenv "PAGER" "/bin/cat")
-
-(global-set-key (kbd "C-c g") 'helm-git-grep)
-(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-(eval-after-load 'helm
-  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
-
-(global-set-key (kbd "C-c k") 'helm-git-grep-at-point)
-(global-set-key (kbd "C-c l") 'helm-git-grep-with-exclude-file-pattern)
-(setq helm-git-grep-candidate-number-limit nil)
-(setq helm-candidate-number-limit 999)
 
 (add-hook 'lisp-mode-hook '(lambda ()
 							 (local-set-key (kbd "RET") 'newline-and-indent)))
@@ -465,12 +442,14 @@
 (defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
   (define-key input-decode-map "\e[1;31" (kbd "C-;"))
   (define-key input-decode-map "\e[1;32" (kbd "C-="))
-  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
   (define-key input-decode-map "\e[1;34" (kbd "C-`"))
   (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
   (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
   (define-key input-decode-map "\e[1;37" (kbd "C-."))
-  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+
+  (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+  (define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
+
   )
 
 
@@ -488,28 +467,28 @@
 
 ;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
 (defun push-mark-no-activate ()
-    "Pushes `point' to `mark-ring' and does not activate the region
+  "Pushes `point' to `mark-ring' and does not activate the region
 Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
-	  (interactive)
-	    (push-mark (point) t nil)
-		  (message "Pushed mark to ring"))
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
 
 (global-set-key (kbd "C-`") 'push-mark-no-activate)
 
 
 (defun jump-to-mark ()
-    "Jumps to the local mark, respecting the `mark-ring' order.
+  "Jumps to the local mark, respecting the `mark-ring' order.
 This is the same as using \\[set-mark-command] with the prefix argument."
-	  (interactive)
-	    (set-mark-command 1))
+  (interactive)
+  (set-mark-command 1))
 (global-set-key (kbd "M-`") 'jump-to-mark)
 
 
 (defun exchange-point-and-mark-no-activate ()
-    "Identical to \\[exchange-point-and-mark] but will not activate the region."
-	  (interactive)
-	    (exchange-point-and-mark)
-		  (deactivate-mark nil))
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 
@@ -519,7 +498,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (defun add-smartscan-keys ()
   (define-key smartscan-map (kbd "M-j") 'smartscan-symbol-go-forward)
   (define-key smartscan-map (kbd "M-k") 'smartscan-symbol-go-backward)
-)
+  )
 
 (add-hook 'c-mode-hook 'add-smartscan-keys)
 (add-hook 'python-mode-hook 'add-smartscan-keys)
@@ -566,23 +545,19 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;                           (flycheck-mode)))
 
 
-(setq helm-ff-skip-boring-files t)
-(loop for ext in '("migrations/*")
-      do (add-to-list 'helm-boring-file-regexp-list ext))
-
 ;; (setq mac-option-modifier 'super) ; sets the Option key to Super
 
 ;; http://stackoverflow.com/a/2627298/433570
 (delete-selection-mode 1)
 
 ;; http://stackoverflow.com/a/23013184/433570
-(defun my-ido-setup-hook ()
-  (define-key
-	ido-buffer-completion-map
-	" "
-	'ido-restrict-to-matches))
+;; (defun my-ido-setup-hook ()
+;;   (define-key
+;; 	ido-buffer-completion-map
+;; 	" "
+;; 	'ido-restrict-to-matches))
 
-(add-hook 'ido-setup-hook 'my-ido-setup-hook)
+;; (add-hook 'ido-setup-hook 'my-ido-setup-hook)
 
 ;; (setq bell-volume 0)
 ;; (setq sound-alist nil)
@@ -631,12 +606,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
 
 
-(add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
-(require 'epy-setup)      ;; It will setup other loads, it is required!
-(require 'epy-python)     ;; If you want the python facilities [optional]
-(require 'epy-completion) ;; If you want the autocompletion settings [optional]
-(require 'epy-editing)    ;; For configurations related to editing [optional]
-(require 'epy-bindings)   ;; For my suggested keybindings [optional]
+;; (add-to-list 'load-path (expand-file-name "site-lisp/emacs-for-python" emacs_home))
+;; (require 'epy-setup)      ;; It will setup other loads, it is required!
+;; (require 'epy-python)     ;; If you want the python facilities [optional]
+;; (require 'epy-completion) ;; If you want the autocompletion settings [optional]
+;; (require 'epy-editing)    ;; For configurations related to editing [optional]
+;; (require 'epy-bindings)   ;; For my suggested keybindings [optional]
 ;; (require 'epy-nose)       ;; For nose integration
 
 
@@ -646,16 +621,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (newline-and-indent)
   (insert "import pdb; pdb.set_trace()")
-    (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-(define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint)
+(add-hook 'python-mode-hook
+		  (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+		  )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/ec")
 
 (eval-after-load "sql"
-    '(load-library "sql-indent"))
+  '(load-library "sql-indent"))
 ;; jedi
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
@@ -666,6 +643,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
+
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-.") 'undo)
 (global-set-key (kbd "M-,") 'redo)
@@ -676,3 +655,121 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-c m m v") 'vc-git-grep)
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-.") 'imenu-anywhere)
+
+
+;; helm
+
+(use-package
+ helm
+ :ensure t
+ :diminish helm-mode
+ :init
+ (progn
+   (require 'helm)
+   (require 'helm-config)
+   (require 'helm-swoop)
+   (setq helm-boring-file-regexp-list
+		 '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
+   (global-set-key (kbd "C-c h") 'helm-command-prefix)
+   (global-unset-key (kbd "C-x c"))
+   (setq helm-ff-skip-boring-files t)
+   (loop for ext in '("migrations/*")
+		 do (add-to-list 'helm-boring-file-regexp-list ext))
+
+
+   (setq helm-candidate-number-limit 100)
+   ;; From https://gist.github.com/antifuchs/9238468
+   (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
+		 helm-input-idle-delay 0.01  ; this actually updates things
+										; reeeelatively quickly.
+		 helm-yas-display-key-on-candidate t
+		 helm-quick-update t
+		 helm-M-x-requires-pattern nil
+		 helm-ff-skip-boring-files t)
+
+   (setq helm-move-to-line-cycle-in-source t)
+   (helm-mode))
+ :bind (
+		("C-h a" . helm-apropos)
+		("C-h b" . helm-descbinds)
+		("C-x b" . helm-buffers-list)
+		("C-x C-b" . helm-mini)
+		("C-M-y" . helm-show-kill-ring)
+		("M-x" . helm-M-x)
+		("C-c h o" . helm-occur)
+		("C-c h s" . helm-swoop)
+		("C-c h y" . helm-yas-complete)
+		("C-c h Y" . helm-yas-create-snippet-on-region)
+		("C-c h b" . my/helm-do-grep-book-notes)
+		("C-c C-h" . helm-resume)
+		("C-x C-f" . helm-find-files)
+		("C-h SPC" . helm-all-mark-rings)
+		:map helm-map
+		([tab] . helm-execute-persistent-action)
+		("C-i" . helm-execute-persistent-action)
+		("C-z" . helm-select-action)
+		("M-o" . helm-previous-source)
+		)
+ )
+(ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+
+(use-package
+  helm-git-grep
+  :ensure t
+  :init
+  (progn
+   (require 'helm)
+	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+	(setq helm-git-grep-candidate-number-limit nil)
+	(setq helm-candidate-number-limit 999)
+
+	)
+  :bind (
+		 ("C-c g" . helm-git-grep)
+		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
+		 )
+  :config
+  (progn
+	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
+
+	(defun helm-git-grep-at-point-no-mark ()
+	  "Helm git grep with symbol at point.
+
+ if submodules exists, grep submodules too."
+	  (interactive)
+	  (let* ((symbol (thing-at-point 'symbol))
+			 (input (if symbol (concat symbol " ") nil)))
+		(helm-git-grep-1 input)))
+
+	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+	)
+  )
+
+(use-package
+  helm-ls-git
+  :ensure t
+  :bind (
+		 ("C-x M-p" . helm-ls-git-ls)
+		 )
+  )
+
+(use-package
+  ag
+  :ensure t
+  :bind (
+		 ("C-c l" . ag-project)
+		 )
+  )
+
+(use-package
+  ido
+  :ensure t
+  :init
+  (progn
+	(setq ido-use-virtual-buffers t)
+	)
+  )
+
+(setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
+
+(mapc #'package-install my-package-list)
