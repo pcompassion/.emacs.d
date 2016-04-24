@@ -73,9 +73,17 @@
 
 ;; --> ac-helm
 (require 'auto-complete)
-(require 'ac-helm)
-(global-set-key (kbd "C-;") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-;") 'ac-complete-with-helm)
+
+(use-package
+    ac-helm
+  :ensure t
+  :bind (
+	 ("C-;" . ac-complete-with-helm)
+	 :map helm-map
+	 ("C-;" . ac-complete-with-helm)
+	 )
+  )
+
 ;; <-- ac-helm
 
 ;; magit-find-file
@@ -232,6 +240,7 @@
 (add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; web-mode
 
 
@@ -440,8 +449,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
-(defadvice terminal-init-xterm (after map-S-up-escape-sequence
-									  activate)
+(defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
   (define-key input-decode-map "\e[1;31" (kbd "C-;"))
   (define-key input-decode-map "\e[1;32" (kbd "C-="))
   (define-key input-decode-map "\e[1;34" (kbd "C-`"))
@@ -454,15 +462,15 @@
 
   )
 
-(define-key input-decode-map "\e[1;31" (kbd "C-;"))
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
-(define-key input-decode-map "\e[1;34" (kbd "C-`"))
-(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
-(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
-(define-key input-decode-map "\e[1;37" (kbd "C-."))
-(define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
-(define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
 
+  (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+  (define-key input-decode-map "\e[1;32" (kbd "C-="))
+  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
+  (define-key input-decode-map "\e[1;34" (kbd "C-`"))
+  (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+  (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+  (define-key input-decode-map "\e[1;37" (kbd "C-."))
+  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
 
 (load "init-smartparens")
 
@@ -639,6 +647,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
+(add-hook 'js-mode-hook 'flymake-jslint-load)
 
 (global-set-key (kbd "C-o") 'newline-and-indent)
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -661,14 +670,22 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; helm
 
 (use-package
+  helm-swoop
+  :ensure t
+ :bind (
+		("C-c h s" . helm-swoop)
+		)
+  )
+
+(use-package
  helm
  :ensure t
  :diminish helm-mode
  :init
  (progn
    (require 'helm)
-   (require 'helm-config)
    (require 'helm-swoop)
+   (require 'helm-config)
    (setq helm-boring-file-regexp-list
 		 '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
