@@ -11,10 +11,12 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
+(setq package-check-signature nil)		;http://stackoverflow.com/a/26110978/433570
+
 (add-to-list 'package-archives
-			 '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+			            '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;; (add-to-list 'package-archives
+;; 			 '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -697,6 +699,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		("M-x" . helm-M-x)
 		("C-c h o" . helm-occur)
 		("C-c h s" . helm-swoop)
+		("C-c h S" . helm-multi-swoop)
 		("C-c h y" . helm-yas-complete)
 		("C-c h Y" . helm-yas-create-snippet-on-region)
 		("C-c h b" . my/helm-do-grep-book-notes)
