@@ -71,9 +71,17 @@
 
 ;; --> ac-helm
 (require 'auto-complete)
-(require 'ac-helm)
-(global-set-key (kbd "C-;") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-;") 'ac-complete-with-helm)
+
+(use-package
+    ac-helm
+  :ensure t
+  :bind (
+	 ("C-;" . ac-complete-with-helm)
+	 :map helm-map
+	 ("C-;" . ac-complete-with-helm)
+	 )
+  )
+
 ;; <-- ac-helm
 
 ;; magit-find-file
@@ -660,14 +668,22 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; helm
 
 (use-package
+  helm-swoop
+  :ensure t
+ :bind (
+		("C-c h s" . helm-swoop)
+		)
+  )
+
+(use-package
  helm
  :ensure t
  :diminish helm-mode
  :init
  (progn
    (require 'helm)
-   (require 'helm-config)
    (require 'helm-swoop)
+   (require 'helm-config)
    (setq helm-boring-file-regexp-list
 		 '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
@@ -697,7 +713,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		("C-M-y" . helm-show-kill-ring)
 		("M-x" . helm-M-x)
 		("C-c h o" . helm-occur)
-		("C-c h s" . helm-swoop)
 		("C-c h y" . helm-yas-complete)
 		("C-c h Y" . helm-yas-create-snippet-on-region)
 		("C-c h b" . my/helm-do-grep-book-notes)
