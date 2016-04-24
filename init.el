@@ -255,13 +255,6 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- ;; '(back-button-global-backward-keystrokes (quote ("C-c <C-left>")))
- ;; '(back-button-global-forward-keystrokes (quote ("C-c <C-right>")))
- ;; '(back-button-global-keystrokes (quote ("C-c <C-SPC>")))
- ;; '(back-button-local-backward-keystrokes (quote ("C-c <left>")))
- ;; '(back-button-local-forward-keystrokes (quote ("C-c <right>")))
- ;; '(back-button-local-keystrokes (quote ("C-c <SPC>")))
- ;; '(back-button-smartrep-prefix "C-c")
  '(custom-safe-themes
    (quote
 	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
@@ -692,10 +685,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		 helm-quick-update t
 		 helm-M-x-requires-pattern nil
 		 helm-ff-skip-boring-files t)
+
+   (setq helm-move-to-line-cycle-in-source t)
    (helm-mode))
  :bind (
 		("C-h a" . helm-apropos)
-		("C-x b" . helm-mini)
+		("C-h b" . helm-descbinds)
+		("C-x b" . helm-buffers-list)
+		("C-x C-b" . helm-mini)
 		("C-M-y" . helm-show-kill-ring)
 		("M-x" . helm-M-x)
 		("C-c h o" . helm-occur)
@@ -710,6 +707,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		([tab] . helm-execute-persistent-action)
 		("C-i" . helm-execute-persistent-action)
 		("C-z" . helm-select-action)
+		("M-o" . helm-previous-source)
 		)
  )
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
@@ -722,7 +720,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm)
 	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
 	(setq helm-git-grep-candidate-number-limit nil)
-	(setq helm-candidate-number-limit 1999)
+	(setq helm-candidate-number-limit 999)
 
 	)
   :bind (
@@ -752,8 +750,24 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :bind (
 		 ("C-x M-p" . helm-ls-git-ls)
 		 )
-)
+  )
 
+(use-package
+  ag
+  :ensure t
+  :bind (
+		 ("C-c l" . ag-project)
+		 )
+  )
+
+(use-package
+  ido
+  :ensure t
+  :init
+  (progn
+	(setq ido-use-virtual-buffers t)
+	)
+  )
 
 (setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
 
