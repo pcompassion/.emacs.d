@@ -1,0 +1,109 @@
+
+<?xml version="1.0"?>
+<root>
+
+  <devicevendordef>
+	<vendorname>PFU</vendorname>
+	<vendorid>0x0853</vendorid>
+  </devicevendordef>
+  <deviceproductdef>
+	<productname>HHKB_PRO_2</productname>
+	<productid>0x0100</productid>
+  </deviceproductdef>
+
+  <item>
+    <name>Swap Space and Tab</name>
+    <identifier>private.swap_space_and_tab</identifier>
+    <autogen>__KeyToKey__ KeyCode::SPACE, KeyCode::TAB</autogen>
+    <autogen>__KeyToKey__ KeyCode::TAB, KeyCode::SPACE</autogen>
+  </item>
+
+  <item>
+    <name>My Excel Hacks (effective only on Excel)</name>
+    <appendix>Change Command+2 to Ctrl+U</appendix>
+    <appendix>Change Control+A to Home</appendix>
+    <appendix>Change Control+E to End</appendix>
+    <identifier>private.app_excel_command2_to_ctrlu</identifier>
+    <only>EXCEL</only>
+    <autogen>__KeyToKey__ KeyCode::KEY_2, VK_COMMAND, KeyCode::U, ModifierFlag::CONTROL_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::A, VK_CONTROL, KeyCode::HOME</autogen>
+    <autogen>__KeyToKey__ KeyCode::E, VK_CONTROL, KeyCode::END</autogen>
+  </item>
+
+  <item>
+    <name>My TrackPad LeftClick Hack</name>
+    <appendix>Command+LeftClick to F12 (only on MacBookPro2,1 Trackpad)</appendix>
+    <identifier>private.pointing_leftclick2f12_trackpad</identifier>
+    <device_only>DeviceVendor::APPLE_COMPUTER,DeviceProduct::APPLE_INTERNAL_KEYBOARD_TRACKPAD_0x021a</device_only>
+    <autogen>__KeyToKey__ PointingButton::LEFT, VK_COMMAND, KeyCode::F12</autogen>
+  </item>
+
+  <!-- ============================================================ -->
+  <!-- An example of appdef -->
+  <appdef>
+    <appname>APPSTORE</appname>
+    <equal>com.apple.appstore</equal>
+  </appdef>
+
+  <item>
+    <name>tilde</name>
+    <identifier>tilde</identifier>
+
+    <autogen>
+	  __KeyToKey__
+	  KeyCode::ESCAPE, ModifierFlag::SHIFT_R,
+	  KeyCode::BACKQUOTE, ModifierFlag::SHIFT_R,
+	  <device_only>DeviceVendor::PFU, DeviceProduct::HHKB_PRO_2</device_only>
+
+	</autogen>
+
+  </item>
+
+  <item>
+    <name>backtick</name>
+    <identifier>backtick</identifier>
+
+    <autogen>
+	  __KeyToKey__
+	  ConsumerKeyCode::POWER,
+	  KeyCode::BACKQUOTE,
+	  <device_only>DeviceVendor::PFU, DeviceProduct::HHKB_PRO_2</device_only>
+
+	</autogen>
+
+  </item>
+
+
+  <item>
+	<name>Change Option_L + hjkl to Arrow keys</name>
+	<identifier>remap.hhkbp2us_alt_hjkl_to_arrow</identifier>
+	<autogen>__KeyToKey__ KeyCode::J, ModifierFlag::OPTION_L, KeyCode::CURSOR_LEFT</autogen>
+	<autogen>__KeyToKey__ KeyCode::N, ModifierFlag::OPTION_L, KeyCode::CURSOR_DOWN</autogen>
+	<autogen>__KeyToKey__ KeyCode::P, ModifierFlag::OPTION_L, KeyCode::CURSOR_UP</autogen>
+	<autogen>__KeyToKey__ KeyCode::K, ModifierFlag::OPTION_L, KeyCode::CURSOR_RIGHT</autogen>
+	<device_only>DeviceVendor::PFU, DeviceProduct::HHKB_PRO_2</device_only>
+  </item>
+
+
+
+  <!-- ============================================================ -->
+  <!-- An example of devicevendordef,deviceproductdef -->
+  <devicevendordef>
+    <vendorname>HEWLETT_PACKARD</vendorname>
+    <vendorid>0x03f0</vendorid>
+  </devicevendordef>
+
+  <deviceproductdef>
+    <productname>MY_HP_KEYBOARD</productname>
+    <productid>0x0224</productid>
+  </deviceproductdef>
+
+  <item>
+    <name>Space to Tab on MY_HP_KEYBOARD</name>
+    <identifier>private.deviceproductdef</identifier>
+    <device_only>DeviceVendor::HEWLETT_PACKARD, DeviceProduct::MY_HP_KEYBOARD</device_only>
+    <autogen>__KeyToKey__ KeyCode::SPACE, KeyCode::TAB</autogen>
+  </item>
+
+  <!-- ============================================================ -->
+</root>
