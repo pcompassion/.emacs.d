@@ -13,3 +13,5 @@ archive-contents
 old
 ido.last
 recentf
+savehist
+var/pcache
