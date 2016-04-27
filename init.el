@@ -472,8 +472,6 @@
   (define-key input-decode-map "\e[1;37" (kbd "C-."))
   (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
 
-(load "init-smartparens")
-
 
 ;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
 (defun push-mark-no-activate ()
@@ -788,6 +786,19 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	(setq ido-use-virtual-buffers t)
 	)
   )
+
+(use-package
+  smartparens
+  :ensure t
+  :init
+  (progn
+	(load "init-smartparens")
+	(sp-local-pair 'python-mode "'" nil :actions nil)
+	(sp-local-pair 'python-mode "\"" nil :actions nil)
+	)
+  )
+
+
 
 (setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
 
