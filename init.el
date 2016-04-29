@@ -239,7 +239,7 @@
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; web-mode
 
@@ -703,7 +703,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		 helm-M-x-requires-pattern nil
 		 helm-ff-skip-boring-files t)
 
-   (setq helm-move-to-line-cycle-in-source t)
+   (setq helm-move-to-line-cycle-in-source nil)
    (helm-mode))
  :bind (
 		("C-h a" . helm-apropos)
