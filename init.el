@@ -13,8 +13,19 @@
 (setq package-enable-at-startup nil)
 (setq package-check-signature nil)		;http://stackoverflow.com/a/26110978/433570
 
-(add-to-list 'package-archives
-			            '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;; http://emacs.stackexchange.com/a/2989/12031
+(setq package-archives
+      '(
+		("GNU ELPA"     . "http://elpa.gnu.org/packages/")
+        ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("MELPA"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("MELPA Stable" . 10)
+        ("GNU ELPA"     . 5)
+        ("MELPA"        . 0)))
+
+;; (add-to-list 'package-archives
+;; 			            '("melpa-stable" . "http://stable.melpa.org/packages/"))
 ;; (add-to-list 'package-archives
 ;; 			 '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
@@ -74,20 +85,21 @@
 ;; --> ac-helm
 (require 'auto-complete)
 
-(use-package
-    ac-helm
-  :ensure t
-  :bind (
-	 ("C-;" . ac-complete-with-helm)
-	 :map helm-map
-	 ("C-;" . ac-complete-with-helm)
-	 )
-  )
+;; (use-package
+;;     ac-helm
+;;   :ensure t
+;;   :bind (
+;; 	 ("C-;" . ac-complete-with-helm)
+;; 	 :map helm-map
+;; 	 ("C-;" . ac-complete-with-helm)
+;; 	 )
+;;   )
 
 ;; <-- ac-helm
 
 ;; magit-find-file
-(global-set-key (kbd "C-c p") 'magit-find-file-completing-read)
+;; Magit rules!
+(global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
 
 ;; magit-find-file
@@ -243,6 +255,8 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; web-mode
 
+(add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.php.cache?\\'" . php-mode))
 
 
 
@@ -273,12 +287,13 @@
    (quote
 	(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
+ '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
    (quote
-	("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations")))
- '(helm-boring-file-regexp-list
+	("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "dependency-bundle.js" "node_modules" "bower_components" ".min.js")))
+ '(grep-find-ignored-files
    (quote
-	("migrations/*" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*")))
+	(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js")))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
@@ -287,6 +302,9 @@
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
+ '(package-selected-packages
+   (quote
+	(flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
 	((encoding . utf-8)
@@ -297,12 +315,16 @@
 	 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
 	 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
 	 (python-shell-interpreter . "python"))))
- '(sp-autoinsert-pair nil))
+ '(sp-autoinsert-pair nil)
+ '(sql-mysql-options
+   (quote
+	("--socket=/home/eugenekim/Documents/mautic-1.4.1-0/mysql/tmp/mysql.sock"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(helm-selection ((t (:background "magenta" :distant-foreground "black"))))
  '(highlight-indentation-face ((t nil)))
  '(js2-external-variable ((t (:foreground "red"))))
  '(magit-hash ((t (:foreground "white")))))
@@ -458,19 +480,27 @@
   (define-key input-decode-map "\e[1;37" (kbd "C-."))
 
   (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
-  (define-key input-decode-map "\e[1;41" (kbd "C-M-DEL"))
+  (define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
+  (define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
+  (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
+  (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
 
   )
 
 
-  (define-key input-decode-map "\e[1;31" (kbd "C-;"))
-  (define-key input-decode-map "\e[1;32" (kbd "C-="))
-  (define-key input-decode-map "\e[1;33" (kbd "C-:"))
-  (define-key input-decode-map "\e[1;34" (kbd "C-`"))
-  (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
-  (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
-  (define-key input-decode-map "\e[1;37" (kbd "C-."))
-  (define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+(define-key input-decode-map "\e[1;31" (kbd "C-;"))
+(define-key input-decode-map "\e[1;32" (kbd "C-="))
+(define-key input-decode-map "\e[1;33" (kbd "C-:"))
+(define-key input-decode-map "\e[1;34" (kbd "C-`"))
+(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+(define-key input-decode-map "\e[1;37" (kbd "C-."))
+(define-key input-decode-map "\e[1;38" (kbd "M-DEL"))
+(define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+(define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
+(define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
+(define-key input-decode-map "\e[1;43" (kbd "C-M-["))
+  (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
 
 
 ;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
@@ -539,7 +569,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
+(setq flycheck-highlighting-mode 'lines)
 ;; (flycheck-define-checker javascript-jslint-reporter
 ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
 
@@ -554,6 +584,48 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; (setq mac-option-modifier 'super) ; sets the Option key to Super
+
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+;; npm install -g eslint babel-eslint eslint-plugin-react
+;; npm install -g jslint
+
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+		  '(javascript-jshint)))
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+
+;; https://github.com/mooz/js2-mode/issues/292
+(require 'js2-mode)
+
+(add-to-list 'auto-mode-alist '("\\.react\\.js?\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+
+(setq-default js2-basic-offset 2)
+
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
+
+;; Disable JSCS linting (optional but if you're using ESLint you probably don't
+;; need this).
+(let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
+  (put 'javascript-eslint 'flycheck-next-checkers
+	   (remove '(warning . javascript-jscs) checkers)))
+
+;; (defun setup-js2-mode ()
+;;   (flycheck-select-checker 'javascript-eslint)
+;;   (flycheck-mode))
+
+;; (add-hook 'js2-mode-hook #'setup-js2-mode)
+;; (add-hook 'js2-jsx-mode-hook #'setup-js2-mode)
+
+;; https://github.com/mooz/js2-mode/issues/292
 
 ;; http://stackoverflow.com/a/2627298/433570
 (delete-selection-mode 1)
@@ -645,15 +717,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
-(add-hook 'js-mode-hook 'flymake-jslint-load)
 
 (global-set-key (kbd "C-o") 'newline-and-indent)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-c") 'capitalize-word)
-(global-set-key (kbd "C-M-;") 'comment-region) ;doesn't work in shell
+(global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
 
-(global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-.") 'undo)
 (global-set-key (kbd "M-,") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
@@ -663,7 +733,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-c m m v") 'vc-git-grep)
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-.") 'imenu-anywhere)
-
+(global-set-key (kbd "C-h C-p") 'previous-buffer)
+(global-set-key (kbd "C-h C-n") 'previous-buffer)
 
 ;; helm
 
@@ -684,14 +755,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm)
    (require 'helm-swoop)
    (require 'helm-config)
-   (setq helm-boring-file-regexp-list
-		 '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
+  (setq helm-boring-file-regexp-list
+		'("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old" "\\.min\\.js$"  "\\.min\\.css$"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
-   (loop for ext in '("migrations/*")
-		 do (add-to-list 'helm-boring-file-regexp-list ext))
-
+   (setq helm-buffer-max-length 40)
 
    (setq helm-candidate-number-limit 100)
    ;; From https://gist.github.com/antifuchs/9238468
@@ -704,6 +773,44 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		 helm-ff-skip-boring-files t)
 
    (setq helm-move-to-line-cycle-in-source nil)
+   (setq helm-grep-truncate-lines nil)
+   (setq helm-buffers-truncate-lines nil)
+   (setq helm-ff-newfile-prompt-p nil)
+
+   ;; (defun grep-whole-git ()
+   ;; 	 (interactive)
+   ;; 	 (helm-do-grep-1 default-directory t))
+   ;; (global-set-key (kbd "C-c g") 'grep-whole-git)
+
+   (defun my-helm-grep-do-git-grep (not-all)
+	 (interactive "P")
+	 (helm-grep-git-1 default-directory (null not-all)))
+
+   (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
+
+
+   (defun helm-git-grep-at-point-no-mark (arg)
+	 "Helm git grep with symbol at point.
+
+ if submodules exists, grep submodules too."
+	 (interactive "P")
+	 (let* ((symbol (thing-at-point 'symbol))
+			(input (if symbol (concat symbol " ") nil)))
+	   (helm-grep-git-1 default-directory (null arg) nil input)))
+
+   (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+
+   ;; (defun grep-subdirectory ()
+   ;; 	 (interactive)
+   ;; 	 (helm-grep-git-1 default-directory (null arg)))
+   ;; (global-set-key (kbd "C-u C-c g") 'grep-subdirectory)
+
+
+   ;; https://github.com/emacs-helm/helm/issues/1492
+   (defun helm-buffers-sort-transformer@donot-sort (_ candidates _)
+	 candidates)
+   (advice-add 'helm-buffers-sort-transformer :around 'helm-buffers-sort-transformer@donot-sort)
+
    (helm-mode))
  :bind (
 		("C-h a" . helm-apropos)
@@ -714,13 +821,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		("M-x" . helm-M-x)
 		("C-c h o" . helm-occur)
 		("C-c h s" . helm-swoop)
-		("C-c h S" . helm-multi-swoop)
+		("C-c h S" . helm-multi-swoop-all)
 		("C-c h y" . helm-yas-complete)
 		("C-c h Y" . helm-yas-create-snippet-on-region)
 		("C-c h b" . my/helm-do-grep-book-notes)
 		("C-c C-h" . helm-resume)
 		("C-x C-f" . helm-find-files)
-		("C-h SPC" . helm-all-mark-rings)
+		("C-h C-SPC" . helm-all-mark-rings)
+		("C-h SPC" . helm-global-mark-ring)
+		("C-x r b" . helm-bookmarks)
 		:map helm-map
 		([tab] . helm-execute-persistent-action)
 		("C-i" . helm-execute-persistent-action)
@@ -731,42 +840,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
 
 (use-package
-  helm-git-grep
-  :ensure t
-  :init
-  (progn
-   (require 'helm)
-	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-	(setq helm-git-grep-candidate-number-limit nil)
-	(setq helm-candidate-number-limit 999)
-
-	)
-  :bind (
-		 ("C-c g" . helm-git-grep)
-		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
-		 )
-  :config
-  (progn
-	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
-
-	(defun helm-git-grep-at-point-no-mark ()
-	  "Helm git grep with symbol at point.
-
- if submodules exists, grep submodules too."
-	  (interactive)
-	  (let* ((symbol (thing-at-point 'symbol))
-			 (input (if symbol (concat symbol " ") nil)))
-		(helm-git-grep-1 input)))
-
-	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
-	)
-  )
-
-(use-package
   helm-ls-git
   :ensure t
   :bind (
-		 ("C-x M-p" . helm-ls-git-ls)
+		 ("C-x M-p" . helm-browse-project)
 		 )
   )
 
@@ -799,7 +876,91 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
+;; (use-package
+;;   realgud
+;;   :ensure t
+;;   :init
+;;   (progn
+;; 	)
+;;   )
 
-(setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation helm-anything evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
 
-(mapc #'package-install my-package-list)
+(global-set-key (kbd "C-M-]") 'sp-backward-unwrap-sexp)
+(global-set-key (kbd "C-M-[") 'sp-unwrap-sexp)
+
+
+;; c-x 4 b to duplicate
+
+	;; https://www.emacswiki.org/emacs/TransposeWindows
+(defun transpose-windows (arg)
+  "Transpose the buffers shown in two windows."
+  (interactive "p")
+  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+	(while (/= arg 0)
+	  (let ((this-win (window-buffer))
+			(next-win (window-buffer (funcall selector))))
+		(set-window-buffer (selected-window) next-win)
+		(set-window-buffer (funcall selector) this-win)
+		;; (select-window (funcall selector)))
+		(select-window (selected-window)))
+	  (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+
+(global-set-key (kbd "C-c s") 'transpose-windows)
+
+(defun duplicate-windows (arg)
+  "duplicate the buffers shown in current windows."
+  (interactive "p")
+  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+	(while (/= arg 0)
+	  (let ((this-win (window-buffer))
+			(next-win (window-buffer (funcall selector))))
+;;		(set-window-buffer (selected-window) next-win)
+		(set-window-buffer (funcall selector) this-win)
+		;; (select-window (funcall selector)))
+		(select-window (selected-window)))
+	  (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+
+(global-set-key (kbd "C-c d") 'duplicate-windows)
+
+(setq global-mark-ring-max 30)
+
+;; Window switching. (C-x o goes to the next window)
+(global-set-key (kbd "C-x O") (lambda ()
+								(interactive)
+								(other-window -1))) ;; back one
+(global-set-key (kbd "C-x C-o") (lambda ()
+								  (interactive)
+								  (other-window 2))) ;; forward two
+
+;; (setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
+
+;; (mapc #'package-install my-package-list)
+
+
+(defun filename ()
+  "Copy the full path of the current buffer."
+  (interactive)
+  (kill-new (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+
+(global-set-key (kbd "C-c f") 'filename)
+
+
+;; php
+
+
+(autoload 'geben "geben" "DBGp protocol frontend, a script debugger" t)
+
+;; org
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+;; projectile
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(setq projectile-switch-project-action 'helm-projectile)
+
+
+(provide 'init)
