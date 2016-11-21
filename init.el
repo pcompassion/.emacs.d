@@ -67,13 +67,10 @@
 ;; (setq emacs_home `"/usr/share/emacs23/")
 (add-to-list 'load-path (expand-file-name "site-lisp" emacs_home))
 
-;; dash
-(require 'dash)
-;; dash
 
 
 ;; bash-completion
-(bash-completion-setup)
+;; (bash-completion-setup)
 ;; bash-completion
 
 ;; elpy
@@ -83,7 +80,7 @@
 
 
 ;; --> ac-helm
-(require 'auto-complete)
+;;(require 'auto-complete)
 
 ;; (use-package
 ;;     ac-helm
@@ -109,12 +106,6 @@
 ;; redo+
 
 
-;; virtualenvwrapper
-(require 'virtualenvwrapper)
-(venv-initialize-interactive-shells) ;; if you want interactive shell support
-(venv-initialize-eshell) ;; if you want eshell support
-(setq venv-location "~/virtualenvs/")
-;; virtualenvwrapper
 
 ;; web-beautify
 (eval-after-load 'js2-mode
@@ -236,10 +227,6 @@
 ;; (setq diff-command "ediff")
 ;; Use ediff and not diff
 
-;; auto-complete
-(global-auto-complete-mode t)
-(add-to-list 'ac-modes 'less-css-mode)
-;; auto-complete
 
 
 (autoload 'markdown-mode "markdown-mode"
@@ -304,7 +291,7 @@
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
    (quote
-	(wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+	(color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
 	((encoding . utf-8)
@@ -374,12 +361,12 @@
 
 
 ;; repository-root
-(add-to-list 'load-path (expand-file-name "site-lisp/repository-root" emacs_home))
-(require 'repository-root)
+;; (add-to-list 'load-path (expand-file-name "site-lisp/repository-root" emacs_home))
+;; (require 'repository-root)
 ;; repository-root
 ;; grep-o-matic
-(add-to-list 'load-path (expand-file-name "site-lisp/grep-o-matic" emacs_home))
-(require 'grep-o-matic)
+;; (add-to-list 'load-path (expand-file-name "site-lisp/grep-o-matic" emacs_home))
+;; (require 'grep-o-matic)
 ;; grep-o-matic
 
 ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2009-09/msg00130.html
@@ -531,7 +518,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-(smartscan-mode 1)
 
 (defun add-smartscan-keys ()
   (define-key smartscan-map (kbd "M-j") 'smartscan-symbol-go-forward)
@@ -565,58 +551,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (set-default-font "Source Code Pro Medium 12")
 
 
-(global-undo-tree-mode)
 
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-highlighting-mode 'lines)
-;; (flycheck-define-checker javascript-jslint-reporter
-;;   "A JavaScript syntax and style checker based on JSLint Reporter.
-
-;; See URL `https://github.com/FND/jslint-reporter'."
-;;   :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
-;;   :error-patterns
-;;   ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
-;;   :modes (js-mode js2-mode js3-mode))
-;; (add-hook 'js-mode-hook (lambda ()
-;;                           (flycheck-select-checker 'javascript-jslint-reporter)
-;;                           (flycheck-mode)))
-
-
-;; (setq mac-option-modifier 'super) ; sets the Option key to Super
-
-;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
-;; npm install -g eslint babel-eslint eslint-plugin-react
-;; npm install -g jslint
-
-;; turn on flychecking globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; disable jshint since we prefer eslint checking
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-		  '(javascript-jshint)))
-;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-(flycheck-add-mode 'javascript-eslint 'js2-mode)
-;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
 
 ;; https://github.com/mooz/js2-mode/issues/292
-(require 'js2-mode)
-
-(add-to-list 'auto-mode-alist '("\\.react\\.js?\\'" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-
-(setq-default js2-basic-offset 2)
-
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-
-;; Disable JSCS linting (optional but if you're using ESLint you probably don't
-;; need this).
-(let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
-  (put 'javascript-eslint 'flycheck-next-checkers
-	   (remove '(warning . javascript-jscs) checkers)))
 
 ;; (defun setup-js2-mode ()
 ;;   (flycheck-select-checker 'javascript-eslint)
@@ -659,16 +596,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (require 'magit-gitflow)
 ;; (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
-;; git-gutter
-(global-git-gutter-mode +1)
 
 
 ;; elpy
 
-(setq ac-sources
-	  (delq 'ac-source-jedi-direct
-			(delq 'ac-source-nropemacs
-				  ac-sources)))
+;; (setq ac-sources
+;; 	  (delq 'ac-source-jedi-direct
+;; 			(delq 'ac-source-nropemacs
+;; 				  ac-sources)))
 
 
 ;; Set your lisp system and, optionally, some contribs
@@ -902,20 +837,196 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :init
   (progn
-	(load "init-smartparens")
-	(sp-local-pair 'python-mode "'" nil :actions nil)
-	(sp-local-pair 'python-mode "\"" nil :actions nil)
+	;; (load "init-smartparens")
+	;; (sp-local-pair 'python-mode "'" nil :actions nil)
+	;; (sp-local-pair 'python-mode "\"" nil :actions nil)
 	)
   )
 
 
-;; (use-package
-;;   realgud
-;;   :ensure t
-;;   :init
-;;   (progn
-;; 	)
-;;   )
+(use-package
+	undo-tree
+  :ensure t
+  :init
+  (progn
+(global-undo-tree-mode)
+	)
+  )
+
+(use-package
+	git-gutter
+  :ensure t
+  :init
+  (progn
+;; git-gutter
+(global-git-gutter-mode +1)
+	)
+  )
+
+
+(use-package
+	js2-mode
+  :ensure t
+  :init
+  (progn
+
+(add-to-list 'auto-mode-alist '("\\.react\\.js?\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+
+(setq-default js2-basic-offset 2)
+
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
+
+;; Disable JSCS linting (optional but if you're using ESLint you probably don't
+;; need this).
+(let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
+  (put 'javascript-eslint 'flycheck-next-checkers
+	   (remove '(warning . javascript-jscs) checkers)))
+
+	)
+  )
+
+
+(use-package
+	flycheck
+  :ensure t
+  :init
+  (progn
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-highlighting-mode 'lines)
+;; (flycheck-define-checker javascript-jslint-reporter
+;;   "A JavaScript syntax and style checker based on JSLint Reporter.
+
+;; See URL `https://github.com/FND/jslint-reporter'."
+;;   :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
+;;   :error-patterns
+;;   ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
+;;   :modes (js-mode js2-mode js3-mode))
+;; (add-hook 'js-mode-hook (lambda ()
+;;                           (flycheck-select-checker 'javascript-jslint-reporter)
+;;                           (flycheck-mode)))
+
+
+;; (setq mac-option-modifier 'super) ; sets the Option key to Super
+
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+;; npm install -g eslint babel-eslint eslint-plugin-react
+;; npm install -g jslint
+
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; disable jshint since we prefer eslint checking
+;; (setq-default flycheck-disabled-checkers
+;;   (append flycheck-disabled-checkers
+;; 		  '(javascript-jshint)))
+;; use eslint with web-mode for jsx files
+;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+
+	)
+  )
+
+ (use-package
+     dash
+   :ensure t
+   :init
+   (progn
+ 	)
+   )
+
+ (use-package
+     bash-completion
+   :ensure t
+   :init
+   (progn
+ (bash-completion-setup)
+ 	)
+   )
+
+
+ (use-package
+     auto-complete
+   :ensure t
+   :init
+   (progn
+(global-auto-complete-mode t)
+(add-to-list 'ac-modes 'less-css-mode)
+
+ 	)
+   )
+
+ (use-package
+smartscan
+   :ensure t
+   :init
+   (progn
+(smartscan-mode 1)
+
+ 	)
+   )
+
+ (use-package
+wgrep
+   :ensure t
+   :init
+   (progn
+
+ 	)
+   )
+ (use-package
+wgrep-helm
+   :ensure t
+   :init
+   (progn
+
+ 	)
+   )
+
+;;  (use-package
+;; projectile
+;;    :ensure t
+;;    :init
+;;    (progn
+;; (projectile-global-mode)
+;; (setq projectile-completion-system 'helm)
+;; (setq projectile-switch-project-action 'helm-projectile)
+
+;;  	)
+;; )
+
+;;  (use-package
+;; helm-projectile
+;;    :ensure t
+;;    :init
+;;    (progn
+;; (helm-projectile-on)
+;;  	)
+;; )
+
+
+
+ (use-package
+virtualenvwrapper
+   :ensure t
+   :init
+(progn
+
+
+(venv-initialize-interactive-shells) ;; if you want interactive shell support
+(venv-initialize-eshell) ;; if you want eshell support
+(setq venv-location "~/virtualenvs/")
+
+ 	)
+   )
+
+
+(venv-initialize-interactive-shells) ;; if you want interactive shell support
+(venv-initialize-eshell) ;; if you want eshell support
+(setq venv-location "~/virtualenvs/")
+
 
 
 (global-set-key (kbd "C-M-]") 'sp-backward-unwrap-sexp)
@@ -990,12 +1101,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq org-log-done t)
 
 ;; projectile
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-(setq projectile-switch-project-action 'helm-projectile)
 
-(require 'wgrep)
-(require 'wgrep-helm)
 
 (provide 'init)
