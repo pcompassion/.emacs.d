@@ -717,23 +717,23 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    ;; 	 (helm-do-grep-1 default-directory t))
    ;; (global-set-key (kbd "C-c g") 'grep-whole-git)
 
-   (defun my-helm-grep-do-git-grep (not-all)
-	 (interactive "P")
-	 (helm-grep-git-1 default-directory (null not-all)))
+ ;;   (defun my-helm-grep-do-git-grep (not-all)
+ ;; 	 (interactive "P")
+ ;; 	 (helm-grep-git-1 default-directory (null not-all)))
 
-   (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
+ ;;   (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
 
 
-   (defun helm-git-grep-at-point-no-mark (arg)
-	 "Helm git grep with symbol at point.
+ ;;   (defun helm-git-grep-at-point-no-mark (arg)
+ ;; 	 "Helm git grep with symbol at point.
 
- if submodules exists, grep submodules too."
-	 (interactive "P")
-	 (let* ((symbol (thing-at-point 'symbol))
-			(input (if symbol (concat symbol " ") nil)))
-	   (helm-grep-git-1 default-directory (null arg) nil input)))
+ ;; if submodules exists, grep submodules too."
+ ;; 	 (interactive "P")
+ ;; 	 (let* ((symbol (thing-at-point 'symbol))
+ ;; 			(input (if symbol (concat symbol " ") nil)))
+ ;; 	   (helm-grep-git-1 default-directory (null arg) nil input)))
 
-   (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+ ;;   (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
 
    ;; (defun grep-subdirectory ()
    ;; 	 (interactive)
@@ -773,6 +773,39 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		)
  )
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+
+(use-package
+  helm-git-grep
+  :ensure t
+  :init
+  (progn
+   (require 'helm)
+	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+	(setq helm-git-grep-candidate-number-limit nil)
+	(setq helm-candidate-number-limit 999)
+
+	)
+  :bind (
+		 ("C-c g" . helm-git-grep)
+		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
+		 )
+  :config
+  (progn
+	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
+
+	(defun helm-git-grep-at-point-no-mark ()
+	  "Helm git grep with symbol at point.
+
+ if submodules exists, grep submodules too."
+	  (interactive)
+	  (let* ((symbol (thing-at-point 'symbol))
+			 (input (if symbol (concat symbol " ") nil)))
+		(helm-git-grep-1 input)))
+
+	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+	)
+  )
+
 
 (use-package
   helm-ls-git
