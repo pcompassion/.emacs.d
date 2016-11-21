@@ -145,7 +145,7 @@
 		  (lambda ()
 			(c-set-style "gnu")
 			(setq tab-width 4)
-			(setq indent-tabs-mode t)
+			(setq indent-tabs-mode nil)
 			(setq c-basic-offset 4)
 			(setq c-subword-mode t)
 			(c-set-offset 'innamespace 0)	;do not indent { inside a namespace
