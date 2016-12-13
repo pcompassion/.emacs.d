@@ -144,9 +144,9 @@
 (add-hook 'c-mode-common-hook
 		  (lambda ()
 			(c-set-style "gnu")
-			(setq tab-width 4)
+			(setq tab-width 2)
 			(setq indent-tabs-mode nil)
-			(setq c-basic-offset 4)
+			(setq c-basic-offset 2)
 			(setq c-subword-mode t)
 			(c-set-offset 'innamespace 0)	;do not indent { inside a namespace
 			(c-set-offset 'substatement-open 0)
@@ -266,21 +266,21 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
+	 [default bold shadow italic underline bold bold-italic bold])
  '(custom-safe-themes
-   (quote
-	("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+	 (quote
+		("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes
-   (quote
-	(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
+	 (quote
+		(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
-   (quote
-	("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "dependency-bundle.js" "node_modules" "bower_components" ".min.js")))
+	 (quote
+		("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components")))
  '(grep-find-ignored-files
-   (quote
-	(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js")))
+	 (quote
+		(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "*.min.js")))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
@@ -290,22 +290,22 @@
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
-   (quote
-	(color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+	 (quote
+		(sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
-   (quote
-	((encoding . utf-8)
-	 (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+	 (quote
+		((encoding . utf-8)
+		 (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ")
-	 (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
+		 (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ")
-	 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
-	 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
-	 (python-shell-interpreter . "python"))))
+		 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
+		 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
+		 (python-shell-interpreter . "python"))))
  '(sp-autoinsert-pair nil)
  '(sql-mysql-options
-   (quote
-	("--socket=/home/eugenekim/Documents/mautic-1.4.1-0/mysql/tmp/mysql.sock"))))
+	 (quote
+		("--socket=/home/eugenekim/Documents/mautic-1.4.1-0/mysql/tmp/mysql.sock"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -448,7 +448,7 @@
 ;; http://kldp.org/node/110942
 (prefer-coding-system 'utf-8)
 
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 
 
 (setq compilation-scroll-output t)
@@ -712,39 +712,32 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (setq helm-buffers-truncate-lines nil)
    (setq helm-ff-newfile-prompt-p nil)
 
-   ;; (defun grep-whole-git ()
-   ;; 	 (interactive)
-   ;; 	 (helm-do-grep-1 default-directory t))
-   ;; (global-set-key (kbd "C-c g") 'grep-whole-git)
+   (defun my-helm-grep-do-git-grep (not-all)
+ 	 (interactive "P")
+ 	 (helm-grep-git-1 default-directory (null not-all)))
 
- ;;   (defun my-helm-grep-do-git-grep (not-all)
- ;; 	 (interactive "P")
- ;; 	 (helm-grep-git-1 default-directory (null not-all)))
-
- ;;   (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
+   (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
 
 
- ;;   (defun helm-git-grep-at-point-no-mark (arg)
- ;; 	 "Helm git grep with symbol at point.
+   (defun helm-git-grep-at-point-no-mark (arg)
+ 	 "Helm git grep with symbol at point.
 
- ;; if submodules exists, grep submodules too."
- ;; 	 (interactive "P")
- ;; 	 (let* ((symbol (thing-at-point 'symbol))
- ;; 			(input (if symbol (concat symbol " ") nil)))
- ;; 	   (helm-grep-git-1 default-directory (null arg) nil input)))
+ if submodules exists, grep submodules too."
+ 	 (interactive "P")
+ 	 (let* ((symbol (thing-at-point 'symbol))
+ 			(input (if symbol (concat symbol " ") nil)))
+ 	   (helm-grep-git-1 default-directory (null arg) nil input)))
 
- ;;   (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
-
-   ;; (defun grep-subdirectory ()
-   ;; 	 (interactive)
-   ;; 	 (helm-grep-git-1 default-directory (null arg)))
-   ;; (global-set-key (kbd "C-u C-c g") 'grep-subdirectory)
-
+   (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
 
    ;; https://github.com/emacs-helm/helm/issues/1492
    (defun helm-buffers-sort-transformer@donot-sort (_ candidates _)
 	 candidates)
    (advice-add 'helm-buffers-sort-transformer :around 'helm-buffers-sort-transformer@donot-sort)
+
+	 (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
+	 (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
+
 
    (helm-mode))
  :bind (
@@ -774,37 +767,37 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  )
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
 
-(use-package
-  helm-git-grep
-  :ensure t
-  :init
-  (progn
-   (require 'helm)
-	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-	(setq helm-git-grep-candidate-number-limit nil)
-	(setq helm-candidate-number-limit 999)
+;; (use-package
+;;   helm-git-grep
+;;   :ensure t
+;;   :init
+;;   (progn
+;;    (require 'helm)
+;; 	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+;; 	(setq helm-git-grep-candidate-number-limit nil)
+;; 	(setq helm-candidate-number-limit 999)
 
-	)
-  :bind (
-		 ("C-c g" . helm-git-grep)
-		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
-		 )
-  :config
-  (progn
-	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
+;; 	)
+;;   :bind (
+;; 		 ("C-c g" . helm-git-grep)
+;; 		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
+;; 		 )
+;;   :config
+;;   (progn
+;; 	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
 
-	(defun helm-git-grep-at-point-no-mark ()
-	  "Helm git grep with symbol at point.
+;; 	(defun helm-git-grep-at-point-no-mark ()
+;; 	  "Helm git grep with symbol at point.
 
- if submodules exists, grep submodules too."
-	  (interactive)
-	  (let* ((symbol (thing-at-point 'symbol))
-			 (input (if symbol (concat symbol " ") nil)))
-		(helm-git-grep-1 input)))
+;;  if submodules exists, grep submodules too."
+;; 	  (interactive)
+;; 	  (let* ((symbol (thing-at-point 'symbol))
+;; 			 (input (if symbol (concat symbol " ") nil)))
+;; 		(helm-git-grep-1 input)))
 
-	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
-	)
-  )
+;; 	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+;; 	)
+;;   )
 
 
 (use-package
@@ -1076,7 +1069,6 @@ virtualenvwrapper
 								  (interactive)
 								  (other-window 2))) ;; forward two
 
-;; (setq my-package-list '(undo-tree idomenu json-snatcher dired+ gh find-file-in-repository ctable highlight-indentation evil-leader helm-backup magit-popup bash-completion image-dired+ smartparens jedi-core redo+ helm-core python-environment magit json-reformat jedi-direx pcache async smartrep mo-git-blame let-alist direx find-file-in-project packed virtualenv dummy-h-mode helm-git magit-find-file handlebars-sgml-mode jedi js2-mode ucs-utils image+ popup color-theme-solarized buffer-move git-gutter color-theme-sanityinc-solarized wgrep xcscope helm-helm-commands magit-gh-pulls s imenu-anywhere goto-chg expand-region nodejs-repl back-button magit-gitflow pg flycheck list-utils company smartscan virtualenvwrapper fuzzy with-editor magit-filenotify anything color-theme git-blame visible-mark anything-git-grep highlight logito pkg-info pyvenv py-import-check persistent-soft dash json-mode wgrep-helm solarized-theme git-commit auto-complete web-beautify less-css-mode nav-flash git-gutter+ python-mode imenu+ iedit evil concurrent epl color-theme-approximate helm-git-files auto-compile epc))
 
 ;; (mapc #'package-install my-package-list)
 
