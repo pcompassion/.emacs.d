@@ -266,21 +266,21 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
-	 [default bold shadow italic underline bold bold-italic bold])
+   [default bold shadow italic underline bold bold-italic bold])
  '(custom-safe-themes
-	 (quote
-		("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+   (quote
+    ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(elpy-default-minor-modes
-	 (quote
-		(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
+   (quote
+    (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
-	 (quote
-		("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components")))
+   (quote
+    ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components")))
  '(grep-find-ignored-files
-	 (quote
-		(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "*.min.js")))
+   (quote
+    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "*.min.js" "plugins.js")))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
  '(helm-ls-git-show-abs-or-relative (quote relative))
@@ -290,28 +290,27 @@
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
-	 (quote
-		(helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode jedi-direx imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode company-jedi color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+   (quote
+    (helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
-	 (quote
-		((encoding . utf-8)
-		 (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+   (quote
+    ((encoding . utf-8)
+     (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ")
-		 (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
+     (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ")
-		 (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
-		 (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
-		 (python-shell-interpreter . "python"))))
- '(sp-autoinsert-pair nil)
- '(sql-mysql-options
-	 (quote
-		("--socket=/home/eugenekim/Documents/mautic-1.4.1-0/mysql/tmp/mysql.sock"))))
+     (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
+     (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
+     (python-shell-interpreter . "python"))))
+ '(sp-autoinsert-pair nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:background "magenta" :distant-foreground "black"))))
+ '(helm-grep-file ((t (:foreground "blue1" :underline t))))
+ '(helm-ls-git-modified-not-staged-face ((t (:foreground "orange"))))
+ '(helm-selection ((t (:background "dark orange"))))
  '(highlight-indentation-face ((t nil)))
  '(js2-external-variable ((t (:foreground "red"))))
  '(magit-hash ((t (:foreground "white")))))
@@ -553,14 +552,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-;; https://github.com/mooz/js2-mode/issues/292
-
-;; (defun setup-js2-mode ()
-;;   (flycheck-select-checker 'javascript-eslint)
-;;   (flycheck-mode))
-
-;; (add-hook 'js2-mode-hook #'setup-js2-mode)
-;; (add-hook 'js2-jsx-mode-hook #'setup-js2-mode)
 
 ;; https://github.com/mooz/js2-mode/issues/292
 
@@ -649,7 +640,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (eval-after-load "sql"
   '(load-library "sql-indent"))
 ;; jedi
-(add-hook 'python-mode-hook 'jedi:setup)
+;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; jedi
 
 
@@ -691,7 +682,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm-swoop)
    (require 'helm-config)
   (setq helm-boring-file-regexp-list
-		'("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old" "\\.min\\.js$"  "\\.min\\.css$"))
+		'("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old" "\\.min\\.js$"  "\\.min\\.css$" "jquery.js"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
@@ -830,7 +821,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :init
   (progn
-	;; (load "init-smartparens")
+	(load "init-smartparens")
 	;; (sp-local-pair 'python-mode "'" nil :actions nil)
 	;; (sp-local-pair 'python-mode "\"" nil :actions nil)
 	)
@@ -863,8 +854,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 
-(add-to-list 'auto-mode-alist '("\\.react\\.js?\\'" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-jsx-mode))
 
 (setq-default js2-basic-offset 2)
 
@@ -886,8 +876,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :init
   (progn
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-highlighting-mode 'lines)
+    (global-flycheck-mode)
+
+    (setq flycheck-highlighting-mode 'lines)
+
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'js2-jsx-mode)
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+
 ;; (flycheck-define-checker javascript-jslint-reporter
 ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
 
@@ -908,7 +904,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; npm install -g jslint
 
 ;; turn on flychecking globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; disable jshint since we prefer eslint checking
 ;; (setq-default flycheck-disabled-checkers
@@ -918,6 +914,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
 ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+
+
+;; https://github.com/mooz/js2-mode/issues/292
+
+(defun setup-js2-mode ()
+  (flycheck-select-checker 'javascript-eslint)
+  (flycheck-mode))
+
+
+(add-hook 'js2-mode-hook #'setup-js2-mode)
+(add-hook 'js2-jsx-mode-hook #'setup-js2-mode)
+
 
 	)
   )
@@ -1095,5 +1103,7 @@ virtualenvwrapper
 ;; projectile
 
 (setq-default indent-tabs-mode nil)
+
+(setq tramp-default-method "ssh")
 
 (provide 'init)
