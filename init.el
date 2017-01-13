@@ -74,8 +74,8 @@
 ;; bash-completion
 
 ;; elpy
-;; (package-initialize)
-;; (elpy-enable)
+(package-initialize)
+(elpy-enable)
 ;; elpy
 
 
@@ -310,7 +310,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-grep-file ((t (:foreground "blue1" :underline t))))
  '(helm-ls-git-modified-not-staged-face ((t (:foreground "orange"))))
- '(helm-selection ((t (:background "dark orange"))))
+ '(helm-selection ((t (:background "blue" :foreground "white"))))
  '(highlight-indentation-face ((t nil)))
  '(js2-external-variable ((t (:foreground "red"))))
  '(magit-hash ((t (:foreground "white")))))
@@ -471,6 +471,9 @@
   (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
   (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
 
+  (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
+  (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
+
   )
 
 
@@ -487,6 +490,8 @@
 (define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
 (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
   (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
+  (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
+  (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
 
 
 ;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
