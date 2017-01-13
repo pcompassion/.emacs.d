@@ -853,28 +853,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
-(use-package
-	js2-mode
-  :ensure t
-  :init
-  (progn
-
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-jsx-mode))
-
-(setq-default js2-basic-offset 2)
-
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-
-;; Disable JSCS linting (optional but if you're using ESLint you probably don't
-;; need this).
-(let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
-  (put 'javascript-eslint 'flycheck-next-checkers
-	   (remove '(warning . javascript-jscs) checkers)))
-
-	)
-  )
-(setq-default js2-basic-offset 2)
 
 (use-package
 	flycheck
@@ -933,7 +911,31 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 	)
+)
+
+(use-package
+	js2-mode
+  :ensure t
+  :init
+  (progn
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-jsx-mode))
+
+(setq-default js2-basic-offset 2)
+
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
+
+;; Disable JSCS linting (optional but if you're using ESLint you probably don't
+;; need this).
+(let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
+  (put 'javascript-eslint 'flycheck-next-checkers
+	   (remove '(warning . javascript-jscs) checkers)))
+
+	)
   )
+(setq-default js2-basic-offset 2)
+
 
  (use-package
      dash
