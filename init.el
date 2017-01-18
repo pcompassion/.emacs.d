@@ -909,6 +909,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun setup-js2-mode ()
   (flycheck-select-checker 'javascript-eslint)
+  (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
+
   (flycheck-mode))
 
 
