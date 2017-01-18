@@ -274,6 +274,7 @@
    (quote
     (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(flycheck-flake8-maximum-line-length 140)
+ '(flycheck-javascript-eslint-executable "/home/eugenekim/.nvm/versions/node/v6.4.0/bin/eslint")
  '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
    (quote
@@ -282,7 +283,10 @@
    (quote
     (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "*.min.js" "plugins.js")))
  '(helm-ff-transformer-show-only-basename nil)
- '(helm-grep-default-command "grep -n%cH --full-name -e %p %f")
+ '(helm-grep-file-path-style (quote relative))
+ '(helm-grep-ignored-directories
+   (quote
+    ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static")))
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
@@ -291,7 +295,7 @@
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
    (quote
-    (swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -759,6 +763,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		("C-i" . helm-execute-persistent-action)
 		("C-z" . helm-select-action)
 		("M-o" . helm-previous-source)
+    ("C-]" . helm-ff-run-toggle-basename)
 		)
  )
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
@@ -861,7 +866,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
     (global-flycheck-mode)
 
-    (setq flycheck-highlighting-mode 'lines)
+    (setq flycheck-highlighting-mode 'symbols)
 
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-jsx-mode)
@@ -890,9 +895,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; disable jshint since we prefer eslint checking
-;; (setq-default flycheck-disabled-checkers
-;;   (append flycheck-disabled-checkers
-;; 		  '(javascript-jshint)))
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+		  '(javascript-jshint)))
 ;; use eslint with web-mode for jsx files
 ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -900,6 +905,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; https://github.com/mooz/js2-mode/issues/292
+
 
 (defun setup-js2-mode ()
   (flycheck-select-checker 'javascript-eslint)
