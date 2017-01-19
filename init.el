@@ -295,7 +295,7 @@
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
    (quote
-    (flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -817,14 +817,27 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 		 )
   )
 
+;; (use-package
+;;   ido
+;;   :ensure t
+;;   :init
+;;   (progn
+;; 	(setq ido-use-virtual-buffers t)
+;; 	)
+;;   )
+
+
 (use-package
-  ido
+  ivy
   :ensure t
   :init
   (progn
-	(setq ido-use-virtual-buffers t)
-	)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    )
   )
+
+
 
 (use-package
   smartparens
@@ -872,6 +885,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (flycheck-add-mode 'javascript-eslint 'js2-jsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
 
+    (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
+
 ;; (flycheck-define-checker javascript-jslint-reporter
 ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
 
@@ -909,7 +924,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun setup-js2-mode ()
   (flycheck-select-checker 'javascript-eslint)
-  (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
   (flycheck-mode))
 
