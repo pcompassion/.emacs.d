@@ -538,6 +538,37 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'js-mode-hook 'add-smartscan-keys)
 (add-hook 'js2-mode-hook 'add-smartscan-keys)
 
+;; http://stackoverflow.com/a/6248712/433570
+(defun js-import-path ()
+  "javascript import path"
+  (interactive)
+  (let ((file-name (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+    (kill-new (car (last
+                    (split-string
+                     (car (split-string file-name "\\."))
+                     "static/"))))
+    )
+  )
+
+(add-hook 'js2-mode-hook
+          (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
+
+(defun python-import-path ()
+  "python import path"
+  (interactive)
+  (let ((file-name (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+    (kill-new
+     (replace-regexp-in-string "\/" "."
+                               (car (split-string (car (last (split-string file-name "apps/"))) "\\."))
+    )
+)
+    )
+  )
+
+(add-hook 'python-mode-hook
+          (lambda() (local-set-key (kbd "C-c i") 'python-import-path)))
+
+
 
 ;; http://www.emacswiki.org/emacs/DeletingWhitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -878,14 +909,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
     (global-flycheck-mode)
-
-    (setq flycheck-highlighting-mode 'symbols)
+    (setq flycheck-eslintrc "~/.eslintrc")
+    ;; (setq flycheck-highlighting-mode 'lines)
 
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-jsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
 
-    (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
+    ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
 ;; (flycheck-define-checker javascript-jslint-reporter
 ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
@@ -942,6 +973,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
 
 (setq-default js2-basic-offset 2)
 
@@ -1116,6 +1148,7 @@ virtualenvwrapper
   (kill-new (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
 (global-set-key (kbd "C-c f") 'filename)
+
 
 
 ;; php
