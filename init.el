@@ -11,12 +11,12 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-check-signature nil)		;http://stackoverflow.com/a/26110978/433570
+(setq package-check-signature nil)    ;http://stackoverflow.com/a/26110978/433570
 
 ;; http://emacs.stackexchange.com/a/2989/12031
 (setq package-archives
       '(
-		("GNU ELPA"     . "http://elpa.gnu.org/packages/")
+    ("GNU ELPA"     . "http://elpa.gnu.org/packages/")
         ("MELPA Stable" . "https://stable.melpa.org/packages/")
         ("MELPA"        . "https://melpa.org/packages/"))
       package-archive-priorities
@@ -25,9 +25,9 @@
         ("MELPA"        . 0)))
 
 ;; (add-to-list 'package-archives
-;; 			            '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;;                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
 ;; (add-to-list 'package-archives
-;; 			 '("melpa" . "http://melpa.org/packages/"))
+;;       '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -47,7 +47,7 @@
 ;; install the missing packages
 ;; (dolist (package package-list)
 ;;     (unless (package-installed-p package)
-;; 	      (package-install package)))
+;;        (package-install package)))
 
 
 (defconst home-dir
@@ -86,10 +86,10 @@
 ;;     ac-helm
 ;;   :ensure t
 ;;   :bind (
-;; 	 ("C-;" . ac-complete-with-helm)
-;; 	 :map helm-map
-;; 	 ("C-;" . ac-complete-with-helm)
-;; 	 )
+;;   ("C-;" . ac-complete-with-helm)
+;;   :map helm-map
+;;   ("C-;" . ac-complete-with-helm)
+;;   )
 ;;   )
 
 ;; <-- ac-helm
@@ -142,29 +142,29 @@
 
 
 (add-hook 'c-mode-common-hook
-		  (lambda ()
-			(c-set-style "gnu")
-			(setq tab-width 2)
-			(setq indent-tabs-mode nil)
-			(setq c-basic-offset 2)
-			(setq c-subword-mode t)
-			(c-set-offset 'innamespace 0)	;do not indent { inside a namespace
-			(c-set-offset 'substatement-open 0)
-			(c-set-offset 'brace-list-open 0)
-			(c-set-offset 'case-label '+)
-			(c-set-offset 'arglist-cont-nonempty '+)
-			(c-set-offset 'arglist-intro '+)
-			(c-set-offset 'topmost-intro-cont '+)
-			(c-set-offset 'string '+)
-			(c-set-offset 'statement-case-open 0)
-			(c-toggle-hungry-state 1)
-			(c-toggle-electric-state 1)
-			;; 		(gtags-mode 1)
-										;		(define-key c++-mode-map (kbd "<C-return>") 'semantic-complete-analyze-inline)
-			(local-set-key  (kbd "C-x z") 'ff-find-other-file)
+      (lambda ()
+      (c-set-style "gnu")
+      (setq tab-width 2)
+      (setq indent-tabs-mode nil)
+      (setq c-basic-offset 2)
+      (setq c-subword-mode t)
+      (c-set-offset 'innamespace 0) ;do not indent { inside a namespace
+      (c-set-offset 'substatement-open 0)
+      (c-set-offset 'brace-list-open 0)
+      (c-set-offset 'case-label '+)
+      (c-set-offset 'arglist-cont-nonempty '+)
+      (c-set-offset 'arglist-intro '+)
+      (c-set-offset 'topmost-intro-cont '+)
+      (c-set-offset 'string '+)
+      (c-set-offset 'statement-case-open 0)
+      (c-toggle-hungry-state 1)
+      (c-toggle-electric-state 1)
+      ;;    (gtags-mode 1)
+                    ;   (define-key c++-mode-map (kbd "<C-return>") 'semantic-complete-analyze-inline)
+      (local-set-key  (kbd "C-x z") 'ff-find-other-file)
 
-			)
-		  )
+      )
+      )
 
 ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
 (setenv "PATH" (concat "/usr/local/mysql/bin:" (getenv "PATH")))
@@ -186,13 +186,13 @@
 ;; (defun cscope-select-entry-this-window ()
 ;;   (interactive)
 ;;   (let ((file (get-text-property (point) `cscope-file))
-;; 	(line-number (get-text-property (point) `cscope-line-number))
-;; 	window)
+;;  (line-number (get-text-property (point) `cscope-line-number))
+;;  window)
 ;;     (setq window (cscope-show-entry-internal file line-number t (selected-window)))
 ;;     (if (windowp window)
-;; 	(progn
-;; 	  (select-window window)
-;; 	  ))
+;;  (progn
+;;    (select-window window)
+;;    ))
 ;;     ))
 
 ;; (define-key cscope-list-entry-keymap (kbd "m") `cscope-select-entry-this-window)
@@ -213,15 +213,15 @@
 ;; Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;   (interactive)
 ;;   (let ((file (or (buffer-file-name)
-;; 				  (error "Current buffer is not visiting a file"))))
-;; 	(if (and (buffer-modified-p)
-;; 			 (y-or-n-p (message "Buffer %s is modified. Save buffer? "
-;; 								(buffer-name))))
-;; 		(save-buffer (current-buffer)))
-;; 	(ediff-load-version-control)
-;; 	(funcall
-;; 	 (intern (format "ediff-%S-internal" ediff-version-control-package))
-;; 	 "" "" nil)))
+;;          (error "Current buffer is not visiting a file"))))
+;;  (if (and (buffer-modified-p)
+;;       (y-or-n-p (message "Buffer %s is modified. Save buffer? "
+;;                (buffer-name))))
+;;    (save-buffer (current-buffer)))
+;;  (ediff-load-version-control)
+;;  (funcall
+;;   (intern (format "ediff-%S-internal" ediff-version-control-package))
+;;   "" "" nil)))
 
 
 ;; (setq diff-command "ediff")
@@ -273,6 +273,7 @@
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
+ '(flycheck-check-syntax-automatically (quote (save new-line mode-enabled)))
  '(flycheck-flake8-maximum-line-length 140)
  '(flycheck-javascript-eslint-executable "/home/eugenekim/.nvm/versions/node/v6.4.0/bin/eslint")
  '(geben-dbgp-default-port 10011)
@@ -293,9 +294,10 @@
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
+ '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
  '(package-selected-packages
    (quote
-    (ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (ethan-wspace rjsx-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -317,6 +319,8 @@
  '(helm-selection ((t (:background "blue" :foreground "white"))))
  '(highlight-indentation-face ((t nil)))
  '(js2-external-variable ((t (:foreground "red"))))
+ '(magit-diff-added ((t (:background "green" :foreground "black"))))
+ '(magit-diff-added-highlight ((t (:background "green" :foreground "black"))))
  '(magit-hash ((t (:foreground "white")))))
 
 ;; for smarter dynamic expansion
@@ -337,15 +341,15 @@
 ;; http://stackoverflow.com/a/1393590/433570
 ;; (when (load "flymake" t)
 ;;   (defun flymake-pyflakes-init ()
-;; 	(let* ((temp-file (flymake-init-create-temp-buffer-copy
-;; 					   'flymake-create-temp-inplace))
-;; 		   (local-file (file-relative-name
-;; 						temp-file
-;; 						(file-name-directory buffer-file-name))))
-;; 	  (list "pycheckers"  (list local-file))))
+;;  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;             'flymake-create-temp-inplace))
+;;       (local-file (file-relative-name
+;;            temp-file
+;;            (file-name-directory buffer-file-name))))
+;;    (list "pycheckers"  (list local-file))))
 
 ;;   (add-to-list 'flymake-allowed-file-name-masks
-;; 			   '("\\.py\\'" flymake-pyflakes-init)))
+;;         '("\\.py\\'" flymake-pyflakes-init)))
 
 ;; flymake
 
@@ -376,14 +380,14 @@
 (setenv "PAGER" "/bin/cat")
 
 (add-hook 'lisp-mode-hook '(lambda ()
-							 (local-set-key (kbd "RET") 'newline-and-indent)))
+               (local-set-key (kbd "RET") 'newline-and-indent)))
 
 ;; put two spaces before comment
 (defun my-comment-indent ()
   (interactive)
   (end-of-line)
   (let ((comment-column (+ 2 (current-column))))
-	(comment-indent)))
+  (comment-indent)))
 ;; put two spaces before comment
 
 ;; js3
@@ -399,11 +403,11 @@
 
 ;; (unless (require 'el-get nil 'noerror)
 ;;     (with-current-buffer
-;; 		      (url-retrieve-synchronously
-;; 			          "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;; 	      (let (el-get-master-branch)
-;; 			      (goto-char (point-max))
-;; 				        (eval-print-last-sexp))))
+;;          (url-retrieve-synchronously
+;;                "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;        (let (el-get-master-branch)
+;;            (goto-char (point-max))
+;;                (eval-print-last-sexp))))
 
 ;; (el-get 'sync)
 ;; el-get
@@ -430,16 +434,16 @@
 ;; ;; http://stackoverflow.com/a/6806217/433570
 ;; (eval-after-load "elpy"
 ;;   '(progn
-;; 	 ;; Unbind M-o from the local keymap
-;; 	 (define-key elpy-mode-map (kbd "M-n") nil)
-;; 	 (define-key elpy-mode-map (kbd "M-p") nil)
+;;   ;; Unbind M-o from the local keymap
+;;   (define-key elpy-mode-map (kbd "M-n") nil)
+;;   (define-key elpy-mode-map (kbd "M-p") nil)
 
-;; 	 ;; Add an alternative local binding for the command
-;; 	 ;; bound to M-o
-;; 	 ;; (define-key dired-mode-map (kbd "C-c o")
-;; 	 ;;   (lookup-key dired-mode-map (kbd "M-o")))
+;;   ;; Add an alternative local binding for the command
+;;   ;; bound to M-o
+;;   ;; (define-key dired-mode-map (kbd "C-c o")
+;;   ;;   (lookup-key dired-mode-map (kbd "M-o")))
 
-;; 	 ))
+;;   ))
 
 ;; ;; (define-key ropemacs-local-keymap "\C-cg" nil)
 ;; ;; (define-key ropemacs-local-keymap (kbd "M-/") nil)
@@ -477,6 +481,8 @@
 
   (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
   (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
+  (define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
+  ;; (define-key input-decode-map "\e[1;3A" [S-up])
 
   )
 
@@ -496,6 +502,8 @@
   (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
   (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
   (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
+  (define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
+
 
 
 ;; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
@@ -601,9 +609,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; http://stackoverflow.com/a/23013184/433570
 ;; (defun my-ido-setup-hook ()
 ;;   (define-key
-;; 	ido-buffer-completion-map
-;; 	" "
-;; 	'ido-restrict-to-matches))
+;;  ido-buffer-completion-map
+;;  " "
+;;  'ido-restrict-to-matches))
 
 ;; (add-hook 'ido-setup-hook 'my-ido-setup-hook)
 
@@ -632,9 +640,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; elpy
 
 ;; (setq ac-sources
-;; 	  (delq 'ac-source-jedi-direct
-;; 			(delq 'ac-source-nropemacs
-;; 				  ac-sources)))
+;;    (delq 'ac-source-jedi-direct
+;;      (delq 'ac-source-nropemacs
+;;          ac-sources)))
 
 
 ;; Set your lisp system and, optionally, some contribs
@@ -644,8 +652,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; (global-set-key [f5] 'slime-js-reload)
 ;; (add-hook 'js2-mode-hook
-;; 		  (lambda ()
-;; 			(slime-js-minor-mode 1)))
+;;      (lambda ()
+;;      (slime-js-minor-mode 1)))
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -670,8 +678,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (add-hook 'python-mode-hook
-		  (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
-		  )
+      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -708,8 +716,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   helm-swoop
   :ensure t
  :bind (
-		("C-c h s" . helm-swoop)
-		)
+    ("C-c h s" . helm-swoop)
+    )
   )
 
 (use-package
@@ -722,7 +730,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm-swoop)
    (require 'helm-config)
   (setq helm-boring-file-regexp-list
-		'("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old" "\\.min\\.js$"  "\\.min\\.css$" "jquery.js"))
+    '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
@@ -731,12 +739,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (setq helm-candidate-number-limit 100)
    ;; From https://gist.github.com/antifuchs/9238468
    (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-		 helm-input-idle-delay 0.01  ; this actually updates things
-										; reeeelatively quickly.
-		 helm-yas-display-key-on-candidate t
-		 helm-quick-update t
-		 helm-M-x-requires-pattern nil
-		 helm-ff-skip-boring-files t)
+     helm-input-idle-delay 0.01  ; this actually updates things
+                    ; reeeelatively quickly.
+     helm-yas-display-key-on-candidate t
+     helm-quick-update t
+     helm-M-x-requires-pattern nil
+     helm-ff-skip-boring-files t)
 
    (setq helm-move-to-line-cycle-in-source nil)
    (setq helm-grep-truncate-lines nil)
@@ -744,58 +752,61 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (setq helm-ff-newfile-prompt-p nil)
 
    (defun my-helm-grep-do-git-grep (not-all)
- 	 (interactive "P")
- 	 (helm-grep-git-1 default-directory (null not-all)))
+   (interactive "P")
+   (helm-grep-git-1 default-directory (null not-all)))
 
    (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
 
 
    (defun helm-git-grep-at-point-no-mark (arg)
- 	 "Helm git grep with symbol at point.
+   "Helm git grep with symbol at point.
 
  if submodules exists, grep submodules too."
- 	 (interactive "P")
- 	 (let* ((symbol (thing-at-point 'symbol))
- 			(input (if symbol (concat symbol " ") nil)))
- 	   (helm-grep-git-1 default-directory (null arg) nil input)))
+   (interactive "P")
+   (let* ((symbol (thing-at-point 'symbol))
+      (input (if symbol (concat symbol " ") nil)))
+     (helm-grep-git-1 default-directory (null arg) nil input)))
 
    (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
 
    ;; https://github.com/emacs-helm/helm/issues/1492
    (defun helm-buffers-sort-transformer@donot-sort (_ candidates _)
-	 candidates)
+   candidates)
    (advice-add 'helm-buffers-sort-transformer :around 'helm-buffers-sort-transformer@donot-sort)
 
-	 (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
-	 (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
+   (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
+   (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
 
    (helm-mode))
  :bind (
-		("C-h a" . helm-apropos)
-		("C-h b" . helm-descbinds)
-		("C-x b" . helm-buffers-list)
-		("C-x C-b" . helm-mini)
-		("C-M-y" . helm-show-kill-ring)
-		("M-x" . helm-M-x)
-		("C-c h o" . helm-occur)
-		("C-c h s" . helm-swoop)
-		("C-c h S" . helm-multi-swoop-all)
-		("C-c h y" . helm-yas-complete)
-		("C-c h Y" . helm-yas-create-snippet-on-region)
-		("C-c h b" . my/helm-do-grep-book-notes)
-		("C-c C-h" . helm-resume)
-		("C-x C-f" . helm-find-files)
-		("C-h C-SPC" . helm-all-mark-rings)
-		("C-h SPC" . helm-global-mark-ring)
-		("C-x r b" . helm-bookmarks)
-		:map helm-map
-		([tab] . helm-execute-persistent-action)
-		("C-i" . helm-execute-persistent-action)
-		("C-z" . helm-select-action)
-		("M-o" . helm-previous-source)
+    ("C-h a" . helm-apropos)
+    ("C-h b" . helm-descbinds)
+    ("C-x b" . helm-buffers-list)
+    ("C-x C-b" . helm-mini)
+    ("C-M-y" . helm-show-kill-ring)
+    ("M-x" . helm-M-x)
+    ("C-c h o" . helm-occur)
+    ("C-c h s" . helm-swoop)
+    ("C-c h S" . helm-multi-swoop-all)
+    ("C-c h y" . helm-yas-complete)
+    ("C-c h Y" . helm-yas-create-snippet-on-region)
+    ("C-c h b" . my/helm-do-grep-book-notes)
+    ("C-c C-h" . helm-resume)
+    ("C-x C-f" . helm-find-files)
+    ("C-h C-SPC" . helm-all-mark-rings)
+    ("C-h SPC" . helm-global-mark-ring)
+    ("C-x r b" . helm-bookmarks)
+    :map helm-map
+    ([tab] . helm-execute-persistent-action)
+    ("C-i" . helm-execute-persistent-action)
+    ("C-z" . helm-select-action)
+    ("M-o" . helm-previous-source)
     ("C-]" . helm-ff-run-toggle-basename)
-		)
+    :map helm-grep-mode-map
+    ("M-n" . helm-gm-next-file)
+    ("M-p" . helm-gm-precedent-file)
+    )
  )
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
 
@@ -805,30 +816,30 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;   :init
 ;;   (progn
 ;;    (require 'helm)
-;; 	(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-;; 	(setq helm-git-grep-candidate-number-limit nil)
-;; 	(setq helm-candidate-number-limit 999)
+;;  (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+;;  (setq helm-git-grep-candidate-number-limit nil)
+;;  (setq helm-candidate-number-limit 999)
 
-;; 	)
+;;  )
 ;;   :bind (
-;; 		 ("C-c g" . helm-git-grep)
-;; 		 ("C-c l" . helm-git-grep-with-exclude-file-pattern)
-;; 		 )
+;;     ("C-c g" . helm-git-grep)
+;;     ("C-c l" . helm-git-grep-with-exclude-file-pattern)
+;;     )
 ;;   :config
 ;;   (progn
-;; 	(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
+;;  (define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm)
 
-;; 	(defun helm-git-grep-at-point-no-mark ()
-;; 	  "Helm git grep with symbol at point.
+;;  (defun helm-git-grep-at-point-no-mark ()
+;;    "Helm git grep with symbol at point.
 
 ;;  if submodules exists, grep submodules too."
-;; 	  (interactive)
-;; 	  (let* ((symbol (thing-at-point 'symbol))
-;; 			 (input (if symbol (concat symbol " ") nil)))
-;; 		(helm-git-grep-1 input)))
+;;    (interactive)
+;;    (let* ((symbol (thing-at-point 'symbol))
+;;       (input (if symbol (concat symbol " ") nil)))
+;;    (helm-git-grep-1 input)))
 
-;; 	(global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
-;; 	)
+;;  (global-set-key (kbd "C-c k") 'helm-git-grep-at-point-no-mark)
+;;  )
 ;;   )
 
 
@@ -836,16 +847,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   helm-ls-git
   :ensure t
   :bind (
-		 ("C-x M-p" . helm-browse-project)
-		 )
+     ("C-x M-p" . helm-browse-project)
+     )
   )
 
 (use-package
   ag
   :ensure t
   :bind (
-		 ("C-c l" . ag-project)
-		 )
+     ("C-c l" . ag-project)
+     )
   )
 
 ;; (use-package
@@ -853,8 +864,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;   :ensure t
 ;;   :init
 ;;   (progn
-;; 	(setq ido-use-virtual-buffers t)
-;; 	)
+;;  (setq ido-use-virtual-buffers t)
+;;  )
 ;;   )
 
 
@@ -875,45 +886,45 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :init
   (progn
-	(load "init-smartparens")
-	;; (sp-local-pair 'python-mode "'" nil :actions nil)
-	;; (sp-local-pair 'python-mode "\"" nil :actions nil)
-	)
+  (load "init-smartparens")
+  ;; (sp-local-pair 'python-mode "'" nil :actions nil)
+  ;; (sp-local-pair 'python-mode "\"" nil :actions nil)
+  )
   )
 
 
 (use-package
-	undo-tree
+  undo-tree
   :ensure t
   :init
   (progn
 (global-undo-tree-mode)
-	)
+  )
   )
 
 (use-package
-	git-gutter
+  git-gutter
   :ensure t
   :init
   (progn
 ;; git-gutter
 (global-git-gutter-mode +1)
-	)
+  )
   )
 
 
 
 (use-package
-	flycheck
+  flycheck
   :ensure t
   :init
   (progn
     (global-flycheck-mode)
     (setq flycheck-eslintrc "~/.eslintrc")
-    ;; (setq flycheck-highlighting-mode 'lines)
+    (setq flycheck-highlighting-mode 'lines)
 
     (flycheck-add-mode 'javascript-eslint 'web-mode)
-    (flycheck-add-mode 'javascript-eslint 'js2-jsx-mode)
+    (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
 
     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
@@ -943,7 +954,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
   (append flycheck-disabled-checkers
-		  '(javascript-jshint)))
+      '(javascript-jshint)))
 ;; use eslint with web-mode for jsx files
 ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -960,20 +971,20 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (add-hook 'js2-mode-hook #'setup-js2-mode)
-(add-hook 'js2-jsx-mode-hook #'setup-js2-mode)
+(add-hook 'rjsx-mode-hook #'setup-js2-mode)
 
 
-	)
+  )
 )
 
 (use-package
-	js2-mode
+  js2-mode
   :ensure t
   :init
   (progn
 
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
 
 (setq-default js2-basic-offset 2)
 
@@ -984,9 +995,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; need this).
 (let ((checkers (get 'javascript-eslint 'flycheck-next-checkers)))
   (put 'javascript-eslint 'flycheck-next-checkers
-	   (remove '(warning . javascript-jscs) checkers)))
+     (remove '(warning . javascript-jscs) checkers)))
 
-	)
+  )
   )
 (setq-default js2-basic-offset 2)
 
@@ -996,7 +1007,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    :ensure t
    :init
    (progn
- 	)
+  )
    )
 
  (use-package
@@ -1005,7 +1016,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    :init
    (progn
  (bash-completion-setup)
- 	)
+  )
    )
 
 
@@ -1017,7 +1028,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'less-css-mode)
 
- 	)
+  )
    )
 
  (use-package
@@ -1027,7 +1038,7 @@ smartscan
    (progn
 (smartscan-mode 1)
 
- 	)
+  )
    )
 
  (use-package
@@ -1036,7 +1047,7 @@ wgrep
    :init
    (progn
 
- 	)
+  )
    )
  (use-package
 wgrep-helm
@@ -1044,7 +1055,7 @@ wgrep-helm
    :init
    (progn
 
- 	)
+  )
    )
 
 ;;  (use-package
@@ -1056,7 +1067,7 @@ wgrep-helm
 ;; (setq projectile-completion-system 'helm)
 ;; (setq projectile-switch-project-action 'helm-projectile)
 
-;;  	)
+;;    )
 ;; )
 
 ;;  (use-package
@@ -1065,7 +1076,7 @@ wgrep-helm
 ;;    :init
 ;;    (progn
 ;; (helm-projectile-on)
-;;  	)
+;;    )
 ;; )
 
 
@@ -1081,7 +1092,7 @@ virtualenvwrapper
 (venv-initialize-eshell) ;; if you want eshell support
 (setq venv-location "~/virtualenvs/")
 
- 	)
+  )
    )
 
 
@@ -1097,19 +1108,19 @@ virtualenvwrapper
 
 ;; c-x 4 b to duplicate
 
-	;; https://www.emacswiki.org/emacs/TransposeWindows
+  ;; https://www.emacswiki.org/emacs/TransposeWindows
 (defun transpose-windows (arg)
   "Transpose the buffers shown in two windows."
   (interactive "p")
   (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
-	(while (/= arg 0)
-	  (let ((this-win (window-buffer))
-			(next-win (window-buffer (funcall selector))))
-		(set-window-buffer (selected-window) next-win)
-		(set-window-buffer (funcall selector) this-win)
-		;; (select-window (funcall selector)))
-		(select-window (selected-window)))
-	  (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+  (while (/= arg 0)
+    (let ((this-win (window-buffer))
+      (next-win (window-buffer (funcall selector))))
+    (set-window-buffer (selected-window) next-win)
+    (set-window-buffer (funcall selector) this-win)
+    ;; (select-window (funcall selector)))
+    (select-window (selected-window)))
+    (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 
 (global-set-key (kbd "C-c s") 'transpose-windows)
 
@@ -1117,14 +1128,14 @@ virtualenvwrapper
   "duplicate the buffers shown in current windows."
   (interactive "p")
   (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
-	(while (/= arg 0)
-	  (let ((this-win (window-buffer))
-			(next-win (window-buffer (funcall selector))))
-;;		(set-window-buffer (selected-window) next-win)
-		(set-window-buffer (funcall selector) this-win)
-		;; (select-window (funcall selector)))
-		(select-window (selected-window)))
-	  (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+  (while (/= arg 0)
+    (let ((this-win (window-buffer))
+      (next-win (window-buffer (funcall selector))))
+;;    (set-window-buffer (selected-window) next-win)
+    (set-window-buffer (funcall selector) this-win)
+    ;; (select-window (funcall selector)))
+    (select-window (selected-window)))
+    (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 
 (global-set-key (kbd "C-c d") 'duplicate-windows)
 
@@ -1132,11 +1143,11 @@ virtualenvwrapper
 
 ;; Window switching. (C-x o goes to the next window)
 (global-set-key (kbd "C-x O") (lambda ()
-								(interactive)
-								(other-window -1))) ;; back one
+                (interactive)
+                (other-window -1))) ;; back one
 (global-set-key (kbd "C-x C-o") (lambda ()
-								  (interactive)
-								  (other-window 2))) ;; forward two
+                  (interactive)
+                  (other-window 2))) ;; forward two
 
 
 ;; (mapc #'package-install my-package-list)
@@ -1162,10 +1173,28 @@ virtualenvwrapper
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+ (use-package
+  org
+  :ensure t
+  :bind (
+         :map org-mode-map
+              ("C-c C-y" . org-todo)
+              )
+   :init
+   (progn
+     (setq org-todo-keywords
+           '((sequence "TODO" "|" "DONE" "DELEGATED_JIHAE" "DELEGATED_HYUN" "DELEGATED_MOON")))
+     )
+  )
+
 ;; projectile
 
 (setq-default indent-tabs-mode nil)
 
 (setq tramp-default-method "ssh")
+(windmove-default-keybindings)
+
+(require 'ethan-wspace)
+(global-ethan-wspace-mode 1)
 
 (provide 'init)
