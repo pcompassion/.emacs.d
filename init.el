@@ -241,6 +241,7 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp?\\'" . web-mode))
 ;; web-mode
 
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
@@ -271,6 +272,7 @@
  '(custom-safe-themes
    (quote
     ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
@@ -295,7 +297,7 @@
  '(js3-indent-on-enter-key t)
  '(package-selected-packages
    (quote
-    (exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (eclim crappy-jsp-mode markdown-mode exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -1170,5 +1172,14 @@ virtualenvwrapper
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
+(require 'eclim)
+(setq eclimd-autostart t)
+
+(defun my-java-mode-hook ()
+    (eclim-mode t))
+
+;; (add-hook 'java-mode-hook 'my-java-mode-hook)
+(setq eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
 
 (provide 'init)
