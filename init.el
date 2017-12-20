@@ -4,7 +4,7 @@
 
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
-;; tutorials
+;; <--tutorials
 
 ;; emacs mac
 ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
@@ -297,7 +297,7 @@
  '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
  '(package-selected-packages
    (quote
-    (ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -559,6 +559,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (add-hook 'js2-mode-hook
+          (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
+(add-hook 'rjsx-mode-hook
           (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
 
 (defun python-import-path ()
@@ -990,6 +992,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (setq js2-mode-show-parse-errors nil)
 (setq js2-mode-show-strict-warnings nil)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;; Disable JSCS linting (optional but if you're using ESLint you probably don't
 ;; need this).
@@ -1194,10 +1198,27 @@ virtualenvwrapper
 (setq tramp-default-method "ssh")
 (windmove-default-keybindings)
 
-(require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
+;; (require 'ethan-wspace)
+;; (global-ethan-wspace-mode 1)
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
+(setq mode-require-final-newline nil)
+
+;; https://emacs.stackexchange.com/a/24572/12031
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt -i")
+
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython"))
+
+(require 'ob-ipython)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ipython . t)
+   ;; other languages..
+   ))
 
 (provide 'init)
