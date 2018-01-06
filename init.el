@@ -893,6 +893,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (load "init-smartparens")
   ;; (sp-local-pair 'python-mode "'" nil :actions nil)
   ;; (sp-local-pair 'python-mode "\"" nil :actions nil)
+  (setq sp-autoescape-string-quote nil)
   )
   )
 
@@ -1178,6 +1179,7 @@ virtualenvwrapper
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-startup-folded nil)
 
  (use-package
   org
@@ -1210,10 +1212,24 @@ virtualenvwrapper
 (require 'eclim)
 (setq eclimd-autostart t)
 
-(defun my-java-mode-hook ()
-    (eclim-mode t))
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-;; (add-hook 'java-mode-hook 'my-java-mode-hook)
+(add-hook 'python-mode-hook
+      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      )
+
+(defun my-java-mode-hook ()
+  (lambda ()
+    ;; (eclim-mode t)
+    (global-unset-key (kbd "C-M-o"))
+    (global-set-key java-mode-map (kbd "C-M-o") 'eclim-java-import-organize))
+  )
+
+(add-hook 'java-mode-hook 'my-java-mode-hook)
 (setq eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
 
 (setq mode-require-final-newline nil)
@@ -1225,12 +1241,12 @@ virtualenvwrapper
 (when (executable-find "ipython")
   (setq python-shell-interpreter "ipython"))
 
-(require 'ob-ipython)
+;; (require 'ob-ipython)
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ipython . t)
-   ;; other languages..
-   ))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((ipython . t)
+;;    ;; other languages..
+;;    ))
 
 (provide 'init)
