@@ -75,8 +75,8 @@
 ;; bash-completion
 
 ;; elpy
-(package-initialize)
-(elpy-enable)
+;;(package-initialize)
+;;(elpy-enable)
 ;; elpy
 
 
@@ -297,7 +297,7 @@
  '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
  '(package-selected-packages
    (quote
-    (ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile wgrep wgrep-helm flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode js2-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -777,6 +777,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
    (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
+   (define-key isearch-mode-map (kbd "M-s o") 'helm-occur-from-isearch)
 
    (helm-mode))
  :bind (
@@ -842,6 +843,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;  )
 ;;   )
 
+(use-package
+  rjsx-mode
+  :ensure t
+  )
 
 (use-package
   helm-ls-git
@@ -908,7 +913,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 ;; git-gutter
-(global-git-gutter-mode +1)
+;; (global-git-gutter-mode +1)
   )
   )
 
@@ -1194,8 +1199,8 @@ virtualenvwrapper
 (setq tramp-default-method "ssh")
 (windmove-default-keybindings)
 
-(require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
+;; (require 'ethan-wspace)
+;; (global-ethan-wspace-mode 1)
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
