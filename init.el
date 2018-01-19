@@ -4,7 +4,7 @@
 
 ;; tutorials
 ;; http://stackoverflow.com/a/1242760/433570
-;; tutorials
+;; <--tutorials
 
 ;; emacs mac
 ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
@@ -241,6 +241,7 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp?\\'" . web-mode))
 ;; web-mode
 
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
@@ -271,6 +272,7 @@
  '(custom-safe-themes
    (quote
     ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
@@ -559,6 +561,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (add-hook 'js2-mode-hook
+          (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
+(add-hook 'rjsx-mode-hook
           (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
 
 (defun python-import-path ()
@@ -894,6 +898,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (load "init-smartparens")
   ;; (sp-local-pair 'python-mode "'" nil :actions nil)
   ;; (sp-local-pair 'python-mode "\"" nil :actions nil)
+  (setq sp-autoescape-string-quote nil)
   )
   )
 
@@ -995,6 +1000,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (setq js2-mode-show-parse-errors nil)
 (setq js2-mode-show-strict-warnings nil)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;; Disable JSCS linting (optional but if you're using ESLint you probably don't
 ;; need this).
@@ -1177,6 +1184,7 @@ virtualenvwrapper
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-startup-folded nil)
 
  (use-package
   org
@@ -1204,5 +1212,46 @@ virtualenvwrapper
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
+
+(require 'eclim)
+(setq eclimd-autostart t)
+
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+
+(add-hook 'python-mode-hook
+      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      )
+
+(defun my-java-mode-hook ()
+  (lambda ()
+    ;; (eclim-mode t)
+    (global-unset-key (kbd "C-M-o"))
+    (global-set-key java-mode-map (kbd "C-M-o") 'eclim-java-import-organize))
+  )
+
+(add-hook 'java-mode-hook 'my-java-mode-hook)
+(setq eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
+
+(setq mode-require-final-newline nil)
+
+;; https://emacs.stackexchange.com/a/24572/12031
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt -i")
+
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython"))
+
+;; (require 'ob-ipython)
+
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((ipython . t)
+;;    ;; other languages..
+;;    ))
 
 (provide 'init)
