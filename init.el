@@ -725,6 +725,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (use-package
+  prettier-js
+  :ensure t
+  )
+
+(use-package
  helm
  :ensure t
  :diminish helm-mode
