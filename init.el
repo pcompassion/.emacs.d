@@ -972,6 +972,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun setup-js2-mode ()
   (flycheck-select-checker 'javascript-eslint)
+  (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
 
   (flycheck-mode))
 
@@ -989,7 +990,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 
-    (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
 
 (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
