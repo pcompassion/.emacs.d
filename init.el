@@ -560,11 +560,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     )
   )
 
-(add-hook 'js2-mode-hook
-          (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
-(add-hook 'rjsx-mode-hook
-          (lambda() (local-set-key (kbd "C-c i") #'js-import-path)))
-
 (defun python-import-path ()
   "python import path"
   (interactive)
@@ -993,6 +988,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 
+    (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
+
 (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
 
@@ -1198,7 +1195,10 @@ virtualenvwrapper
      (setq org-todo-keywords
            '((sequence "TODO" "|" "DONE" "DELEGATED_JIHAE" "DELEGATED_HYUN" "DELEGATED_MOON")))
      )
-  )
+   )
+
+;; dired-x
+
 
 ;; projectile
 
