@@ -735,7 +735,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm-swoop)
    (require 'helm-config)
   (setq helm-boring-file-regexp-list
-    '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old/" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js"))
+    '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
