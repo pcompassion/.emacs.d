@@ -1228,8 +1228,8 @@ virtualenvwrapper
   (exec-path-from-shell-initialize))
 
 
-(require 'eclim)
-(setq eclimd-autostart t)
+;; (require 'eclim)
+;; (setq eclimd-autostart t)
 
 (defun python-add-breakpoint ()
   (interactive)
