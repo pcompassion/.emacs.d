@@ -974,18 +974,24 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; https://github.com/mooz/js2-mode/issues/292
 
 
-(defun setup-js2-mode ()
-  (flycheck-select-checker 'javascript-eslint)
+;; (defun setup-js2-mode ()
+;;   (flycheck-select-checker 'javascript-eslint)
 
-  (flycheck-mode))
+;;   (flycheck-mode))
 
 
-(add-hook 'js2-mode-hook #'setup-js2-mode)
-(add-hook 'rjsx-mode-hook #'setup-js2-mode)
+;; (add-hook 'js2-mode-hook #'setup-js2-mode)
+;; (add-hook 'rjsx-mode-hook #'setup-js2-mode)
 
 
   )
 )
+
+(use-package
+  prettier-js
+  :ensure t
+
+  )
 
 (use-package
   js2-mode
