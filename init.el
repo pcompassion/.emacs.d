@@ -1242,6 +1242,7 @@ virtualenvwrapper
      (global-set-key (kbd "C-c c") 'org-capture)
      (setq org-default-notes-file "~/org/todo.org")
      (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+     (add-hook 'org-mode-hook 'org-indent-mode)
      )
    )
 
