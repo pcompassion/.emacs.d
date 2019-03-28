@@ -1321,4 +1321,13 @@ virtualenvwrapper
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
 
+ (use-package
+es-mode
+   :ensure t
+   :init
+   (progn
+   )
+)
+
+
 (provide 'init)
