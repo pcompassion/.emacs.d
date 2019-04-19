@@ -19,11 +19,14 @@
         ("MELPA"        . "https://melpa.org/packages/")
         ("GNU ELPA"     . "http://elpa.gnu.org/packages/")
         ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")
         )
       package-archive-priorities
       '(("MELPA Stable" . 7)
         ("GNU ELPA"     . 5)
-        ("MELPA"        . 10)))
+        ("MELPA"        . 10)
+        ("org"  . 11))
+)
 
 ;; (add-to-list 'package-archives
 ;;                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -274,12 +277,10 @@
  '(custom-safe-themes
    (quote
     ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
- '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
- '(es-always-pretty-print t)
  '(flycheck-check-syntax-automatically (quote (save new-line mode-enabled)))
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
@@ -288,12 +289,13 @@
     ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components")))
  '(grep-find-ignored-files
    (quote
-    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js")))
+    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "*.min.js" "plugins.js")))
+ '(helm-candidate-number-limit 500)
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-file-path-style (quote relative))
  '(helm-grep-ignored-directories
    (quote
-    ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/")))
+    ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static")))
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
@@ -303,7 +305,7 @@
  '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
  '(package-selected-packages
    (quote
-    (es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (org-babel whole-line-or-region ein wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -585,7 +587,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 ;; http://www.emacswiki.org/emacs/DeletingWhitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ssh xforwarding
 ;; http://people.csail.mit.edu/wentzlaf/faq/ssh_X.html
@@ -600,7 +602,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; (load-theme 'solarized-light t)
 
-(set-default-font "DejaVu Sans Mono 11")
+;; (set-default-font "DejaVu Sans Mono 11")
+(set-default-font "Monaco 14")
 ;; (set-default-font "Source Code Pro Medium 12")
 
 
@@ -740,7 +743,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (require 'helm-swoop)
    (require 'helm-config)
   (setq helm-boring-file-regexp-list
-    '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js" "js-modules/"))
+    '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "old/" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js" "assets/js-modules/*"))
    (global-set-key (kbd "C-c h") 'helm-command-prefix)
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
@@ -1227,13 +1230,26 @@ virtualenvwrapper
 (setq org-log-done t)
 (setq org-startup-folded nil)
 
- (use-package
-  org
+ (use-package org
   :ensure t
   :bind* (
          :map org-mode-map
               ("C-c C-y" . org-todo)
               )
+  :config
+
+  (add-to-list 'org-babel-load-languages '(ipython . t))
+  (add-to-list 'org-babel-load-languages '(jupyter . t))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   org-babel-load-languages)
+  ;; (org-babel-jupyter-override-src-block "python")
+  (setq org-confirm-babel-evaluate nil)
+  ;; (setq org-babel-default-header-args:jupyter-python
+  ;;       '((:async . "yes")
+  ;;         (:session . "python")
+  ;;         (:results . "raw drawer")
+  ;;         ))
    :init
    (progn
      (setq org-todo-keywords
@@ -1243,9 +1259,19 @@ virtualenvwrapper
      (setq org-default-notes-file "~/org/todo.org")
      (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
      )
-   )
 
+
+   )
 ;; dired-x
+
+ (use-package
+   ob-ipython
+   :ensure t
+   :init
+   (progn
+
+  )
+   )
 
 
 ;; projectile
@@ -1320,4 +1346,19 @@ virtualenvwrapper
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
 
+(use-package whole-line-or-region
+  :ensure t
+  :diminish whole-line-or-region-mode
+  :config
+  (whole-line-or-region-mode t)
+  (make-variable-buffer-local 'whole-line-or-region-mode))
+
+(use-package zmq
+   :ensure t
+   )
+(provide 'init)
+
+(use-package jupyter
+   :ensure t
+   )
 (provide 'init)
