@@ -301,9 +301,10 @@
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
  '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
+ '(org-link-file-path-type (quote relative))
  '(package-selected-packages
    (quote
-    (ein es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -746,6 +747,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (global-unset-key (kbd "C-x c"))
    (setq helm-ff-skip-boring-files t)
    (setq helm-buffer-max-length 40)
+   (setq helm-ff-history-max-length 500)
 
    (setq helm-candidate-number-limit 100)
    ;; From https://gist.github.com/antifuchs/9238468
@@ -909,18 +911,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-(use-package
-  smartparens
-  :ensure t
-  :init
-  (progn
-  (load "init-smartparens")
-  ;; (sp-local-pair 'python-mode "'" nil :actions nil)
-  ;; (sp-local-pair 'python-mode "\"" nil :actions nil)
-  (setq sp-autoescape-string-quote nil)
-  (setq sp-escape-quotes-after-insert nil)
-  )
-  )
+;; (use-package
+;;   smartparens
+;;   :ensure t
+;;   :init
+;;   (progn
+;;   (load "init-smartparens")
+;;   ;; (sp-local-pair 'python-mode "'" nil :actions nil)
+;;   ;; (sp-local-pair 'python-mode "\"" nil :actions nil)
+;;   (setq sp-autoescape-string-quote nil)
+;;   (setq sp-escape-quotes-after-insert nil)
+;;   )
+;;   )
 
 (use-package
   expand-region
@@ -1015,14 +1017,17 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (defun setup-js2-mode ()
-  (flycheck-select-checker 'javascript-eslint)
   (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
+  (define-key js2-mode-map (kbd "C-c C-f") 'sgml-skip-tag-forward)
+  (define-key js2-mode-map (kbd "C-c C-b") 'sgml-skip-tag-backward)
+  (flycheck-select-checker 'javascript-eslint)
 
   (flycheck-mode))
 
 
 (add-hook 'js2-mode-hook #'setup-js2-mode)
 (add-hook 'rjsx-mode-hook #'setup-js2-mode)
+
 
 
   )
@@ -1058,6 +1063,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
  (use-package
      dash
+   :ensure t
+   :init
+   (progn
+  )
+   )
+
+ (use-package
+   rjsx-mode
    :ensure t
    :init
    (progn
@@ -1243,6 +1256,9 @@ virtualenvwrapper
      (global-set-key (kbd "C-c c") 'org-capture)
      (setq org-default-notes-file "~/org/todo.org")
      (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+     (add-hook 'org-mode-hook 'org-indent-mode)
+     (add-to-list 'org-structure-template-alist '("python" . "src python"))
+     (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
      )
    )
 
@@ -1320,5 +1336,49 @@ virtualenvwrapper
   (interactive)
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
+
+ (use-package
+es-mode
+   :ensure t
+   :init
+   (progn
+   )
+)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :custom
+  (exec-path-from-shell-check-startup-files nil)
+  :config
+  (push "HISTFILE" exec-path-from-shell-variables)
+  (exec-path-from-shell-initialize))
+
+(use-package projectile :ensure t)
+(use-package treemacs :ensure t)
+(use-package yasnippet :ensure t)
+(use-package lsp-mode :ensure t)
+(use-package hydra :ensure t)
+(use-package company-lsp :ensure t)
+(use-package lsp-ui :ensure t)
+(use-package lsp-java :ensure t :after lsp
+  :config (add-hook 'java-mode-hook 'lsp))
+
+(use-package dap-mode
+  :ensure t :after lsp-mode
+  :config
+  (dap-mode t)
+  (dap-ui-mode t))
+
+(use-package dap-java :after (lsp-java))
+(use-package lsp-java-treemacs :after (treemacs))
+
+(require 'lsp-java-boot)
+
+;; to enable the lenses
+(add-hook 'lsp-mode-hook #'lsp-lens-mode)
+(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+(dap-mode 1)
+(dap-ui-mode 1)
+(require 'dap-lldb)
 
 (provide 'init)
