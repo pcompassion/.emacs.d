@@ -1364,30 +1364,41 @@ es-mode
 (use-package projectile :ensure t)
 (use-package treemacs :ensure t)
 (use-package yasnippet :ensure t)
-(use-package lsp-mode :ensure t)
+;; (use-package lsp-mode :ensure t)
 (use-package hydra :ensure t)
-(use-package company-lsp :ensure t)
-(use-package lsp-ui :ensure t)
-(use-package lsp-java :ensure t :after lsp
-  :config (add-hook 'java-mode-hook 'lsp))
+;; (use-package company-lsp :ensure t)
+;; (use-package lsp-ui :ensure t)
+;; (use-package lsp-java :ensure t :after lsp
+;;   :config (add-hook 'java-mode-hook 'lsp))
 
-(use-package dap-mode
-  :ensure t :after lsp-mode
-  :config
-  (dap-mode t)
-  (dap-ui-mode t))
+;; (use-package dap-mode
+;;   :ensure t :after lsp-mode
+;;   :config
+;;   (dap-mode t)
+;;   (dap-ui-mode t))
 
-(use-package dap-java :after (lsp-java))
-(use-package lsp-java-treemacs :after (treemacs))
+;; (use-package dap-java :after (lsp-java))
+;; (use-package lsp-java-treemacs :after (treemacs))
 
-(require 'lsp-java-boot)
+;; (require 'lsp-java-boot)
 
 ;; to enable the lenses
-(add-hook 'lsp-mode-hook #'lsp-lens-mode)
-(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-(dap-mode 1)
-(dap-ui-mode 1)
-(require 'dap-lldb)
+;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+;; (dap-mode 1)
+;; (dap-ui-mode 1)
+;; (require 'dap-lldb)
+
+(use-package
+   jedi
+   :ensure t
+   :init
+   (progn
+     (add-hook 'python-mode-hook 'jedi:setup)
+     (setq jedi:complete-on-dot t)
+   )
+)
+
 
 
 (use-package helm-ag
@@ -1420,5 +1431,7 @@ es-mode
    (setq projectile-use-git-grep t)
 
   )
+
+(setq load-prefer-newer t)
 
 (provide 'init)
