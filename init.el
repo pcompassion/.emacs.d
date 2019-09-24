@@ -293,7 +293,13 @@
    (quote
     ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$" "\\.min\\.css$" "jquery\\.js" "js-modules/" "djangojs/init.js")))
  '(helm-ff-transformer-show-only-basename nil)
+ '(helm-grep-default-command
+   "grep --exclude-standard --no-index --color=always -a -d skip %e -n%cH -e %p %f")
+ '(helm-grep-default-recurse-command
+   "grep --color=always -a -d recurse --exclude-standard --no-index %e -n%cH -e %p %f")
  '(helm-grep-file-path-style (quote relative))
+ '(helm-grep-git-grep-command
+   "git --no-pager grep --exclude-standard --no-index -n%cH --color=always --full-name -e %p -- %f")
  '(helm-grep-ignored-directories
    (quote
     ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/")))
@@ -310,7 +316,7 @@
  '(org-link-file-path-type (quote relative))
  '(package-selected-packages
    (quote
-    (docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -712,8 +718,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
 
-(global-set-key (kbd "M-.") 'undo)
-(global-set-key (kbd "M-,") 'redo)
+;; (global-set-key (kbd "M-.") 'undo)
+;; (global-set-key (kbd "M-,") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-n") 'next-error)
@@ -940,12 +946,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
   )
 
+;; (use-package
+;;   tern
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;;   )
+;;   )
+
+
 (use-package
-  tern
+  xref-js2
   :ensure t
   :init
   (progn
-  )
+
+    (add-hook 'js2-mode-hook (lambda ()
+                               (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+    )
   )
 
 
@@ -1029,6 +1048,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (define-key js2-mode-map (kbd "C-c C-f") 'sgml-skip-tag-forward)
   (define-key js2-mode-map (kbd "C-c C-b") 'sgml-skip-tag-backward)
   (flycheck-select-checker 'javascript-eslint)
+  (define-key js2-mode-map (kbd "M-.") nil)
+
+
 
   (flycheck-mode))
 
