@@ -718,8 +718,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
 
-;; (global-set-key (kbd "M-.") 'undo)
-;; (global-set-key (kbd "M-,") 'redo)
+(global-set-key (kbd "M-.") 'undo)
+(global-set-key (kbd "M-,") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-n") 'next-error)
@@ -965,6 +965,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (add-hook 'js2-mode-hook (lambda ()
                                (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
     )
+
+  :bind
+
+         (:map js2-mode-map
+               ("C-." . xref-find-definitions)
+               ("C-," . xref-pop-marker-stack)
+               )
+
   )
 
 
