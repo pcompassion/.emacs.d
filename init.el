@@ -289,11 +289,23 @@
  '(grep-find-ignored-files
    (quote
     (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js")))
+ '(helm-boring-file-regexp-list
+   (quote
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$" "\\.min\\.css$" "jquery\\.js" "js-modules/" "djangojs/init.js")))
  '(helm-ff-transformer-show-only-basename nil)
+ '(helm-grep-default-command
+   "grep --exclude-standard --no-index --color=always -a -d skip %e -n%cH -e %p %f")
+ '(helm-grep-default-recurse-command
+   "grep --color=always -a -d recurse --exclude-standard --no-index %e -n%cH -e %p %f")
  '(helm-grep-file-path-style (quote relative))
+ '(helm-grep-git-grep-command
+   "git --no-pager grep --exclude-standard --no-index -n%cH --color=always --full-name -e %p -- %f")
  '(helm-grep-ignored-directories
    (quote
     ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/")))
+ '(helm-grep-ignored-files
+   (quote
+    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js" "djangojs/init.js")))
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(helm-split-window-default-side (quote right))
  '(js2-strict-trailing-comma-warning nil)
@@ -304,7 +316,7 @@
  '(org-link-file-path-type (quote relative))
  '(package-selected-packages
    (quote
-    (pyvenv tide typescript-mode company-quickhelp lsp-java lsp-mode yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -790,6 +802,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
    (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
+   (setq helm-candidate-number-limit 9999)
+
 
    (helm-mode))
  :bind (
@@ -932,12 +946,33 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
   )
 
+;; (use-package
+;;   tern
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;;   )
+;;   )
+
+
 (use-package
-  tern
+  xref-js2
   :ensure t
   :init
   (progn
-  )
+
+    (add-hook 'js2-mode-hook (lambda ()
+                               (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+    )
+
+  :bind
+
+         (:map js2-mode-map
+               ("C-." . xref-find-definitions)
+               ("C-," . xref-pop-marker-stack)
+               )
+
   )
 
 
@@ -1021,6 +1056,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (define-key js2-mode-map (kbd "C-c C-f") 'sgml-skip-tag-forward)
   (define-key js2-mode-map (kbd "C-c C-b") 'sgml-skip-tag-backward)
   (flycheck-select-checker 'javascript-eslint)
+  (define-key js2-mode-map (kbd "M-.") nil)
+
+
 
   (flycheck-mode))
 
@@ -1354,11 +1392,10 @@ es-mode
   (exec-path-from-shell-initialize))
 
 (use-package projectile :ensure t)
-
-;; (use-package treemacs :ensure t)
-;; (use-package yasnippet :ensure t)
+(use-package treemacs :ensure t)
+(use-package yasnippet :ensure t)
 ;; (use-package lsp-mode :ensure t)
-;; (use-package hydra :ensure t)
+(use-package hydra :ensure t)
 ;; (use-package company-lsp :ensure t)
 ;; (use-package lsp-ui :ensure t)
 ;; (use-package lsp-java :ensure t :after lsp
@@ -1382,81 +1419,49 @@ es-mode
 ;; (dap-ui-mode 1)
 ;; (require 'dap-lldb)
 
-;; https://www.reddit.com/r/emacs/comments/8yuuft/config_snippet_for_setting_up_emacs_for_react/
-(use-package flycheck
+(use-package
+   jedi
+   :ensure t
+   :init
+   (progn
+     (add-hook 'python-mode-hook 'jedi:setup)
+     (setq jedi:complete-on-dot t)
+   )
+)
+
+
+
+(use-package helm-ag
   :ensure t
   :config
-  (add-hook 'typescript-mode-hook 'flycheck-mode))
+  (setq helm-ag-insert-at-point nil)
 
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
+  )
 
-(use-package company
+
+(use-package helm-projectile
   :ensure t
   :config
-  (setq company-show-numbers t)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the the completion popup-isearch-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
-  (global-company-mode))
 
-(use-package company-quickhelp
-  :ensure t
-  :init
-  (company-quickhelp-mode 1)
-  (use-package pos-tip
-    :ensure t))
+   ;; (defun my-helm-grep-do-git-grep (arg)
+   ;; (interactive "P")
+   ;;   (setq helm-ag-insert-at-point nil)
+   ;;   (helm-projectile-ag arg)
+   ;;   )
+   ;; (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
 
-(use-package web-mode
-  :ensure t
-  :mode (("\\.html?\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode))
-  :config
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
-        web-mode-block-padding 2
-        web-mode-comment-style 2
+   ;; (defun my-helm-grep-do-git-grep-at-point (arg)
+   ;; (interactive "P")
+   ;;   (setq helm-ag-insert-at-point 'symbol)
+   ;;   (helm-projectile-ag arg)
+   ;;   )
+   ;; (global-set-key (kbd "C-c k") 'my-helm-grep-do-git-grep-at-point)
+   (setq helm-ag-command-option " -U" )
 
-        web-mode-enable-css-colorization t
-        web-mode-enable-auto-pairing t
-        web-mode-enable-comment-keywords t
-        web-mode-enable-current-element-highlight t
-	web-mode-enable-auto-indentation nil
-        )
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-		(setup-tide-mode))))
-  ;; enable typescript-tslint checker
-  (flycheck-add-mode 'typescript-tslint 'web-mode))
+   (setq projectile-use-git-grep t)
 
-(use-package typescript-mode
-  :ensure t
-  :config
-  (setq typescript-indent-level 2)
-  (add-hook 'typescript-mode #'subword-mode))
+  )
 
-(use-package tide
-  :init
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)))
-
-(use-package css-mode
-  :config
-(setq css-indent-offset 2))
+(setq load-prefer-newer t)
 
 (provide 'init)
