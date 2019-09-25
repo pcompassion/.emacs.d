@@ -304,7 +304,7 @@
  '(org-link-file-path-type (quote relative))
  '(package-selected-packages
    (quote
-    (vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (pyvenv tide typescript-mode company-quickhelp lsp-java lsp-mode yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed magit auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -1354,31 +1354,109 @@ es-mode
   (exec-path-from-shell-initialize))
 
 (use-package projectile :ensure t)
-(use-package treemacs :ensure t)
-(use-package yasnippet :ensure t)
-(use-package lsp-mode :ensure t)
-(use-package hydra :ensure t)
-(use-package company-lsp :ensure t)
-(use-package lsp-ui :ensure t)
-(use-package lsp-java :ensure t :after lsp
-  :config (add-hook 'java-mode-hook 'lsp))
 
-(use-package dap-mode
-  :ensure t :after lsp-mode
-  :config
-  (dap-mode t)
-  (dap-ui-mode t))
+;; (use-package treemacs :ensure t)
+;; (use-package yasnippet :ensure t)
+;; (use-package lsp-mode :ensure t)
+;; (use-package hydra :ensure t)
+;; (use-package company-lsp :ensure t)
+;; (use-package lsp-ui :ensure t)
+;; (use-package lsp-java :ensure t :after lsp
+;;   :config (add-hook 'java-mode-hook 'lsp))
 
-(use-package dap-java :after (lsp-java))
-(use-package lsp-java-treemacs :after (treemacs))
+;; (use-package dap-mode
+;;   :ensure t :after lsp-mode
+;;   :config
+;;   (dap-mode t)
+;;   (dap-ui-mode t))
 
-(require 'lsp-java-boot)
+;; (use-package dap-java :after (lsp-java))
+;; (use-package lsp-java-treemacs :after (treemacs))
+
+;; (require 'lsp-java-boot)
 
 ;; to enable the lenses
-(add-hook 'lsp-mode-hook #'lsp-lens-mode)
-(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-(dap-mode 1)
-(dap-ui-mode 1)
-(require 'dap-lldb)
+;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+;; (dap-mode 1)
+;; (dap-ui-mode 1)
+;; (require 'dap-lldb)
+
+;; https://www.reddit.com/r/emacs/comments/8yuuft/config_snippet_for_setting_up_emacs_for_react/
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'typescript-mode-hook 'flycheck-mode))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+(use-package company
+  :ensure t
+  :config
+  (setq company-show-numbers t)
+  (setq company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the the completion popup-isearch-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
+  (global-company-mode))
+
+(use-package company-quickhelp
+  :ensure t
+  :init
+  (company-quickhelp-mode 1)
+  (use-package pos-tip
+    :ensure t))
+
+(use-package web-mode
+  :ensure t
+  :mode (("\\.html?\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode)
+         ("\\.jsx\\'" . web-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-block-padding 2
+        web-mode-comment-style 2
+
+        web-mode-enable-css-colorization t
+        web-mode-enable-auto-pairing t
+        web-mode-enable-comment-keywords t
+        web-mode-enable-current-element-highlight t
+	web-mode-enable-auto-indentation nil
+        )
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+		(setup-tide-mode))))
+  ;; enable typescript-tslint checker
+  (flycheck-add-mode 'typescript-tslint 'web-mode))
+
+(use-package typescript-mode
+  :ensure t
+  :config
+  (setq typescript-indent-level 2)
+  (add-hook 'typescript-mode #'subword-mode))
+
+(use-package tide
+  :init
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)))
+
+(use-package css-mode
+  :config
+(setq css-indent-offset 2))
 
 (provide 'init)
