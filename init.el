@@ -566,11 +566,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (defun js-import-path ()
   "javascript import path"
   (interactive)
-  (let ((file-name (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+
+  (let* (
+        (file-name (buffer-file-name (window-buffer (minibuffer-selected-window))))
+        (root (cond ((string-match-p (regexp-quote "static/") file-name) "static/")
+                    ((string-match-p (regexp-quote "src/") file-name) "src/")
+                    (t "static/")
+                    )
+              ))
     (kill-new (car (last
                     (split-string
                      (car (split-string file-name "\\."))
-                     "static/"))))
+                     root))))
     )
   )
 
