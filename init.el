@@ -299,7 +299,7 @@
    "grep --color=always -a -d recurse --exclude-standard --no-index %e -n%cH -e %p %f")
  '(helm-grep-file-path-style (quote relative))
  '(helm-grep-git-grep-command
-   "git --no-pager grep --exclude-standard --no-index -n%cH --color=always --full-name -e %p -- %f")
+   "git --no-pager grep -n%cH --color=always --full-name -e %p -- %f")
  '(helm-grep-ignored-directories
    (quote
     ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/")))
@@ -316,7 +316,7 @@
  '(org-link-file-path-type (quote relative))
  '(package-selected-packages
    (quote
-    (tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
+    (polymode tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode helm sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag)))
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
@@ -572,11 +572,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (defun js-import-path ()
   "javascript import path"
   (interactive)
-  (let ((file-name (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+
+  (let* (
+        (file-name (buffer-file-name (window-buffer (minibuffer-selected-window))))
+        (root (cond ((string-match-p (regexp-quote "static/") file-name) "static/")
+                    ((string-match-p (regexp-quote "src/") file-name) "src/")
+                    (t "static/")
+                    )
+              ))
     (kill-new (car (last
                     (split-string
                      (car (split-string file-name "\\."))
-                     "static/"))))
+                     root))))
     )
   )
 
@@ -1106,6 +1113,29 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (progn
   )
    )
+
+
+;; https://github.com/felipeochoa/rjsx-mode/issues/71#issuecomment-513998173
+
+;; :head-matcher "css\`"
+
+(use-package polymode
+  :ensure t
+  :after rjsx-mode
+  :config
+  (define-hostmode poly-rjsx-hostmode nil
+    "RJSX hostmode."
+    :mode 'rjsx-mode)
+  (define-innermode poly-rjsx-cssinjs-innermode nil
+    :mode 'css-mode
+    :head-matcher "css\`\\|styled\.[[:alnum:]]+\`"
+    :tail-matcher "\`"
+    :head-mode 'host
+    :tail-mode 'host)
+  (define-polymode poly-rjsx-mode
+    :hostmode 'poly-rjsx-hostmode
+    :innermodes '(poly-rjsx-cssinjs-innermode))
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . poly-rjsx-mode)))
 
  (use-package
    rjsx-mode
