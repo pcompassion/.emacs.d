@@ -1001,9 +1001,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
     (global-flycheck-mode)
-    (setq flycheck-eslintrc "~/.eslintrc")
     (setq flycheck-highlighting-mode 'lines)
-
+    (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -1460,5 +1459,22 @@ es-mode
 
 (setq load-prefer-newer t)
 (set-fringe-mode 0)
+
+
+(defun camdez/show-buffer-file-name ()
+  "Show the full path to the current file in the minibuffer."
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if file-name
+        (progn
+          (message file-name)
+          (kill-new file-name))
+      (error "Buffer not visiting a file"))))
+
+
+(global-set-key (kbd "C-h h") (lambda ()
+                (interactive)
+                (camdez/show-buffer-file-name))) ;;
+
 
 (provide 'init)
