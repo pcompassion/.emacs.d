@@ -567,11 +567,17 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   "javascript import path"
   (interactive)
   (let ((file-name (buffer-file-name (window-buffer (minibuffer-selected-window)))))
-    (kill-new (car (last
-                    (split-string
-                     (car (split-string file-name "\\."))
-                     "static/"))))
-    )
+
+    (cond  ((string-match-p (regexp-quote "static") file-name)
+        (kill-new (car (last
+                        (split-string
+                         (car (split-string file-name "\\."))
+                         "static/")))))
+    (t (kill-new (car (last
+                      (split-string
+                       (car (split-string file-name "\\."))
+                       "src/")))))
+    ))
   )
 
 (defun python-import-path ()
