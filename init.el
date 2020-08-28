@@ -1077,7 +1077,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx$" . rjsx-mode))
 
-(setq-default js2-basic-offset 2)
+(setq-default js2-indent-level 2)
 
 (setq js2-mode-show-parse-errors nil)
 (setq js2-mode-show-strict-warnings nil)
@@ -1092,7 +1092,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   )
   )
-(setq-default js2-basic-offset 2)
 
 
  (use-package
