@@ -1,13 +1,20 @@
+(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
+(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+      (when (file-exists-p spacemacs-setting)
+        (load-file spacemacs-setting))
+      )
 
 
-;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+(setq mac-command-modifier 'meta)
 
-;; tutorials
-;; http://stackoverflow.com/a/1242760/433570
-;; <--tutorials
+;; ;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
-;; emacs mac
-;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
+;; ;; tutorials
+;; ;; http://stackoverflow.com/a/1242760/433570
+;; ;; <--tutorials
+
+;; ;; emacs mac
+;; ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -29,8 +36,12 @@
 ;;                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
 ;; (add-to-list 'package-archives
 ;;       '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
 
+
+(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+  (unless (file-exists-p spacemacs-setting)
+    (package-initialize));; no need for spacemacs
+  )
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -95,6 +106,12 @@
 ;;   )
 
 ;; <-- ac-helm
+
+
+(use-package
+  magit
+  :ensure t
+  )
 
 ;; magit-find-file
 ;; Magit rules!
@@ -795,8 +812,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    candidates)
    (advice-add 'helm-buffers-sort-transformer :around 'helm-buffers-sort-transformer@donot-sort)
 
-   (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
-   (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
+   ;; (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
+   ;; (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
    (setq helm-candidate-number-limit 9999)
 
@@ -1351,6 +1368,18 @@ virtualenvwrapper
 
 ;; (require 'ob-ipython)
 
+(use-package
+  es-mode
+  :ensure t
+  :init
+  (progn
+    )
+  )
+
+
+(use-package jupyter :ensure t)
+
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
@@ -1382,13 +1411,7 @@ virtualenvwrapper
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
 
- (use-package
-es-mode
-   :ensure t
-   :init
-   (progn
-   )
-)
+
 
 (use-package exec-path-from-shell
   :ensure t
@@ -1490,7 +1513,6 @@ es-mode
 
 
 
-(use-package jupyter :ensure t)
 
 (use-package ox-ipynb
   :load-path "local/ox-ipynb/")
