@@ -303,7 +303,7 @@
  '(network-security-level 'medium)
  '(org-link-file-path-type 'relative)
  '(package-selected-packages
-   '(julia-mode julia-repl jupyter typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -1490,9 +1490,22 @@ es-mode
 
 
 
-(use-package jupyter :ensure t)
+
 
 (use-package ox-ipynb
   :load-path "local/ox-ipynb/")
+
+
+(use-package jupyter :ensure t)
+
+;; (use-package xclip
+;;   :ensure t
+;;   :config
+;;   (setq helm-ag-insert-at-point nil)
+;;   (xclip-mode 1)
+;;   )
+
+;; (setq x-select-enable-clipboard t)
+;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 (provide 'init)
