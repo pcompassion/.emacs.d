@@ -1493,7 +1493,7 @@ es-mode
 
 
 (use-package ox-ipynb
-  :load-path "local/ox-ipynb/")
+  :load-path "site-lisp/ox-ipynb/")
 
 
 (use-package jupyter :ensure t)
