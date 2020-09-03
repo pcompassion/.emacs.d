@@ -731,14 +731,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
 
-(global-set-key (kbd "M-.") 'undo)
-(global-set-key (kbd "M-,") 'redo)
+(global-set-key (kbd "C--") 'undo)
+(global-set-key (kbd "C-=") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-n") 'next-error)
 (global-set-key (kbd "M-p") 'previous-error)
 (global-set-key (kbd "C-c m m v") 'vc-git-grep)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "M-=") 'er/expand-region)
 (global-set-key (kbd "C-h C-p") 'previous-buffer)
 (global-set-key (kbd "C-h C-n") 'previous-buffer)
 
@@ -757,8 +757,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   )
 
-(use-package
- helm
+(use-package helm
  :ensure t
  :diminish helm-mode
  :init
@@ -1368,11 +1367,34 @@ virtualenvwrapper
 
 ;; (require 'ob-ipython)
 
+
+(use-package
+  ob-ipython
+  :ensure t
+  :init
+  (progn
+    )
+  )
+
+
 (use-package
   es-mode
   :ensure t
   :init
   (progn
+    )
+  )
+
+
+(use-package
+  python
+  :ensure t
+  :init
+  (progn
+
+    (when (executable-find "ipython")
+      (setq python-shell-interpreter "ipython"))
+
     )
   )
 
@@ -1386,6 +1408,7 @@ virtualenvwrapper
    ;; (ipython . t)
    (emacs-lisp . t)
    ;; (julia . t)
+   (ipython . t)
    (python . t)
    (elasticsearch . t)
    (shell . t)
@@ -1518,7 +1541,18 @@ virtualenvwrapper
   :load-path "site-lisp/ox-ipynb/")
 
 
-(use-package jupyter :ensure t)
+(use-package jupyter
+  :ensure t
+  :init
+  (progn
+    (defun jupyter-repl-font-lock-override (_ignore beg end &optional verbose)
+      `(jit-lock-bounds ,beg . ,end))
+
+    (advice-add #'jupyter-repl-font-lock-fontify-region :override #'jupyter-repl-font-lock-override)
+    ;; (advice-remove #'jupyter-repl-font-lock-fontify-region #'jupyter-repl-font-lock-override)
+    )
+
+  )
 
 ;; (use-package xclip
 ;;   :ensure t
@@ -1529,5 +1563,6 @@ virtualenvwrapper
 
 ;; (setq x-select-enable-clipboard t)
 ;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
 
 (provide 'init)
