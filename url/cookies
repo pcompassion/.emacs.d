@@ -2,8 +2,9 @@
 ;; Automatically generated file!!! DO NOT EDIT!!!
 
 (setq url-cookie-storage
- '(("zibann.kr"
-  [url-cookie "username-zibann-kr-10088" "2|1:0|10:1598509226|24:username-zibann-kr-10088|44:NTYzOWIxZjBkMGM1NDQ5NDg2MzFjNGY1ZDlhNzdjMzk=|05e7db2e93ca8c670cf96eefa6aedb2ee76eac994f657068205d8fff3479e89e" "Sat, 26 Sep 2020 06:20:26 GMT" "/" "zibann.kr" nil]))
+ '((".coursera.org"
+  [url-cookie "CSRF3-Token" "1602387213.NMdHbwhzSmRItIhm" "Sun Oct 11 03:33:34 2020 GMT" "/" ".coursera.org" nil]
+  [url-cookie "__204u" "1468286868-1601523213468" "Fri Oct 01 03:33:34 2021 GMT" "/" ".coursera.org" nil]))
 )
 (setq url-cookie-secure-storage
  'nil)

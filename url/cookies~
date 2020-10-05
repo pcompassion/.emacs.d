@@ -3,7 +3,7 @@
 
 (setq url-cookie-storage
  '(("zibann.kr"
-  [url-cookie "username-zibann-kr-10088" "2|1:0|10:1598508316|24:username-zibann-kr-10088|44:MmRkOWJjZjQ4YTM1NGZlNmJkZDcyZjAwMTI0YWJkM2Q=|cb8f62c5481c733add6cf1c657164c9702f88040e6a5e24ff74c8681ca8e2c9f" "Sat, 26 Sep 2020 06:05:16 GMT" "/" "zibann.kr" nil]))
+  [url-cookie "username-zibann-kr-10088" "2|1:0|10:1598509226|24:username-zibann-kr-10088|44:NTYzOWIxZjBkMGM1NDQ5NDg2MzFjNGY1ZDlhNzdjMzk=|05e7db2e93ca8c670cf96eefa6aedb2ee76eac994f657068205d8fff3479e89e" "Sat, 26 Sep 2020 06:20:26 GMT" "/" "zibann.kr" nil]))
 )
 (setq url-cookie-secure-storage
  'nil)
