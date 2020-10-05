@@ -48,6 +48,8 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(require 'use-package)
+
 
 ;; http://stackoverflow.com/a/10093312/433570
 
@@ -90,6 +92,27 @@
 ;; (package-initialize)
 ;; (elpy-enable)
 ;; elpy
+
+
+(use-package elpy
+  ;; :straight t
+  :bind
+  (:map elpy-mode-map
+        ("C-M-n" . elpy-nav-forward-block)
+        ("C-M-p" . elpy-nav-backward-block))
+  :hook ((elpy-mode . flycheck-mode)
+          (elpy-mode . (lambda ()
+                         (set (make-local-variable 'company-backends)
+                              '((elpy-company-backend :with company-yasnippet)))))
+				 )
+  :init
+  (elpy-enable)
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
+  (setq elpy-shell-echo-output nil)
+  (setq elpy-rpc-python-command "python3")
+  (setq elpy-rpc-timeout 2))
 
 
 ;; --> ac-helm
@@ -320,7 +343,7 @@
  '(network-security-level 'medium)
  '(org-link-file-path-type 'relative)
  '(package-selected-packages
-   '(jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -704,15 +727,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;----------
 ;; Keybinding to add breakpoint:
-(defun python-add-breakpoint ()
-  (interactive)
-  (newline-and-indent)
-  (insert "import pdb; pdb.set_trace()")
-  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+;; (defun python-add-breakpoint ()
+;;   (interactive)
+;;   (newline-and-indent)
+;;   (insert "import pdb; pdb.set_trace()")
+;;   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-(add-hook 'python-mode-hook
-      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
-      )
+;; (add-hook 'python-mode-hook
+;;       (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+;;       )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -1007,10 +1030,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 ;; git-gutter
-(global-git-gutter-mode +1)
+;;(global-git-gutter-mode +1)
   )
   )
-
 
 
 (use-package
@@ -1024,7 +1046,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
-
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
 ;; (flycheck-define-checker javascript-jslint-reporter
@@ -1343,7 +1366,7 @@ virtualenvwrapper
   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (add-hook 'python-mode-hook
-      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      (lambda () (define-key python-mode-map (kbd "C-c C-w") 'python-add-breakpoint))
       )
 
 (defun my-java-mode-hook ()
@@ -1553,6 +1576,25 @@ virtualenvwrapper
     )
 
   )
+
+(use-package logstash-conf
+  :ensure t
+)
+
+(use-package docker-compose-mode
+  :ensure t
+)
+
+(use-package dockerfile-mode
+  :ensure t
+)
+
+(use-package blacken
+  :ensure t
+  :hook (python-mode . blacken-mode)
+  ;; :config
+  ;; (setq blacken-line-length '88)
+)
 
 ;; (use-package xclip
 ;;   :ensure t
