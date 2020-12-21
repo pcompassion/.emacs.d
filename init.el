@@ -94,25 +94,25 @@
 ;; elpy
 
 
-(use-package elpy
-  ;; :straight t
-  :bind
-  (:map elpy-mode-map
-        ("C-M-n" . elpy-nav-forward-block)
-        ("C-M-p" . elpy-nav-backward-block))
-  :hook ((elpy-mode . flycheck-mode)
-          (elpy-mode . (lambda ()
-                         (set (make-local-variable 'company-backends)
-                              '((elpy-company-backend :with company-yasnippet)))))
-				 )
-  :init
-  (elpy-enable)
-  :config
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
-  (setq elpy-shell-echo-output nil)
-  (setq elpy-rpc-python-command "python3")
-  (setq elpy-rpc-timeout 2))
+;; (use-package elpy
+;;   ;; :straight t
+;;   :bind
+;;   (:map elpy-mode-map
+;;         ("C-M-n" . elpy-nav-forward-block)
+;;         ("C-M-p" . elpy-nav-backward-block))
+;;   :hook ((elpy-mode . flycheck-mode)
+;;           (elpy-mode . (lambda ()
+;;                          (set (make-local-variable 'company-backends)
+;;                               '((elpy-company-backend :with company-yasnippet)))))
+;; 				 )
+;;   :init
+;;   (elpy-enable)
+;;   :config
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;; 																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
+;;   (setq elpy-shell-echo-output nil)
+;;   (setq elpy-rpc-python-command "python3")
+;;   (setq elpy-rpc-timeout 2))
 
 
 ;; --> ac-helm
@@ -312,56 +312,46 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(custom-safe-themes
-   (quote
-    ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+   '("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
  '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- '(elpy-default-minor-modes
-   (quote
-    (eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode)))
  '(es-always-pretty-print t)
- '(flycheck-check-syntax-automatically (quote (save new-line mode-enabled)))
+ '(flycheck-check-syntax-automatically '(save new-line mode-enabled))
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
-   (quote
-    ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components")))
+   '("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components"))
  '(grep-find-ignored-files
-   (quote
-    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js")))
+   '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js"))
  '(helm-boring-file-regexp-list
-   (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$" "\\.min\\.css$" "jquery\\.js" "js-modules/" "djangojs/init.js")))
+   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$" "\\.min\\.css$" "jquery\\.js" "js-modules/" "djangojs/init.js"))
  '(helm-ff-transformer-show-only-basename nil)
- '(helm-grep-file-path-style (quote relative))
+ '(helm-grep-file-path-style 'relative)
  '(helm-grep-ignored-directories
-   (quote
-    ("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/")))
+   '("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/"))
  '(helm-grep-ignored-files
-   (quote
-    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js" "djangojs/init.js")))
- '(helm-ls-git-show-abs-or-relative (quote relative))
- '(helm-split-window-default-side (quote right))
+   '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js" "djangojs/init.js"))
+ '(helm-ls-git-show-abs-or-relative 'relative)
+ '(helm-split-window-default-side 'right)
  '(js2-strict-trailing-comma-warning nil)
  '(js3-auto-indent-p t)
  '(js3-enter-indents-newline t)
  '(js3-indent-on-enter-key t)
- '(magit-log-arguments (quote ("--graph" "--decorate" "--follow")))
- '(network-security-level (quote medium))
- '(org-link-file-path-type (quote relative))
+ '(magit-log-arguments '("--graph" "--decorate" "--follow"))
+ '(network-security-level 'medium)
+ '(org-link-file-path-type 'relative)
  '(package-selected-packages
-   '(xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader  dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
-   (quote
-    ((encoding . utf-8)
+   '((encoding . utf-8)
      (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ")
      (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ")
      (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
      (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
-     (python-shell-interpreter . "python"))))
+     (python-shell-interpreter . "python")))
  '(sp-autoinsert-pair nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -956,15 +946,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;   )
 
 
-(use-package
-  ivy
-  :ensure t
-  :init
-  (progn
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    )
-  )
+;; (use-package
+;;   ivy
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (setq ivy-use-virtual-buffers t)
+;;     (setq ivy-count-format "(%d/%d) ")
+;;     )
+;;   )
 
 
 
@@ -1050,12 +1040,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
     (global-flycheck-mode)
     (setq flycheck-highlighting-mode 'lines)
-    (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
+    ;; (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode)
+    ;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
 ;; (flycheck-define-checker javascript-jslint-reporter
@@ -1430,7 +1420,7 @@ virtualenvwrapper
   )
 
 
-(use-package jupyter :ensure t)
+;; (use-package jupyter :ensure t)
 
 
 (org-babel-do-load-languages
@@ -1444,7 +1434,7 @@ virtualenvwrapper
    (elasticsearch . t)
    (shell . t)
    ;; other languages..
-   (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
+   ;; (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
    ))
 
 (show-paren-mode 1)
@@ -1515,12 +1505,12 @@ virtualenvwrapper
 
 
 
-(use-package helm-ag
-  :ensure t
-  :config
-  (setq helm-ag-insert-at-point nil)
+;; (use-package helm-ag
+;;   :ensure t
+;;   :config
+;;   (setq helm-ag-insert-at-point nil)
 
-  )
+;;   )
 
 
 (use-package helm-projectile
@@ -1572,18 +1562,18 @@ virtualenvwrapper
   :load-path "site-lisp/ox-ipynb/")
 
 
-(use-package jupyter
-  :ensure t
-  :init
-  (progn
-    (defun jupyter-repl-font-lock-override (_ignore beg end &optional verbose)
-      `(jit-lock-bounds ,beg . ,end))
+;; (use-package jupyter
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (defun jupyter-repl-font-lock-override (_ignore beg end &optional verbose)
+;;       `(jit-lock-bounds ,beg . ,end))
 
-    (advice-add #'jupyter-repl-font-lock-fontify-region :override #'jupyter-repl-font-lock-override)
-    ;; (advice-remove #'jupyter-repl-font-lock-fontify-region #'jupyter-repl-font-lock-override)
-    )
+;;     (advice-add #'jupyter-repl-font-lock-fontify-region :override #'jupyter-repl-font-lock-override)
+;;     ;; (advice-remove #'jupyter-repl-font-lock-fontify-region #'jupyter-repl-font-lock-override)
+;;     )
 
-  )
+;;   )
 
 (use-package logstash-conf
   :ensure t
