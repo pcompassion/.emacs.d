@@ -1,8 +1,8 @@
-(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-      (when (file-exists-p spacemacs-setting)
-        (load-file spacemacs-setting))
-      )
+;; (setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
+;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;       (when (file-exists-p spacemacs-setting)
+;;         (load-file spacemacs-setting))
+;;       )
 
 
 (setq mac-command-modifier 'meta)
@@ -37,11 +37,13 @@
 ;; (add-to-list 'package-archives
 ;;       '("melpa" . "http://melpa.org/packages/"))
 
+;; (if (boundp 'spacemacs-start-directory)
+;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;   (unless (file-exists-p spacemacs-setting)
+;;     (package-initialize));; no need for spacemacs
+;;   ))
 
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-  (unless (file-exists-p spacemacs-setting)
-    (package-initialize));; no need for spacemacs
-  )
+(package-initialize)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -318,9 +320,25 @@
  '(js3-indent-on-enter-key t)
  '(magit-log-arguments '("--graph" "--decorate" "--follow"))
  '(network-security-level 'medium)
+ '(org-agenda-custom-commands
+   '(("n" "Agenda and all TODOs"
+      ((agenda "" nil)
+       (alltodo "" nil))
+      nil)
+     ("i" "Urgent things" tags "URGENT" nil)
+     ("D" "Overview for today"
+      ((tags-todo "URGENT"
+                  ((org-agenda-overriding-header "Urgent Tasks")))
+       (agenda ""
+               ((org-agenda-overriding-header "Today")
+                (org-agenda-span 1)
+                (org-agenda-sorting-strategy
+                 '(time-up priority-down)))))
+      nil nil)))
  '(org-link-file-path-type 'relative)
+ '(org-log-into-drawer t)
  '(package-selected-packages
-   '(jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(hover company lsp-dart lsp-mode python jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -1020,7 +1038,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
     (global-flycheck-mode)
     (setq flycheck-highlighting-mode 'lines)
-    (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
+    ;; (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -1290,8 +1308,7 @@ virtualenvwrapper
 (setq org-log-done t)
 (setq org-startup-folded nil)
 
- (use-package
-  org
+ (use-package org
   :ensure t
   :bind* (
          :map org-mode-map
@@ -1301,7 +1318,12 @@ virtualenvwrapper
    (progn
      (setq org-todo-keywords
            '((sequence "TODO" "|" "DONE")))
-     (setq org-agenda-files '("~/org"))
+     ;; (setq org-agenda-files '("~/org"))
+     (setq org-agenda-files (list "~/org/bike/bike.org"
+                                  "~/org/littlehome/work.org"
+                                  "~/org/personal/personal.org"))
+
+
      (global-set-key (kbd "C-c c") 'org-capture)
      (setq org-default-notes-file "~/org/todo.org")
      (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
@@ -1399,7 +1421,6 @@ virtualenvwrapper
   )
 
 
-(use-package jupyter :ensure t)
 
 
 (org-babel-do-load-languages
@@ -1563,6 +1584,24 @@ virtualenvwrapper
 
 ;; (setq x-select-enable-clipboard t)
 ;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
+
+
+(use-package lsp-mode :ensure t)
+(use-package lsp-dart
+  :ensure t
+  :hook (dart-mode . lsp))
+
+;; Optional packages
+(use-package projectile :ensure t) ;; project management
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode)) ;; snipets
+(use-package lsp-ui :ensure t) ;; UI for LSP
+(use-package company :ensure t) ;; Auto-complete
+
+;; Optional Flutter packages
+(use-package hover :ensure t) ;; run app from desktop without emulator
 
 
 (provide 'init)
