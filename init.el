@@ -50,8 +50,6 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'use-package)
-
 
 ;; http://stackoverflow.com/a/10093312/433570
 
@@ -94,27 +92,6 @@
 ;; (package-initialize)
 ;; (elpy-enable)
 ;; elpy
-
-
-;; (use-package elpy
-;;   ;; :straight t
-;;   :bind
-;;   (:map elpy-mode-map
-;;         ("C-M-n" . elpy-nav-forward-block)
-;;         ("C-M-p" . elpy-nav-backward-block))
-;;   :hook ((elpy-mode . flycheck-mode)
-;;           (elpy-mode . (lambda ()
-;;                          (set (make-local-variable 'company-backends)
-;;                               '((elpy-company-backend :with company-yasnippet)))))
-;; 				 )
-;;   :init
-;;   (elpy-enable)
-;;   :config
-;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;; 																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
-;;   (setq elpy-shell-echo-output nil)
-;;   (setq elpy-rpc-python-command "python3")
-;;   (setq elpy-rpc-timeout 2))
 
 
 ;; --> ac-helm
@@ -317,6 +294,8 @@
    '("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
  '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
+ '(elpy-default-minor-modes
+   '(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode))
  '(es-always-pretty-print t)
  '(flycheck-check-syntax-automatically '(save new-line mode-enabled))
  '(flycheck-flake8-maximum-line-length 140)
@@ -359,11 +338,7 @@
  '(org-link-file-path-type 'relative)
  '(org-log-into-drawer t)
  '(package-selected-packages
-<<<<<<< HEAD
-   '(hover company lsp-dart lsp-mode python jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
-=======
-   '(xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader  dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
->>>>>>> b62fca035ec0ad2c255d820540f1167095faa304
+   '(format-all hover company lsp-dart lsp-mode python jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -747,15 +722,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;----------
 ;; Keybinding to add breakpoint:
-;; (defun python-add-breakpoint ()
-;;   (interactive)
-;;   (newline-and-indent)
-;;   (insert "import pdb; pdb.set_trace()")
-;;   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+(defun python-add-breakpoint ()
+  (interactive)
+  (newline-and-indent)
+  (insert "import pdb; pdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-;; (add-hook 'python-mode-hook
-;;       (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
-;;       )
+(add-hook 'python-mode-hook
+      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -868,12 +843,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ("C-x C-b" . helm-mini)
     ("C-M-y" . helm-show-kill-ring)
     ("M-x" . helm-M-x)
-    ;; ("C-c h o" . helm-occur)
-    ;; ("C-c h s" . helm-swoop)
-    ;; ("C-c h S" . helm-multi-swoop-all)
-    ;; ("C-c h y" . helm-yas-complete)
-    ;; ("C-c h Y" . helm-yas-create-snippet-on-region)
-    ;; ("C-c h b" . my/helm-do-grep-book-notes)
+    ("C-c h o" . helm-occur)
+    ("C-c h s" . helm-swoop)
+    ("C-c h S" . helm-multi-swoop-all)
+    ("C-c h y" . helm-yas-complete)
+    ("C-c h Y" . helm-yas-create-snippet-on-region)
+    ("C-c h b" . my/helm-do-grep-book-notes)
     ("C-c C-h" . helm-resume)
     ("C-x C-f" . helm-find-files)
     ("C-h C-SPC" . helm-all-mark-rings)
@@ -968,15 +943,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;   )
 
 
-;; (use-package
-;;   ivy
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (setq ivy-use-virtual-buffers t)
-;;     (setq ivy-count-format "(%d/%d) ")
-;;     )
-;;   )
+(use-package
+  ivy
+  :ensure t
+  :init
+  (progn
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    )
+  )
 
 
 
@@ -1050,9 +1025,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 ;; git-gutter
-;;(global-git-gutter-mode +1)
+(global-git-gutter-mode +1)
   )
   )
+
 
 
 (use-package
@@ -1066,8 +1042,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    ;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+
     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
 ;; (flycheck-define-checker javascript-jslint-reporter
@@ -1390,7 +1365,7 @@ virtualenvwrapper
   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (add-hook 'python-mode-hook
-      (lambda () (define-key python-mode-map (kbd "C-c C-w") 'python-add-breakpoint))
+      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
       )
 
 (defun my-java-mode-hook ()
@@ -1446,10 +1421,6 @@ virtualenvwrapper
   )
 
 
-<<<<<<< HEAD
-=======
-;; (use-package jupyter :ensure t)
->>>>>>> b62fca035ec0ad2c255d820540f1167095faa304
 
 
 (org-babel-do-load-languages
@@ -1463,7 +1434,7 @@ virtualenvwrapper
    (elasticsearch . t)
    (shell . t)
    ;; other languages..
-   ;; (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
+   (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
    ))
 
 (show-paren-mode 1)
@@ -1534,12 +1505,12 @@ virtualenvwrapper
 
 
 
-;; (use-package helm-ag
-;;   :ensure t
-;;   :config
-;;   (setq helm-ag-insert-at-point nil)
+(use-package helm-ag
+  :ensure t
+  :config
+  (setq helm-ag-insert-at-point nil)
 
-;;   )
+  )
 
 
 (use-package helm-projectile
@@ -1566,7 +1537,7 @@ virtualenvwrapper
   )
 
 (setq load-prefer-newer t)
-;;(set-fringe-mode 0)
+(set-fringe-mode 0)
 
 
 (defun camdez/show-buffer-file-name ()
@@ -1591,37 +1562,18 @@ virtualenvwrapper
   :load-path "site-lisp/ox-ipynb/")
 
 
-;; (use-package jupyter
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (defun jupyter-repl-font-lock-override (_ignore beg end &optional verbose)
-;;       `(jit-lock-bounds ,beg . ,end))
-
-;;     (advice-add #'jupyter-repl-font-lock-fontify-region :override #'jupyter-repl-font-lock-override)
-;;     ;; (advice-remove #'jupyter-repl-font-lock-fontify-region #'jupyter-repl-font-lock-override)
-;;     )
-
-;;   )
-
-(use-package logstash-conf
+(use-package jupyter
   :ensure t
-)
+  :init
+  (progn
+    (defun jupyter-repl-font-lock-override (_ignore beg end &optional verbose)
+      `(jit-lock-bounds ,beg . ,end))
 
-(use-package docker-compose-mode
-  :ensure t
-)
+    (advice-add #'jupyter-repl-font-lock-fontify-region :override #'jupyter-repl-font-lock-override)
+    ;; (advice-remove #'jupyter-repl-font-lock-fontify-region #'jupyter-repl-font-lock-override)
+    )
 
-(use-package dockerfile-mode
-  :ensure t
-)
-
-(use-package blacken
-  :ensure t
-  :hook (python-mode . blacken-mode)
-  ;; :config
-  ;; (setq blacken-line-length '88)
-)
+  )
 
 ;; (use-package xclip
 ;;   :ensure t
@@ -1636,6 +1588,7 @@ virtualenvwrapper
 
 
 (use-package lsp-mode :ensure t)
+
 (use-package lsp-dart
   :ensure t
   :hook (dart-mode . lsp))
@@ -1651,5 +1604,13 @@ virtualenvwrapper
 ;; Optional Flutter packages
 (use-package hover :ensure t) ;; run app from desktop without emulator
 
+(with-eval-after-load 'projectile
+  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
+
+(use-package format-all
+  :ensure t
+  :hook (dart-mode . format-all-mode)
+  )
 
 (provide 'init)
