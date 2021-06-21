@@ -1,8 +1,8 @@
-;; (setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
-;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-;;       (when (file-exists-p spacemacs-setting)
-;;         (load-file spacemacs-setting))
-;;       )
+(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
+(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+      (when (file-exists-p spacemacs-setting)
+        (load-file spacemacs-setting))
+      )
 
 
 (setq mac-command-modifier 'meta)
@@ -37,18 +37,18 @@
 ;; (add-to-list 'package-archives
 ;;       '("melpa" . "http://melpa.org/packages/"))
 
-;; (if (boundp 'spacemacs-start-directory)
-;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-;;   (unless (file-exists-p spacemacs-setting)
-;;     (package-initialize));; no need for spacemacs
-;;   ))
 
-(package-initialize)
+(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+  (unless (file-exists-p spacemacs-setting)
+    (package-initialize));; no need for spacemacs
+  )
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(require 'use-package)
 
 
 ;; http://stackoverflow.com/a/10093312/433570
@@ -92,6 +92,27 @@
 ;; (package-initialize)
 ;; (elpy-enable)
 ;; elpy
+
+
+(use-package elpy
+  ;; :straight t
+  :bind
+  (:map elpy-mode-map
+        ("C-M-n" . elpy-nav-forward-block)
+        ("C-M-p" . elpy-nav-backward-block))
+  :hook ((elpy-mode . flycheck-mode)
+          (elpy-mode . (lambda ()
+                         (set (make-local-variable 'company-backends)
+                              '((elpy-company-backend :with company-yasnippet)))))
+				 )
+  :init
+  (elpy-enable)
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
+  (setq elpy-shell-echo-output nil)
+  (setq elpy-rpc-python-command "python3")
+  (setq elpy-rpc-timeout 2))
 
 
 ;; --> ac-helm
@@ -299,6 +320,7 @@
    '(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode))
  '(es-always-pretty-print t)
  '(flycheck-check-syntax-automatically '(save new-line mode-enabled))
+ '(flycheck-checker-error-threshold 1000)
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
  '(grep-find-ignored-directories
@@ -312,7 +334,7 @@
  '(helm-grep-ignored-directories
    '("SCCS/" "RCS/" "CVS/" "MCVS/" ".svn/" ".git/" ".hg/" ".bzr/" "_MTN/" "_darcs/" "{arch}/" ".gvfs/" "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components" "momsite/static" "js-modules/"))
  '(helm-grep-ignored-files
-   '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js" "djangojs/init.js"))
+   '("*/djangojs/init-web.js" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js" "djangojs/init.js"))
  '(helm-ls-git-show-abs-or-relative 'relative)
  '(helm-split-window-default-side 'right)
  '(js2-strict-trailing-comma-warning nil)
@@ -321,25 +343,10 @@
  '(js3-indent-on-enter-key t)
  '(magit-log-arguments '("--graph" "--decorate" "--follow"))
  '(network-security-level 'medium)
- '(org-agenda-custom-commands
-   '(("n" "Agenda and all TODOs"
-      ((agenda "" nil)
-       (alltodo "" nil))
-      nil)
-     ("i" "Urgent things" tags "URGENT" nil)
-     ("D" "Overview for today"
-      ((tags-todo "URGENT"
-                  ((org-agenda-overriding-header "Urgent Tasks")))
-       (agenda ""
-               ((org-agenda-overriding-header "Today")
-                (org-agenda-span 1)
-                (org-agenda-sorting-strategy
-                 '(time-up priority-down)))))
-      nil nil)))
  '(org-link-file-path-type 'relative)
- '(org-log-into-drawer t)
+ '(org-startup-truncated nil)
  '(package-selected-packages
-   '(groovy-mode kotlin-mode format-all hover company lsp-dart lsp-mode python jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -723,15 +730,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;----------
 ;; Keybinding to add breakpoint:
-(defun python-add-breakpoint ()
-  (interactive)
-  (newline-and-indent)
-  (insert "import pdb; pdb.set_trace()")
-  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
+;; (defun python-add-breakpoint ()
+;;   (interactive)
+;;   (newline-and-indent)
+;;   (insert "import pdb; pdb.set_trace()")
+;;   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
-(add-hook 'python-mode-hook
-      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
-      )
+;; (add-hook 'python-mode-hook
+;;       (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+;;       )
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -844,12 +851,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ("C-x C-b" . helm-mini)
     ("C-M-y" . helm-show-kill-ring)
     ("M-x" . helm-M-x)
-    ("C-c h o" . helm-occur)
-    ("C-c h s" . helm-swoop)
-    ("C-c h S" . helm-multi-swoop-all)
-    ("C-c h y" . helm-yas-complete)
-    ("C-c h Y" . helm-yas-create-snippet-on-region)
-    ("C-c h b" . my/helm-do-grep-book-notes)
+    ;; ("C-c h o" . helm-occur)
+    ("C-c h w" . helm-swoop)
+    ("C-c h W" . helm-multi-swoop-all)
+    ;; ("C-c h y" . helm-yas-complete)
+    ;; ("C-c h Y" . helm-yas-create-snippet-on-region)
+    ;; ("C-c h b" . my/helm-do-grep-book-notes)
     ("C-c C-h" . helm-resume)
     ("C-x C-f" . helm-find-files)
     ("C-h C-SPC" . helm-all-mark-rings)
@@ -1026,10 +1033,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 ;; git-gutter
-(global-git-gutter-mode +1)
+;;(global-git-gutter-mode +1)
   )
   )
-
 
 
 (use-package
@@ -1039,11 +1045,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
     (global-flycheck-mode)
     (setq flycheck-highlighting-mode 'lines)
-    ;; (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
+    (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
-
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
 ;; (flycheck-define-checker javascript-jslint-reporter
@@ -1231,10 +1238,6 @@ virtualenvwrapper
    )
 
 
-(venv-initialize-interactive-shells) ;; if you want interactive shell support
-(venv-initialize-eshell) ;; if you want eshell support
-(setq venv-location "~/virtualenvs/")
-
 
 
 (global-set-key (kbd "C-M-]") 'sp-backward-unwrap-sexp)
@@ -1309,7 +1312,8 @@ virtualenvwrapper
 (setq org-log-done t)
 (setq org-startup-folded nil)
 
- (use-package org
+ (use-package
+  org
   :ensure t
   :bind* (
          :map org-mode-map
@@ -1319,12 +1323,7 @@ virtualenvwrapper
    (progn
      (setq org-todo-keywords
            '((sequence "TODO" "|" "DONE")))
-     ;; (setq org-agenda-files '("~/org"))
-     (setq org-agenda-files (list "~/org/bike/bike.org"
-                                  "~/org/littlehome/work.org"
-                                  "~/org/personal/personal.org"))
-
-
+     (setq org-agenda-files '("~/org"))
      (global-set-key (kbd "C-c c") 'org-capture)
      (setq org-default-notes-file "~/org/todo.org")
      (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
@@ -1366,7 +1365,7 @@ virtualenvwrapper
   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (add-hook 'python-mode-hook
-      (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+      (lambda () (define-key python-mode-map (kbd "C-c C-w") 'python-add-breakpoint))
       )
 
 (defun my-java-mode-hook ()
@@ -1422,6 +1421,7 @@ virtualenvwrapper
   )
 
 
+(use-package jupyter :ensure t)
 
 
 (org-babel-do-load-languages
@@ -1538,7 +1538,7 @@ virtualenvwrapper
   )
 
 (setq load-prefer-newer t)
-(set-fringe-mode 0)
+;;(set-fringe-mode 0)
 
 
 (defun camdez/show-buffer-file-name ()
@@ -1575,6 +1575,25 @@ virtualenvwrapper
     )
 
   )
+
+(use-package logstash-conf
+  :ensure t
+)
+
+(use-package docker-compose-mode
+  :ensure t
+)
+
+(use-package dockerfile-mode
+  :ensure t
+)
+
+(use-package blacken
+  :ensure t
+  :hook (python-mode . blacken-mode)
+  ;; :config
+  ;; (setq blacken-line-length '88)
+)
 
 ;; (use-package xclip
 ;;   :ensure t
@@ -1613,6 +1632,7 @@ virtualenvwrapper
   :ensure t
   :hook (dart-mode . format-all-mode)
   )
+(set-buffer-multibyte 't)
 
 (use-package swift-mode :ensure t) ;;
 
