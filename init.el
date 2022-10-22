@@ -1,8 +1,8 @@
-(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-      (when (file-exists-p spacemacs-setting)
-        (load-file spacemacs-setting))
-      )
+;; (setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
+;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;       (when (file-exists-p spacemacs-setting)
+;;         (load-file spacemacs-setting))
+;;       )
 
 
 (setq mac-command-modifier 'meta)
@@ -38,10 +38,10 @@
 ;;       '("melpa" . "http://melpa.org/packages/"))
 
 
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-  (unless (file-exists-p spacemacs-setting)
-    (package-initialize));; no need for spacemacs
-  )
+;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;   (unless (file-exists-p spacemacs-setting)
+;;     (package-initialize));; no need for spacemacs
+;;   )
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
