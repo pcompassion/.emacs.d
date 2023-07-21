@@ -312,8 +312,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
+ '(byte-compile-warnings nil)
  '(custom-safe-themes
-   '("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
+   '("ab42f5f3ec307f75fe7a959cdd1c00a093f7d4252453af085391ec789c83da85" "28d61ac6f26030e3c649e9f75b6ebd93dbf7f5f7b2f13e14cb1fe101e8cf4737" "eb50f36ed5141c3f702f59baa1968494dc8e9bd22ed99d2aaa536c613c8782db" "2bcd3850ef2d18a4c9208fe3e2a78c95fb82f48c26661c86a51ea39152f3577e" "bc7d4cfb6d4bd7074a39f97f0b8a057c5b651c403950bbbc4ad35a609ad6268a" "e3dedbd038f79ecaf01e0dbb947bb6eeec8374f322e7b4a2a224c9d9e1490c52" "7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
  '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
  '(elpy-default-minor-modes
@@ -346,7 +347,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet undo-tree vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent color-theme git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext solarized-theme smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized color-theme-approximate buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -514,45 +515,45 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
-(defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
-  (define-key input-decode-map "\e[1;31" (kbd "C-;"))
-  (define-key input-decode-map "\e[1;32" (kbd "C-="))
-  (define-key input-decode-map "\e[1;34" (kbd "C-`"))
-  (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
-  (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+;; (defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
+;;   (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+;;   ;; (define-key input-decode-map "\e[1;32" (kbd "C-="))
+;;   (define-key input-decode-map "\e[1;34" (kbd "C-`"))
+;;   (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+;;   (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
 
 
-  (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
-  (define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
-  (define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
-  (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
-  (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
+;;   (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+;;   (define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
+;;   (define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
+;;   (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
+;;   (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
 
-  (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
-  (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
-  (define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
-  ;; (define-key input-decode-map "\e[1;3A" [S-up])
+;;   (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
+;;   (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
+;;   (define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
+;;   ;; (define-key input-decode-map "\e[1;3A" [S-up])
 
-  )
+;;   )
 
 
-(define-key input-decode-map "\e[1;31" (kbd "C-;"))
-(define-key input-decode-map "\e[1;32" (kbd "C-="))
-(define-key input-decode-map "\e[1;33" (kbd "C-:"))
-(define-key input-decode-map "\e[1;34" (kbd "C-`"))
-(define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
-(define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
-(define-key input-decode-map "\e[1;37" (kbd "C-."))
-(define-key input-decode-map "\e[1;38" (kbd "C-,"))
+;; (define-key input-decode-map "\e[1;31" (kbd "C-;"))
+;; ;; (define-key input-decode-map "\e[1;32" (kbd "C-="))
+;; (define-key input-decode-map "\e[1;33" (kbd "C-:"))
+;; (define-key input-decode-map "\e[1;34" (kbd "C-`"))
+;; (define-key input-decode-map "\e[1;35" (kbd "C-<left>"))
+;; (define-key input-decode-map "\e[1;36" (kbd "C-<right>"))
+;; (define-key input-decode-map "\e[1;37" (kbd "C-."))
+;; (define-key input-decode-map "\e[1;38" (kbd "C-,"))
 
-(define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
-(define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
-(define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
-(define-key input-decode-map "\e[1;43" (kbd "C-M-["))
-(define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
-(define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
-(define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
-(define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
+;; (define-key input-decode-map "\e[1;39" (kbd "C-M-;"))
+;; (define-key input-decode-map "\e[1;41" (kbd "C-M-\\"))
+;; (define-key input-decode-map "\e[1;42" (kbd "C-M-SPC"))
+;; (define-key input-decode-map "\e[1;43" (kbd "C-M-["))
+;; (define-key input-decode-map "\e[1;45" (kbd "M-S-<RET>"))
+;; (define-key input-decode-map "\e[1;46" (kbd "C-S-a"))
+;; (define-key input-decode-map "\e[1;47" (kbd "C-S-d"))
+;; (define-key input-decode-map "\e[1;3A" (kbd "M-S-<RET>"))
 
 
 
@@ -757,8 +758,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
 
-(global-set-key (kbd "C--") 'undo)
-(global-set-key (kbd "C-=") 'redo)
+;; (global-set-key (kbd "C--") 'undo)
+;; (global-set-key (kbd "C-=") 'redo)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-n") 'next-error)
@@ -1005,28 +1006,22 @@ This is the same as using \\[set-mark-command] with the prefix argument."
                                (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
     )
 
-  :bind
-
-  (:map js2-mode-map
-        ("C-." . xref-find-definitions)
-        ("C-," . xref-pop-marker-stack)
-        )
 
   )
 
 
-(use-package
-  undo-tree
-  :ensure t
-  ;; :config
-  ;; (progn
-  ;;   (unbind-key "C-_" undo-tree-map)
-  ;;  )
-  :init
-  (progn
-    (global-undo-tree-mode)
-    )
-  )
+;; (use-package
+;;   undo-tree
+;;   :ensure t
+;;   ;; :config
+;;   ;; (progn
+;;   ;;   (unbind-key "C-_" undo-tree-map)
+;;   ;;  )
+;;   :init
+;;   (progn
+;;     (global-undo-tree-mode)
+;;     )
+;;   )
 
 (use-package
   git-gutter
@@ -1239,7 +1234,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
+;; (defadvice virtualenv-activate (after virtual-pdb)
+;;   (custom-set-variables
+;;      '(gud-pdb-command-name
+;;         (concat venv-current-name "/bin/pdb" ))))
 
+;; (ad-activate 'virtualenv-activate)
 
 (global-set-key (kbd "C-M-]") 'sp-backward-unwrap-sexp)
 (global-set-key (kbd "C-M-[") 'sp-unwrap-sexp)
@@ -1608,18 +1608,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (setq x-select-enable-clipboard t)
 ;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-(use-package go-mode
-  :ensure t
-  )
-
-;; (use-package python-mode
-;;   :ensure t
-;;   :hook (python-mode . lsp-deferred)
-;;   )
-
 (use-package python-mode
   :ensure t
-  ;; :hook (python-mode . lsp-deferred)
+
   :custom
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
   ;; (python-shell-interpreter "python3")
@@ -1637,7 +1628,31 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package eglot
   :ensure t
+  :defer t
+  :hook ((python-mode go-mode-hook) . eglot-ensure)
+  :init
+  (progn
+    (global-set-key (kbd "M-\"") 'eglot-find-implementation)
+    )
   )
+
+
+
+
+
+;; https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/emacs.md#configuring-for-go-modules-in
+(require 'project)
+
+(defun project-find-go-module (dir)
+  (when-let ((root (locate-dominating-file dir "go.mod")))
+    (cons 'go-module root)))
+
+(cl-defmethod project-root ((project (head go-module)))
+  (cdr project))
+
+(add-hook 'project-find-functions #'project-find-go-module)
+
+
 
 ;; (use-package lsp-mode
 ;;   :ensure t
@@ -1671,9 +1686,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :hook (company-mode . company-box-mode))
 
 ;; optionally
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands lsp-ui-mode)
 ;; if you are helm user
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 ;; if you are ivy user
@@ -1689,6 +1704,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
     :config
     (which-key-mode))
+
+(use-package undo-fu
+  :ensure t
+  :config
+  ;; (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C--")   'undo-fu-only-undo)
+  (global-set-key (kbd "C-/") 'undo-fu-only-redo))
 
 
 (require 'dap-dlv-go)
@@ -1718,4 +1740,56 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; If you set set-mark-command-repeat-pop to non-nil, then immediately after you type C-u C-SPC, you can type C-SPC instead of C-u C-SPC to cycle through the mark ring. By default, set-mark-command-repeat-pop is nil.
 (setq set-mark-command-repeat-pop t)
 
+;; https://gist.github.com/gnachman/b4fb1e643e7e82a546bc9f86f30360e4
+
+(require 'term/xterm)
+(unless (display-graphic-p)
+  ;; (add-hook 'after-make-frame-functions
+  (add-hook 'tty-setup-hook
+            (function
+  (lambda ()
+
+
+     ;; Take advantage of iterm2's CSI u support (https://gitlab.com/gnachman/iterm2/-/issues/8382).
+     (xterm--init-modify-other-keys)
+
+     ;; Courtesy https://emacs.stackexchange.com/a/13957, modified per
+     ;; https://gitlab.com/gnachman/iterm2/-/issues/8382#note_365264207
+     (defun character-apply-modifiers (c &rest modifiers)
+       "Apply modifiers to the character C.
+MODIFIERS must be a list of symbols amongst (meta control shift).
+Return an event vector."
+       (if (memq 'control modifiers) (setq c (if (and (<= ?a c) (<= c ?z))
+                                                 (logand c ?\x1f)
+                                               (logior (lsh 1 26) c))))
+       (if (memq 'meta modifiers) (setq c (logior (lsh 1 27) c)))
+       (if (memq 'shift modifiers) (setq c (logior (lsh 1 25) c)))
+       (vector c))
+     (when (and (boundp 'xterm-extra-capabilities) (boundp 'xterm-function-map))
+       (let ((c 32))
+         (while (<= c 126)
+           (mapc (lambda (x)
+                   (define-key xterm-function-map (format (car x) c)
+                     (apply 'character-apply-modifiers c (cdr x))))
+                 '(;; with ?.VT100.formatOtherKeys: 0
+                   ("\e\[27;3;%d~" meta)
+                   ("\e\[27;5;%d~" control)
+                   ("\e\[27;6;%d~" control shift)
+                   ("\e\[27;7;%d~" control meta)
+                   ("\e\[27;8;%d~" control meta shift)
+                   ;; with ?.VT100.formatOtherKeys: 1
+                   ("\e\[%d;3u" meta)
+                   ("\e\[%d;5u" control)
+                   ("\e\[%d;6u" control shift)
+                   ("\e\[%d;7u" control meta)
+                   ("\e\[%d;8u" control meta shift)))
+           (setq c (1+ c)))))
+
+     ))
+)
+  )
+
+;; (setq custom-file "~/.emacs.d/theme.el")
+;; (load custom-file)
+;; (my-color-theme)
 (provide 'init)
