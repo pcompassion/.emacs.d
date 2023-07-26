@@ -1,11 +1,11 @@
-(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-  (when (file-exists-p spacemacs-setting)
-    (load-file spacemacs-setting))
-  )
+;;(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
+;;(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;  (when (file-exists-p spacemacs-setting)
+;;    (load-file spacemacs-setting))
+;;  )
 
 
-(setq mac-command-modifier 'meta)
+;; (setq mac-command-modifier 'meta)
 
 ;; ;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
@@ -23,14 +23,17 @@
 ;; http://emacs.stackexchange.com/a/2989/12031
 (setq package-archives
       '(
-        ("MELPA"        . "https://melpa.org/packages/")
-        ("GNU ELPA"     . "http://elpa.gnu.org/packages/")
-        ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ;; ("org" . "https://orgmode.org/elpa/")
+        ("elpa" . "https://elpa.gnu.org/packages/")
+
         )
-      package-archive-priorities
-      '(("MELPA Stable" . 7)
-        ("GNU ELPA"     . 5)
-        ("MELPA"        . 10)))
+      ;; package-archive-priorities
+      ;; '(("MELPA Stable" . 7)
+      ;;   ("GNU ELPA"     . 5)
+      ;;   ("MELPA"        . 10))
+      )
 
 ;; (add-to-list 'package-archives
 ;;                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -38,10 +41,10 @@
 ;;       '("melpa" . "http://melpa.org/packages/"))
 
 
-(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-  (unless (file-exists-p spacemacs-setting)
-    (package-initialize));; no need for spacemacs
-  )
+;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
+;;   (unless (file-exists-p spacemacs-setting)
+;;     (package-initialize));; no need for spacemacs
+;;   )
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -347,7 +350,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp treemacs projectile dap-mode lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm jedi jedi-core ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
@@ -1306,40 +1309,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (autoload 'geben "geben" "DBGp protocol frontend, a script debugger" t)
 
-;; org
-(require 'org)
-(setq org-log-done t)
-(setq org-startup-folded nil)
-
-(use-package
-  org
-  :ensure t
-  :bind* (
-          :map org-mode-map
-          ("C-c C-y" . org-todo)
-          ("C-c l" . org-store-link)
-          ("C-c a" . org-agenda)
-;; (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
-          )
-  :init
-  (progn
-    (setq org-todo-keywords
-          '((sequence "TODO" "|" "DONE")))
-    (setq org-agenda-files '("~/org"))
-    (global-set-key (kbd "C-c c") 'org-capture)
-    (setq org-default-notes-file "~/org/todo.org")
-    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-    (add-hook 'org-mode-hook 'org-indent-mode)
-    (add-to-list 'org-structure-template-alist '("python" . "src python"))
-    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-
-    ;; http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html
-    (setq org-confirm-babel-evaluate nil
-          org-src-fontify-natively t
-          org-src-tab-acts-natively t)
-    )
-  )
 
 ;; dired-x
 
@@ -1470,6 +1439,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (exec-path-from-shell-initialize))
 
 (use-package projectile :ensure t)
+
+(add-to-list 'image-types 'svg)
 (use-package treemacs :ensure t)
 (use-package yasnippet :ensure t)
 ;; (use-package lsp-mode :ensure t)
@@ -1479,11 +1450,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (use-package lsp-java :ensure t :after lsp
 ;;   :config (add-hook 'java-mode-hook 'lsp))
 
-;; (use-package dap-mode
-;;   :ensure t :after lsp-mode
-;;   :config
-;;   (dap-mode t)
-;;   (dap-ui-mode t))
 
 ;; (use-package dap-java :after (lsp-java))
 ;; (use-package lsp-java-treemacs :after (treemacs))
@@ -1497,15 +1463,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (dap-ui-mode 1)
 ;; (require 'dap-lldb)
 
-(use-package
-  jedi
-  :ensure t
-  :init
-  (progn
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t)
-    )
-  )
+;; (use-package
+;;   jedi
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (add-hook 'python-mode-hook 'jedi:setup)
+;;     (setq jedi:complete-on-dot t)
+;;     )
+;;   )
 
 
 
@@ -1607,6 +1573,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; (setq x-select-enable-clipboard t)
 ;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+(use-package dap-mode
+  :ensure t
+  :custom
+  (lsp-enable-dap-auto-configure nil)
+  :config
+  (dap-ui-mode 1)
+  (dap-tooltip-mode 1)
+  (require 'dap-node)
+  (require 'dap-python)
+  (dap-node-setup))
 
 (use-package python-mode
   :ensure t
@@ -1616,8 +1592,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; (python-shell-interpreter "python3")
   ;; (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
-  :config
-  (require 'dap-python))
+)
 
 (use-package pyvenv
   :ensure t
@@ -1713,7 +1688,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (global-set-key (kbd "C-/") 'undo-fu-only-redo))
 
 
-(require 'dap-dlv-go)
+;; (require 'dap-dlv-go)
 
 (set-buffer-multibyte 't)
 
@@ -1744,8 +1719,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (require 'term/xterm)
 (unless (display-graphic-p)
-  ;; (add-hook 'after-make-frame-functions
-  (add-hook 'tty-setup-hook
+   (add-hook 'after-make-frame-functions
+;;  (add-hook 'tty-setup-hook
             (function
   (lambda ()
 
@@ -1792,4 +1767,78 @@ Return an event vector."
 ;; (setq custom-file "~/.emacs.d/theme.el")
 ;; (load custom-file)
 ;; (my-color-theme)
+
+;; org
+
+(use-package
+  org
+  :ensure t
+  :bind* (
+          :map org-mode-map
+          ("C-c C-y" . org-todo)
+          ("C-c l" . org-store-link)
+          ("C-c a" . org-agenda)
+	  ;; (define-key global-map "\C-cl" 'org-store-link)
+	  ;; (define-key global-map "\C-ca" 'org-agenda)
+          )
+  :init
+  (progn
+    (setq org-todo-keywords
+          '((sequence "TODO" "|" "DONE")))
+    (setq org-agenda-files '("~/org/tasks.org"))
+    (global-set-key (kbd "C-c c") 'org-capture)
+    (setq org-default-notes-file "~/org/todo.org")
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (add-hook 'org-mode-hook 'org-indent-mode)
+    (add-to-list 'org-structure-template-alist '("python" . "src python"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+
+    ;; http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html
+    (setq org-confirm-babel-evaluate nil
+          org-src-fontify-natively t
+          org-src-tab-acts-natively t)
+    )
+  (setq org-log-done t)
+  (setq org-startup-folded nil)
+
+  )
+
+(use-package general
+  :ensure t
+  :config
+
+  ;; (general-create-definer dw/leader-key-def
+  ;;   :keymaps '(normal insert visual emacs)
+  ;;   :prefix "SPC"
+  ;;   :global-prefix "C-SPC")
+
+  (general-create-definer dw/ctrl-c-keys
+    :prefix "C-c")
+  )
+
+
+(use-package
+  org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/notes/roam/")
+  :bind
+  (:map org-roam-mode-map
+        (("C-c n l"   . org-roam)
+         ("C-c n f"   . org-roam-find-file)
+         ("C-c n d"   . org-roam-dailies-find-date)
+         ("C-c n c"   . org-roam-dailies-capture-today)
+         ("C-c n C r" . org-roam-dailies-capture-tomorrow)
+         ("C-c n t"   . org-roam-dailies-find-today)
+         ("C-c n y"   . org-roam-dailies-find-yesterday)
+         ("C-c n r"   . org-roam-dailies-find-tomorrow)
+         ("C-c n g"   . org-roam-graph))
+        :map org-mode-map
+        (("C-c n i" . org-roam-insert))
+        (("C-c n I" . org-roam-insert-immediate)))
+  :config
+  (org-roam-setup)
+  )
+
+
 (provide 'init)
