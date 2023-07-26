@@ -1497,15 +1497,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (dap-ui-mode 1)
 ;; (require 'dap-lldb)
 
-(use-package
-  jedi
-  :ensure t
-  :init
-  (progn
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t)
-    )
-  )
+;; (use-package
+;;   jedi
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (add-hook 'python-mode-hook 'jedi:setup)
+;;     (setq jedi:complete-on-dot t)
+;;     )
+;;   )
 
 
 
@@ -1743,8 +1743,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; https://gist.github.com/gnachman/b4fb1e643e7e82a546bc9f86f30360e4
 
 (require 'term/xterm)
-(unless (display-graphic-p)
-  ;; (add-hook 'after-make-frame-functions
+;;(unless (display-graphic-p)
+;; (add-hook 'after-make-frame-functions
   (add-hook 'tty-setup-hook
             (function
   (lambda ()
@@ -1785,11 +1785,34 @@ Return an event vector."
                    ("\e\[%d;8u" control meta shift)))
            (setq c (1+ c)))))
 
-     ))
+     )
+;;  )
 )
   )
 
 ;; (setq custom-file "~/.emacs.d/theme.el")
 ;; (load custom-file)
 ;; (my-color-theme)
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "/path/to/org-files/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
+
+(global-set-key (kbd "C-M-\\") 'indent-region)
+
+
 (provide 'init)
