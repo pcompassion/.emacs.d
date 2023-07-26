@@ -1580,9 +1580,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :config
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
-  (require 'dap-node)
   (require 'dap-python)
-  (dap-node-setup))
+)
 
 (use-package python-mode
   :ensure t
@@ -1671,7 +1670,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
 ;; optionally if you want to use debugger
-(use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
 ;; optional if you want which-key integration
@@ -1786,9 +1784,9 @@ Return an event vector."
   (progn
     (setq org-todo-keywords
           '((sequence "TODO" "|" "DONE")))
-    (setq org-agenda-files '("~/org/tasks.org"))
+    (setq org-agenda-files '("~/notes/tasks.org"))
     (global-set-key (kbd "C-c c") 'org-capture)
-    (setq org-default-notes-file "~/org/todo.org")
+    (setq org-default-notes-file "~/notes/todo.org")
     (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
     (add-hook 'org-mode-hook 'org-indent-mode)
     (add-to-list 'org-structure-template-alist '("python" . "src python"))
