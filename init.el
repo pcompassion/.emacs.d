@@ -5,9 +5,9 @@
 ;;  )
 
 
-;; (setq mac-command-modifier 'meta)
+(setq mac-command-modifier 'meta)
 
-;; ;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
 ;; ;; tutorials
 ;; ;; http://stackoverflow.com/a/1242760/433570
@@ -41,10 +41,6 @@
 ;;       '("melpa" . "http://melpa.org/packages/"))
 
 
-;; (let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
-;;   (unless (file-exists-p spacemacs-setting)
-;;     (package-initialize));; no need for spacemacs
-;;   )
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -316,8 +312,7 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(byte-compile-warnings nil)
- '(custom-safe-themes
-   '("ab42f5f3ec307f75fe7a959cdd1c00a093f7d4252453af085391ec789c83da85" "28d61ac6f26030e3c649e9f75b6ebd93dbf7f5f7b2f13e14cb1fe101e8cf4737" "eb50f36ed5141c3f702f59baa1968494dc8e9bd22ed99d2aaa536c613c8782db" "2bcd3850ef2d18a4c9208fe3e2a78c95fb82f48c26661c86a51ea39152f3577e" "bc7d4cfb6d4bd7074a39f97f0b8a057c5b651c403950bbbc4ad35a609ad6268a" "e3dedbd038f79ecaf01e0dbb947bb6eeec8374f322e7b4a2a224c9d9e1490c52" "7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
+ '(custom-enabled-themes nil)
  '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
  '(elpy-default-minor-modes
@@ -350,31 +345,19 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm ob-ipython prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+ '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
    '((encoding . utf-8)
      (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))\12")
      (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))\12")
      (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion")
-     (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")
-     (python-shell-interpreter . "python")))
+     (python-shell-interpreter-args . "/home/eugenekim/Documents/zibann/momsite/manage.py shell")))
  '(sp-autoinsert-pair nil)
  '(warning-suppress-log-types '((comp) (comp)))
  '(warning-suppress-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-grep-file ((t (:foreground "green" :underline t))))
- '(helm-ls-git-modified-not-staged-face ((t (:foreground "orange"))))
- '(helm-selection ((t (:background "blue" :foreground "white"))))
- '(highlight-indentation-face ((t nil)))
- '(js2-external-variable ((t (:foreground "red"))))
- '(magit-diff-added ((t (:background "green" :foreground "black"))))
- '(magit-diff-added-highlight ((t (:background "green" :foreground "black"))))
- '(magit-hash ((t (:foreground "white")))))
+
 
 ;; for smarter dynamic expansion
 (setq dabbrev-case-fold-search nil)
@@ -741,8 +724,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (add-hook 'python-mode-hook
-          (lambda () (define-key python-mode-map (kbd "C-c C-u") 'python-add-breakpoint))
+          (lambda () (define-key python-mode-map (kbd "C-c C-w") 'python-add-breakpoint))
           )
+
 
 
 ;; (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
@@ -750,9 +734,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (eval-after-load "sql"
   '(load-library "sql-indent"))
-;; jedi
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; jedi
 
 
 (global-set-key (kbd "C-o") 'newline-and-indent)
@@ -760,6 +741,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "C-M-;") 'comment-dwim) ;doesn't work in shell
 (global-set-key (kbd "C-M-DEL") 'indent-region) ;doesn't work in shell
+
 
 ;; (global-set-key (kbd "C--") 'undo)
 ;; (global-set-key (kbd "C-=") 'redo)
@@ -923,10 +905,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (use-package
 ;;   ag
 ;;   :ensure t
-  ;; :bind (
-  ;;        ;; ("C-c l" . ag-project)
-  ;;        )
-  ;; )
+;; :bind (
+;;        ;; ("C-c l" . ag-project)
+;;        )
+;; )
 
 (use-package
   anaconda-mode
@@ -1330,15 +1312,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; (require 'eclim)
 ;; (setq eclimd-autostart t)
 
-(defun python-add-breakpoint ()
-  (interactive)
-  (newline-and-indent)
-  (insert "import pdb; pdb.set_trace()")
-  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
-
-(add-hook 'python-mode-hook
-          (lambda () (define-key python-mode-map (kbd "C-c C-w") 'python-add-breakpoint))
-          )
 
 (defun my-java-mode-hook ()
   (lambda ()
@@ -1353,22 +1326,19 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq mode-require-final-newline nil)
 
 ;; https://emacs.stackexchange.com/a/24572/12031
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--simple-prompt -i")
+;; (setq python-shell-interpreter "ipython"
+;;       python-shell-interpreter-args "--simple-prompt -i")
 
-(when (executable-find "ipython")
-  (setq python-shell-interpreter "ipython"))
 (setq py-use-current-dir-when-execute-p t)
-;; (require 'ob-ipython)
 
 
-(use-package
-  ob-ipython
-  :ensure t
-  :init
-  (progn
-    )
-  )
+;; (use-package
+;;   ob-ipython
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     )
+;;   )
 
 
 (use-package
@@ -1380,35 +1350,24 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
-(use-package
-  python
-  :ensure t
-  :init
-  (progn
-
-    (when (executable-find "ipython")
-      (setq python-shell-interpreter "ipython"))
-
-    )
-  )
 
 
 (use-package jupyter :ensure t)
 
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   ;; (ipython . t)
-   (emacs-lisp . t)
-   ;; (julia . t)
-   (ipython . t)
-   (python . t)
-   (elasticsearch . t)
-   (shell . t)
-   ;; other languages..
-   (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
-   ))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '(
+;;    ;; (ipython . t)
+;;    (emacs-lisp . t)
+;;    ;; (julia . t)
+;;    (ipython . t)
+;;    (python . t)
+;;    (elasticsearch . t)
+;;    (shell . t)
+;;    ;; other languages..
+;;    (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
+;;    ))
 
 (show-paren-mode 1)
 (setq blink-matching-delay 0.3)
@@ -1581,7 +1540,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
   (require 'dap-python)
-)
+  )
 
 (use-package python-mode
   :ensure t
@@ -1591,13 +1550,31 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; (python-shell-interpreter "python3")
   ;; (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
-)
+  (python-shell-interpreter-args "--simple-prompt -i")
+  :config
+  (setq python-shell-virtualenv-root "~/virtualenvs")
+  (setq py-force-py-shell-name-p t)
+  (setq-default py-split-windows-on-execute-function 'split-window-horizontally)
+  (setq-default py-keep-windows-configuration 'force)
+  (setq gud-pdb-command-name "python -m pdb ")
+
+  )
 
 (use-package pyvenv
   :ensure t
-
   :config
-  (pyvenv-mode 1))
+  (pyvenv-mode t)
+
+  ;; Set correct Python interpreter
+  (setq pyvenv-post-activate-hooks
+        (list (lambda ()
+                (setq py-shell-name (concat pyvenv-virtual-env "bin/python3"))
+                (setq-default python-shell-interpreter (concat pyvenv-virtual-env "bin/ipython"))
+                )))
+  (setq pyvenv-post-deactivate-hooks
+        (list (lambda ()
+                (setq py-shell-name "python3")))))
+
 
 
 (use-package eglot
@@ -1647,9 +1624,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+              ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -1675,15 +1652,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; optional if you want which-key integration
 (use-package which-key
   :ensure t
-    :config
-    (which-key-mode))
+  :config
+  (which-key-mode))
 
 (use-package undo-fu
   :ensure t
   :config
   ;; (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C--")   'undo-fu-only-undo)
-  (global-set-key (kbd "C-/") 'undo-fu-only-redo))
+  (global-set-key (kbd "C-=") 'undo-fu-only-redo))
 
 
 ;; (require 'dap-dlv-go)
@@ -1716,91 +1693,148 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; https://gist.github.com/gnachman/b4fb1e643e7e82a546bc9f86f30360e4
 
 (require 'term/xterm)
-(unless (display-graphic-p)
-   (add-hook 'after-make-frame-functions
-;;  (add-hook 'tty-setup-hook
-            (function
-  (lambda ()
-
-
-     ;; Take advantage of iterm2's CSI u support (https://gitlab.com/gnachman/iterm2/-/issues/8382).
-     (xterm--init-modify-other-keys)
-
-     ;; Courtesy https://emacs.stackexchange.com/a/13957, modified per
-     ;; https://gitlab.com/gnachman/iterm2/-/issues/8382#note_365264207
-     (defun character-apply-modifiers (c &rest modifiers)
-       "Apply modifiers to the character C.
-MODIFIERS must be a list of symbols amongst (meta control shift).
-Return an event vector."
-       (if (memq 'control modifiers) (setq c (if (and (<= ?a c) (<= c ?z))
-                                                 (logand c ?\x1f)
-                                               (logior (lsh 1 26) c))))
-       (if (memq 'meta modifiers) (setq c (logior (lsh 1 27) c)))
-       (if (memq 'shift modifiers) (setq c (logior (lsh 1 25) c)))
-       (vector c))
-     (when (and (boundp 'xterm-extra-capabilities) (boundp 'xterm-function-map))
-       (let ((c 32))
-         (while (<= c 126)
-           (mapc (lambda (x)
-                   (define-key xterm-function-map (format (car x) c)
-                     (apply 'character-apply-modifiers c (cdr x))))
-                 '(;; with ?.VT100.formatOtherKeys: 0
-                   ("\e\[27;3;%d~" meta)
-                   ("\e\[27;5;%d~" control)
-                   ("\e\[27;6;%d~" control shift)
-                   ("\e\[27;7;%d~" control meta)
-                   ("\e\[27;8;%d~" control meta shift)
-                   ;; with ?.VT100.formatOtherKeys: 1
-                   ("\e\[%d;3u" meta)
-                   ("\e\[%d;5u" control)
-                   ("\e\[%d;6u" control shift)
-                   ("\e\[%d;7u" control meta)
-                   ("\e\[%d;8u" control meta shift)))
-           (setq c (1+ c)))))
-
-     )
-;;  )
-)
-  )
-
-;; (setq custom-file "~/.emacs.d/theme.el")
-;; (load custom-file)
-;; (my-color-theme)
 
 ;; org
 
 (use-package
   org
   :ensure t
+  :hook (org-mode . org-indent-mode)
   :bind* (
           :map org-mode-map
           ("C-c C-y" . org-todo)
           ("C-c l" . org-store-link)
           ("C-c a" . org-agenda)
-	  ;; (define-key global-map "\C-cl" 'org-store-link)
-	  ;; (define-key global-map "\C-ca" 'org-agenda)
           )
   :init
   (progn
     (setq org-todo-keywords
-          '((sequence "TODO" "|" "DONE")))
-    (setq org-agenda-files '("~/notes/tasks.org"))
-    (global-set-key (kbd "C-c c") 'org-capture)
-    (setq org-default-notes-file "~/notes/todo.org")
-    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-    (add-hook 'org-mode-hook 'org-indent-mode)
-    (add-to-list 'org-structure-template-alist '("python" . "src python"))
-    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
 
-    ;; http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html
-    (setq org-confirm-babel-evaluate nil
-          org-src-fontify-natively t
-          org-src-tab-acts-natively t)
-    )
+          '((
+             sequence
+             "Todo" ; doing later
+             "Started(s)" ; doing now or soon
+             "|"
+             "Done(d)" ; done
+             "Cancelled(c)" ; done
+             )
+            ;; (sequence
+            ;;  "ToRead(t)" ; doing later
+            ;;  "Reading(r)" ; doing now or soon
+            ;;  "|"
+            ;;  "Done(d)" ; done
+            ;;  )
+            ;; )
+            ))
+    (setq org-done-keywords '("Done" "Cancelled"))
+
+    (global-set-key (kbd "C-c c") 'org-capture)
+    (global-set-key (kbd "C-c o") 'cfw:open-org-calendar)
+
+    (setq org-agenda-files '("~/notes/agendas"))
+    (setq org-default-notes-file "~/notes/agendas/notes.org")
+    ;; (add-to-list 'org-structure-template-alist '("python" . "src python"))
+    ;; (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+
+    ;; ;; http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html
+    ;; (setq org-confirm-babel-evaluate nil
+    ;;       org-src-fontify-natively t
+    ;;       org-src-tab-acts-natively t)
+    ;; )
   (setq org-log-done t)
   (setq org-startup-folded nil)
+  (setq org-use-fast-todo-selection 'expert)
 
+  (setq org-refile-targets
+        `(
+                ;; ("~/notes/archives/tasks.org" :maxlevel . 1)
+
+          (,(directory-files-recursively "~/notes/archives/" "^[[:ascii:]]*.org$") :maxlevel . 2)
+          (org-agenda-files :maxlevel . 2)
+                ))
+
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+
+  ;; https://github.com/bastibe/org-journal
+  (defun org-journal-find-location ()
+    ;; Open today's journal, but specify a non-nil prefix argument in order to
+    ;; inhibit inserting the heading; org-capture will insert the heading.
+    (org-journal-new-entry t)
+    (unless (eq org-journal-file-type 'daily)
+      (org-narrow-to-subtree))
+    (goto-char (point-max)))
+
+
+ (setq org-capture-templates
+    `(("t" "Tasks / Projects")
+      ("tt" "Task" entry (file+headline "~/notes/agendas/inbox.org" "inbox")
+           "* Todo %?\n  %U\n  %a\n  %i" :empty-lines 1)
+      ("c" "Tickler")
+      ("cc" "Tickler" entry
+       (file+headline "~/notes/agendas/tickler.org" "Tickler")
+       "* %i%? \n %U")
+      ("j" "Journal entry" plain (function org-journal-find-location)
+       "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+                               :jump-to-captured t :immediate-finish t)
+      ))
+
+
+ )
   )
+
+(use-package org-journal
+  :ensure t
+  :defer t
+  :init
+  ;; Change default prefix key; needs to be set before loading org-journal
+  (setq org-journal-prefix-key "C-c j ")
+  :config
+  (setq org-journal-dir "~/notes/journal/"
+        org-journal-date-format "%A, %d %B %Y"))
+
+
+(use-package calfw
+  :ensure t
+  )
+
+(use-package calfw-cal
+  :ensure t
+  )
+
+(use-package calfw-org
+  :ensure t
+  :config
+  (setq cfw:org-overwrite-default-keybinding t)
+)
+
+(use-package plstore
+  :ensure t
+  :config
+  (setq plstore-cache-passphrase-for-symmetric-encryption t)
+
+  (add-to-list 'plstore-encrypt-to '("F2AAD2543A0AC3BD"))
+  )
+
+(use-package org-gcal
+  :ensure t
+  :after org
+  :config
+  (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
+  (setq org-gcal-fetch-file-alist '(("p.compassion@gmail.com" .  "~/notes/agendas/schedule.org")))
+  (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+  (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
+  )
+
+
+
+(use-package calfw-ical
+  :ensure t
+)
 
 (use-package general
   :ensure t
@@ -1811,33 +1845,100 @@ Return an event vector."
   ;;   :prefix "SPC"
   ;;   :global-prefix "C-SPC")
 
-  (general-create-definer dw/ctrl-c-keys
-    :prefix "C-c")
+  ;; (general-create-definer dw/ctrl-c-keys
+  ;;   :prefix "C-c")
   )
 
 
 (use-package
   org-roam
   :ensure t
+  :hook ((after-init . org-roam-setup)
+         (org-roam-backlinks-mode . visual-line-mode))
   :custom
   (org-roam-directory "~/notes/roam/")
   :bind
   (:map org-roam-mode-map
-        (("C-c n l"   . org-roam)
-         ("C-c n f"   . org-roam-find-file)
-         ("C-c n d"   . org-roam-dailies-find-date)
-         ("C-c n c"   . org-roam-dailies-capture-today)
-         ("C-c n C r" . org-roam-dailies-capture-tomorrow)
-         ("C-c n t"   . org-roam-dailies-find-today)
-         ("C-c n y"   . org-roam-dailies-find-yesterday)
-         ("C-c n r"   . org-roam-dailies-find-tomorrow)
-         ("C-c n g"   . org-roam-graph))
+        (
+         ("C-c n f"   . org-roam-node-find)
+         )
         :map org-mode-map
-        (("C-c n i" . org-roam-insert))
-        (("C-c n I" . org-roam-insert-immediate)))
+        (("C-c n i" . org-roam-node-insert)
+        ("C-c n I" . org-roam-insert-immediate)
+                  ("C-c n o" . org-id-get-create)
+                  ("C-c n t" . org-roam-tag-add)
+                  ("C-c n a" . org-roam-alias-add)
+                  ("C-c n l" . org-roam-buffer-toggle)
+
+        ))
+
   :config
-  (org-roam-setup)
+  (org-roam-db-autosync-mode)
+  :init
+  (progn
+    (setq org-roam-capture-templates
+          (quote (("m" "main" plain
+                   "%?"
+                   :if-new (file+head "main/${slug}.org"
+                                      "#+title: ${title}\n")
+                   :immediate-finish t
+                   :unnarrowed t)
+                  ("r" "reference" plain "%?"
+                   :if-new
+                   (file+head "reference/${title}.org" "#+title: ${title}\n")
+                   :immediate-finish t
+                   :unnarrowed t)
+                  ("a" "article" plain "%?"
+                   :if-new
+                   (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+                   :immediate-finish t
+                   :unnarrowed t)
+                  ("d" "Default" plain "%?"
+                   :if-new (file+head
+                            "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}.org\" (current-time) t)"
+                            "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d>\n\n")
+                   :unnarrowed t)
+                  )))
+
+    )
   )
 
+(setq
+ browse-url-browser-function 'eww-browse-url ; Use eww as the default browser
+ browse-url-generic-program 'eww-browse-url
+ shr-use-fonts  nil                          ; No special fonts
+ shr-use-colors nil                          ; No colours
+ shr-indentation 2                           ; Left-side margin
+ shr-width 70                                ; Fold text to 70 columns
+ eww-search-prefix "https://wiby.me/?q=")
+(setq browse-url-new-window-flag t)
+
+;; (if window-system
+;;         (setq browse-url-browser-function 'browse-url-generic
+;;               browse-url-generic-program "web-browser")
+;;       (setq browse-url-browser-function 'my-browse))
+
+(use-package spacemacs-theme
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (load-theme 'spacemacs-dark t)
+  :init
+  (progn
+    (setq spacemacs-theme-comment-bg nil)
+)
+  )
+
+
+(setq system-time-locale "C")
+
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default")))))
 
 (provide 'init)
