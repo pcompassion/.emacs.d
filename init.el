@@ -345,7 +345,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
@@ -843,7 +843,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
          ;; ("C-c h y" . helm-yas-complete)
          ;; ("C-c h Y" . helm-yas-create-snippet-on-region)
          ;; ("C-c h b" . my/helm-do-grep-book-notes)
-         ("C-c C-h" . helm-resume)
          ("C-x C-f" . helm-find-files)
          ("C-h C-SPC" . helm-all-mark-rings)
          ("C-h SPC" . helm-global-mark-ring)
@@ -1547,17 +1546,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   :custom
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
-  ;; (python-shell-interpreter "python3")
-  ;; (dap-python-executable "python3")
+  (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
+  (python-shell-interpreter "ipython3")
   (python-shell-interpreter-args "--simple-prompt -i")
   :config
   (setq python-shell-virtualenv-root "~/virtualenvs")
   (setq py-force-py-shell-name-p t)
   (setq-default py-split-windows-on-execute-function 'split-window-horizontally)
-  (setq-default py-keep-windows-configuration 'force)
+  ;; (setq-default py-keep-windows-configuration 'force)
   (setq gud-pdb-command-name "python -m pdb ")
-
   )
 
 (use-package pyvenv
@@ -1569,7 +1567,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq pyvenv-post-activate-hooks
         (list (lambda ()
                 (setq py-shell-name (concat pyvenv-virtual-env "bin/python3"))
-                (setq-default python-shell-interpreter (concat pyvenv-virtual-env "bin/ipython"))
+                ;; (setq-default python-shell-interpreter (concat pyvenv-virtual-env "bin/ipython"))
                 )))
   (setq pyvenv-post-deactivate-hooks
         (list (lambda ()
@@ -1696,15 +1694,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; org
 
-(use-package
-  org
+(use-package org
   :ensure t
   :hook (org-mode . org-indent-mode)
   :bind* (
           :map org-mode-map
           ("C-c C-y" . org-todo)
           ("C-c l" . org-store-link)
-          ("C-c a" . org-agenda)
           )
   :init
   (progn
@@ -1728,8 +1724,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
             ))
     (setq org-done-keywords '("Done" "Cancelled"))
 
-    (global-set-key (kbd "C-c c") 'org-capture)
-    (global-set-key (kbd "C-c o") 'cfw:open-org-calendar)
 
     (setq org-agenda-files '("~/notes/agendas"))
     (setq org-default-notes-file "~/notes/agendas/notes.org")
@@ -1758,6 +1752,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq org-refile-allow-creating-parent-nodes 'confirm)
 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+  ;; https://orgmode.org/manual/Conflicts.html
+  ;; Make windmove work in Org mode:
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 
   ;; https://github.com/bastibe/org-journal
@@ -1795,7 +1796,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq org-journal-prefix-key "C-c j ")
   :config
   (setq org-journal-dir "~/notes/journal/"
-        org-journal-date-format "%A, %d %B %Y"))
+        org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-carryover-items "TODO=\"Todo\"|TODO=\"Started\"")
+
+  )
 
 
 (use-package calfw
@@ -1836,19 +1840,38 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
 )
 
+
+
 (use-package general
   :ensure t
+  :after which-key
   :config
+  (general-override-mode 1)
+)
 
-  ;; (general-create-definer dw/leader-key-def
-  ;;   :keymaps '(normal insert visual emacs)
-  ;;   :prefix "SPC"
-  ;;   :global-prefix "C-SPC")
+(general-create-definer df/ctrl-c
+;; :keymaps '(normal insert visual emacs)
+:prefix "C-c")
 
-  ;; (general-create-definer dw/ctrl-c-keys
-  ;;   :prefix "C-c")
+(defun goto-journal()
+  (interactive)
+  (when (org-journal-open-current-journal-file) (org-journal-new-entry nil)))
+
+
+(df/ctrl-c
+  "a" 'org-agenda
+  "c" 'org-capture
+  "l" 'cfw:open-org-calendar
   )
 
+(general-create-definer df-local/ctrl-c-o
+:prefix "C-c o")
+
+(df-local/ctrl-c-o
+ :keymaps 'org-mode-map
+ "m" 'org-insert-todo-heading
+ "j" 'goto-journal
+ )
 
 (use-package
   org-roam
@@ -1913,10 +1936,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  eww-search-prefix "https://wiby.me/?q=")
 (setq browse-url-new-window-flag t)
 
-;; (if window-system
-;;         (setq browse-url-browser-function 'browse-url-generic
-;;               browse-url-generic-program "web-browser")
-;;       (setq browse-url-browser-function 'my-browse))
+(defun browse-url-host (url &optional _new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (when-let* (
+              (ssh-client "192.168.0.97 41585 22")
+              ;; (ssh-client (getenv "SSH_CLIENT"))
+              (host-ip (car (split-string ssh-client)))
+              (host-name (string-trim (shell-command-to-string "whoami"))))
+    ;; (call-process "ssh" nil 0 nil
+    ;;               (format "%s@%s" host-name host-ip) (format "open '%s'" url))
+pen '%s'" url))
+
+    )
+  )
+
+(when (getenv "SSH_CLIENT")
+  (setq browse-url-browser-function 'browse-url-host))
+
+;; (setq browse-url-browser-function 'browse-url-chrome)
+
 
 (use-package spacemacs-theme
   :ensure t
@@ -1940,5 +1978,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default")))))
+
+
+(use-package leetcode
+  :ensure t
+  :config
+  (setq leetcode-prefer-language "python3")
+  (setq leetcode-prefer-sql "mysql")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/study/leetcode")
+  )
+
 
 (provide 'init)
