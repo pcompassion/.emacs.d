@@ -315,10 +315,9 @@
  '(custom-enabled-themes nil)
  '(dired-listing-switches "-alFh")
  '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- '(elpy-default-minor-modes
-   '(eldoc-mode flycheck-mode yas-minor-mode auto-complete-mode))
+ '(elpy-modules
+   '(elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults))
  '(es-always-pretty-print t)
- '(flycheck-check-syntax-automatically '(save new-line mode-enabled))
  '(flycheck-checker-error-threshold 1000)
  '(flycheck-flake8-maximum-line-length 140)
  '(geben-dbgp-default-port 10011)
@@ -345,7 +344,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys blacken jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy flycheck swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy flymake-python-pyflakes find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
@@ -389,18 +388,6 @@
 
 ;; flymake
 
-;; python setup instruction (pymacs/elpy/flymake)
-;; sudo pip install -e "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
-;; cd $VIRTUAL_ENV/src/pymacs
-;; make
-;; python -c 'import Pymacs'
-;; sudo python setup.py install
-
-
-;; pymacs.el 을 module path 에 copy 한다
-;; http://stackoverflow.com/a/1393590/433570 : pychecker 파일을 만든다
-;; pip install --upgrade rope ropemacs elpy
-;; python setup instruction
 
 
 ;; repository-root
@@ -582,7 +569,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'web-mode-hook 'add-smartscan-keys)
 (add-hook 'js-mode-hook 'add-smartscan-keys)
 (add-hook 'js2-mode-hook 'add-smartscan-keys)
-(add-hook 'python-mode-hook 'anaconda-mode)
+;; (add-hook 'python-mode-hook 'anaconda-mode)
 ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
 ;; http://stackoverflow.com/a/6248712/433570
@@ -683,7 +670,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-;; elpy
 
 ;; (setq ac-sources
 ;;    (delq 'ac-source-jedi-direct
@@ -1018,75 +1004,75 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
-(use-package
-  flycheck
-  :ensure t
-  :init
-  (progn
-    (global-flycheck-mode)
-    (setq flycheck-highlighting-mode 'lines)
-    (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
-    (flycheck-add-mode 'javascript-eslint 'web-mode)
-    (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
-    (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    ;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode)
-    ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
+;; (use-package
+;;   flycheck
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (global-flycheck-mode)
+;;     (setq flycheck-highlighting-mode 'lines)
+;;     (setq flycheck-javascript-eslint-executable "~/node_modules/.bin/eslint")
+;;     (flycheck-add-mode 'javascript-eslint 'web-mode)
+;;     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+;;     (flycheck-add-mode 'javascript-eslint 'js2-mode)
+;;     ;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;     ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+;;     ;; (flycheck-locate-config-file-home ".eslintrc" 'javascript-eslint)
 
-    ;; (flycheck-define-checker javascript-jslint-reporter
-    ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
+;;     ;; (flycheck-define-checker javascript-jslint-reporter
+;;     ;;   "A JavaScript syntax and style checker based on JSLint Reporter.
 
-    ;; See URL `https://github.com/FND/jslint-reporter'."
-    ;;   :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
-    ;;   :error-patterns
-    ;;   ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
-    ;;   :modes (js-mode js2-mode js3-mode))
-    ;; (add-hook 'js-mode-hook (lambda ()
-    ;;                           (flycheck-select-checker 'javascript-jslint-reporter)
-    ;;                           (flycheck-mode)))
-
-
-    ;; (setq mac-option-modifier 'super) ; sets the Option key to Super
-
-    ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
-    ;; npm install -g eslint babel-eslint eslint-plugin-react
-    ;; npm install -g jslint
-
-    ;; turn on flychecking globally
-    ;; (add-hook 'after-init-hook #'global-flycheck-mode)
-
-    ;; disable jshint since we prefer eslint checking
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers
-                          '(javascript-jshint)))
-    ;; use eslint with web-mode for jsx files
-    ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-    ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+;;     ;; See URL `https://github.com/FND/jslint-reporter'."
+;;     ;;   :command ("~/.emacs.d/jslint-reporter/jslint-reporter" source)
+;;     ;;   :error-patterns
+;;     ;;   ((error line-start (1+ nonl) ":" line ":" column ":" (message) line-end))
+;;     ;;   :modes (js-mode js2-mode js3-mode))
+;;     ;; (add-hook 'js-mode-hook (lambda ()
+;;     ;;                           (flycheck-select-checker 'javascript-jslint-reporter)
+;;     ;;                           (flycheck-mode)))
 
 
-    ;; https://github.com/mooz/js2-mode/issues/292
+;;     ;; (setq mac-option-modifier 'super) ; sets the Option key to Super
+
+;;     ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+;;     ;; npm install -g eslint babel-eslint eslint-plugin-react
+;;     ;; npm install -g jslint
+
+;;     ;; turn on flychecking globally
+;;     ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+
+;;     ;; disable jshint since we prefer eslint checking
+;;     (setq-default flycheck-disabled-checkers
+;;                   (append flycheck-disabled-checkers
+;;                           '(javascript-jshint)))
+;;     ;; use eslint with web-mode for jsx files
+;;     ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+;;     ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
+;;     ;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
 
 
-    (defun setup-js2-mode ()
-      (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
-      (define-key js2-mode-map (kbd "C-c C-f") 'sgml-skip-tag-forward)
-      (define-key js2-mode-map (kbd "C-c C-b") 'sgml-skip-tag-backward)
-      (flycheck-select-checker 'javascript-eslint)
-      (define-key js2-mode-map (kbd "M-.") nil)
+;;     ;; https://github.com/mooz/js2-mode/issues/292
 
 
-
-      (flycheck-mode))
-
-
-    (add-hook 'js2-mode-hook #'setup-js2-mode)
-    (add-hook 'rjsx-mode-hook #'setup-js2-mode)
+;;     (defun setup-js2-mode ()
+;;       (define-key js2-mode-map (kbd "C-c i") 'js-import-path)
+;;       (define-key js2-mode-map (kbd "C-c C-f") 'sgml-skip-tag-forward)
+;;       (define-key js2-mode-map (kbd "C-c C-b") 'sgml-skip-tag-backward)
+;;       (flycheck-select-checker 'javascript-eslint)
+;;       (define-key js2-mode-map (kbd "M-.") nil)
 
 
 
-    )
-  )
+;;       (flycheck-mode))
+
+
+;;     (add-hook 'js2-mode-hook #'setup-js2-mode)
+;;     (add-hook 'rjsx-mode-hook #'setup-js2-mode)
+
+
+
+;;     )
+;;   )
 
 (use-package
   js2-mode
@@ -1324,10 +1310,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (setq mode-require-final-newline nil)
 
-;; https://emacs.stackexchange.com/a/24572/12031
-;; (setq python-shell-interpreter "ipython"
-;;       python-shell-interpreter-args "--simple-prompt -i")
-
 (setq py-use-current-dir-when-execute-p t)
 
 
@@ -1515,12 +1497,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   )
 
-(use-package blacken
-  :ensure t
-  :hook (python-mode . blacken-mode)
-  ;; :config
-  ;; (setq blacken-line-length '88)
-  )
+
+;; (use-package python-black
+;;   :ensure t
+;;   :demand t
+;;   :after python
+;;   :hook (python-mode . python-black-on-save-mode-enable-dwim)
+;;   )
+
 
 ;; (use-package xclip
 ;;   :ensure t
@@ -1541,6 +1525,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (require 'dap-python)
   )
 
+(use-package python
+  :defer t)
+
+
 (use-package python-mode
   :ensure t
 
@@ -1554,8 +1542,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq python-shell-virtualenv-root "~/virtualenvs")
   (setq py-force-py-shell-name-p t)
   (setq-default py-split-windows-on-execute-function 'split-window-horizontally)
-  ;; (setq-default py-keep-windows-configuration 'force)
+  (setq-default py-keep-windows-configuration 'force)
   (setq gud-pdb-command-name "python -m pdb ")
+  (add-hook 'python-mode-hook
+     (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
   )
 
 (use-package pyvenv
@@ -1567,18 +1557,32 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq pyvenv-post-activate-hooks
         (list (lambda ()
                 (setq py-shell-name (concat pyvenv-virtual-env "bin/python3"))
-                ;; (setq-default python-shell-interpreter (concat pyvenv-virtual-env "bin/ipython"))
+                (setq-default python-shell-interpreter (concat pyvenv-virtual-env "bin/ipython"))
                 )))
   (setq pyvenv-post-deactivate-hooks
         (list (lambda ()
                 (setq py-shell-name "python3")))))
 
 
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  (setq eldoc-idle-delay 1)  ;; in second
+  (add-hook 'elpy-mode-hook (lambda ()
+                              (add-hook 'before-save-hook
+                                        'elpy-black-fix-code nil t)))
+  )
 
 (use-package eglot
   :ensure t
   :defer t
   :hook ((python-mode go-mode-hook) . eglot-ensure)
+  :config
+  (add-hook 'eglot-managed-mode-hook (lambda ()
+                                       (remove-hook 'flymake-diagnostic-functions 'eglot-flymake-backend)
+                                       ))
   :init
   (progn
     (global-set-key (kbd "M-\"") 'eglot-find-implementation)
@@ -1697,6 +1701,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package org
   :ensure t
   :hook (org-mode . org-indent-mode)
+  ;; https://orgmode.org/manual/Conflicts.html
+  ;; Make windmove work in Org mode:
+  (org-shiftup-final . windmove-up)
+  (org-shiftleft-final-hook . windmove-left)
+  (org-shiftdown-final-hook . windmove-down)
+  (org-shiftright-final-hook . windmove-right)
+
   :bind* (
           :map org-mode-map
           ("C-c C-y" . org-todo)
@@ -1753,12 +1764,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-  ;; https://orgmode.org/manual/Conflicts.html
-  ;; Make windmove work in Org mode:
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 
   ;; https://github.com/bastibe/org-journal
@@ -1824,6 +1829,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-to-list 'plstore-encrypt-to '("F2AAD2543A0AC3BD"))
   )
 
+(when window-system
 (use-package org-gcal
   :ensure t
   :after org
@@ -1833,6 +1839,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
   (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
   )
+)
 
 
 
@@ -1868,10 +1875,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 :prefix "C-c o")
 
 (df-local/ctrl-c-o
- :keymaps 'org-mode-map
- "m" 'org-insert-todo-heading
  "j" 'goto-journal
  )
+
+(df-local/ctrl-c-o
+ :keymaps 'org-mode-map
+ "m" 'org-insert-todo-heading
+ )
+
 
 (use-package
   org-roam
@@ -1926,34 +1937,38 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     )
   )
 
-(setq
- browse-url-browser-function 'eww-browse-url ; Use eww as the default browser
- browse-url-generic-program 'eww-browse-url
- shr-use-fonts  nil                          ; No special fonts
- shr-use-colors nil                          ; No colours
- shr-indentation 2                           ; Left-side margin
- shr-width 70                                ; Fold text to 70 columns
- eww-search-prefix "https://wiby.me/?q=")
-(setq browse-url-new-window-flag t)
+(if (not window-system)
+    (progn
+      (setq
+       browse-url-browser-function 'eww-browse-url ; Use eww as the default browser
+       browse-url-generic-program 'eww-browse-url
+       shr-use-fonts  nil                          ; No special fonts
+       shr-use-colors nil                          ; No colours
+       shr-indentation 2                           ; Left-side margin
+       shr-width 70                                ; Fold text to 70 columns
+       eww-search-prefix "https://wiby.me/?q=")
+      (setq browse-url-new-window-flag t)
 
-(defun browse-url-host (url &optional _new-window)
-  (interactive (browse-url-interactive-arg "URL: "))
-  (when-let* (
-              (ssh-client "192.168.0.97 41585 22")
-              ;; (ssh-client (getenv "SSH_CLIENT"))
-              (host-ip (car (split-string ssh-client)))
-              (host-name (string-trim (shell-command-to-string "whoami"))))
-    ;; (call-process "ssh" nil 0 nil
-    ;;               (format "%s@%s" host-name host-ip) (format "open '%s'" url))
-pen '%s'" url))
+      (defun browse-url-host (url &optional _new-window)
+        (interactive (browse-url-interactive-arg "URL: "))
+        (when-let* (
+                    (ssh-client "192.168.0.97 41585 22")
+                    ;; (ssh-client (getenv "SSH_CLIENT"))
+                    (host-ip (car (split-string ssh-client)))
+                    (host-name (string-trim (shell-command-to-string "whoami"))))
+          ;; (call-process "ssh" nil 0 nil
+          ;;               (format "%s@%s" host-name host-ip) (format "open '%s'" url))
 
-    )
+
+          )
+        )
+
+      (when (getenv "SSH_CLIENT")
+        (setq browse-url-browser-function 'browse-url-host))
+      )
+
+  (setq browse-url-browser-function 'browse-url-chrome)
   )
-
-(when (getenv "SSH_CLIENT")
-  (setq browse-url-browser-function 'browse-url-host))
-
-;; (setq browse-url-browser-function 'browse-url-chrome)
 
 
 (use-package spacemacs-theme
@@ -1971,23 +1986,35 @@ pen '%s'" url))
 (setq system-time-locale "C")
 
 
+(add-to-list 'default-frame-alist '(background-color . "#111111"))
+(set-background-color "#111111")
 
+(use-package so-long
+  :ensure t
+  )
+
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal)))))
+
+
+;; (use-package leetcode
+;;   :ensure t
+;;   :config
+;;   (setq leetcode-prefer-language "python3")
+;;   (setq leetcode-prefer-sql "mysql")
+;;   (setq leetcode-save-solutions t)
+;;   (setq leetcode-directory "~/study/leetcode")
+;;   )
+
+
+(provide 'init)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default")))))
-
-
-(use-package leetcode
-  :ensure t
-  :config
-  (setq leetcode-prefer-language "python3")
-  (setq leetcode-prefer-sql "mysql")
-  (setq leetcode-save-solutions t)
-  (setq leetcode-directory "~/study/leetcode")
-  )
-
-
-(provide 'init)
+ )
