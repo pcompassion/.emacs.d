@@ -1941,6 +1941,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     )
   )
 
+
 (if (not window-system)
     (progn
       (setq
@@ -1974,6 +1975,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   )
   ;; (setq browse-url-browser-function 'browse-url-default-browser)
+
 
 (use-package spacemacs-theme
   :ensure t
@@ -2029,10 +2031,20 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
   )
 
+
+(use-package leetcode
+  :ensure t
+  :config
+  (setq leetcode-prefer-language "python3")
+  (setq leetcode-prefer-sql "mysql")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/study/leetcode")
+  )
+
+;; mac specific
+
+(set-frame-font "Monaco-14" nil t)
+
+
+
 (provide 'init)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
