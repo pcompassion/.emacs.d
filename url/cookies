@@ -2,11 +2,13 @@
 ;; Automatically generated file!!! DO NOT EDIT!!!
 
 (setq url-cookie-storage
- '(("zibann.kr"
-  [url-cookie "username-zibann-kr-10089" "2|1:0|10:1601768288|24:username-zibann-kr-10089|44:MTA2ZTYxM2I0OWQyNGFmNmI4MTFmMjhmZWY5Njg2MjI=|ecae562cbc23f499637115219a96dc562fbdf2ca39cc6cdd9b4152bad67283a0" "Mon, 02 Nov 2020 23:38:08 GMT" "/" "zibann.kr" nil]))
-)
-(setq url-cookie-secure-storage
  'nil)
+(setq url-cookie-secure-storage
+ '((".leetcode.com"
+  [url-cookie "LEETCODE_SESSION" "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfYXV0aF91c2VyX2lkIjoiODAyNzg3OSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjYyM2ZkZmVhNDJhMjRjYTJjNzhhMTg4M2M1NWNjMDAxMGQ2MGY1ZmYiLCJpZCI6ODAyNzg3OSwiZW1haWwiOiJwLmNvbXBhc3Npb25AZ21haWwuY29tIiwidXNlcm5hbWUiOiJ1c2VyOTgxMHRQIiwidXNlcl9zbHVnIjoidXNlcjk4MTB0UCIsImF2YXRhciI6Imh0dHBzOi8vYXNzZXRzLmxlZXRjb2RlLmNvbS91c2Vycy9hdmF0YXJzL2F2YXRhcl8xNjY4NjU4MTc5LnBuZyIsInJlZnJlc2hlZF9hdCI6MTY5MDYzNDg2NiwiaXAiOiIxNzUuMTkyLjE3OS4xNzAiLCJpZGVudGl0eSI6IjNiOGQzOTliNTZmYjlkZjU1OTJiMDUxZmRlMzZjOTAzIiwic2Vzc2lvbl9pZCI6NDMzODM5MTd9.R6doFY3PkLsnB0hBy5CZf1r2Cco4bOMBY23cey-NHr0" "Sun Aug 13 05:25:34 2023 GMT" "/" ".leetcode.com" t])
+ ("leetcode.com"
+  [url-cookie "csrftoken" "exgeSOAJOI4StzlDb4ViI13nPoxeWxNkM84oiZY2pbvSLEuLAgl5Kw7zTWToObNh" "Wed Jul 31 14:47:19 2024 GMT" "/" "leetcode.com" t]))
+)
 
 ;; Local Variables:
 ;; version-control: never
