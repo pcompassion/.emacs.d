@@ -2045,6 +2045,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (set-frame-font "Monaco-14" nil t)
 
+(add-hook
+     'c++-mode-hook
+      (lambda ()
+        (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
+      )
+
+
 
 
 (provide 'init)
