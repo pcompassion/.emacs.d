@@ -5,7 +5,11 @@
 ;;  )
 
 
-(setq mac-command-modifier 'meta)
+
+(setq mac-option-modifier 'meta
+      mac-command-modifier 'super
+)
+
 
 ;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
@@ -1967,17 +1971,19 @@ This is the same as using \\[set-mark-command] with the prefix argument."
         (setq browse-url-browser-function 'browse-url-host))
       )
 
-  (setq browse-url-browser-function 'browse-url-chrome)
-  )
 
+  )
+  ;; (setq browse-url-browser-function 'browse-url-default-browser)
 
 (use-package spacemacs-theme
   :ensure t
+  :defer t
   :config
   ;; Global settings (defaults)
-  (load-theme 'spacemacs-dark t)
   :init
   (progn
+  (load-theme 'spacemacs-dark t)
+
     (setq spacemacs-theme-comment-bg nil)
 )
   )
@@ -2001,14 +2007,21 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;  '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal)))))
 
 
-;; (use-package leetcode
-;;   :ensure t
-;;   :config
-;;   (setq leetcode-prefer-language "python3")
-;;   (setq leetcode-prefer-sql "mysql")
-;;   (setq leetcode-save-solutions t)
-;;   (setq leetcode-directory "~/study/leetcode")
-;;   )
+(use-package leetcode
+  :ensure t
+  :after elpy
+
+  :config
+
+  (setq leetcode-prefer-language "python3")
+  (setq leetcode-prefer-sql "mysql")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/study/leetcode")
+
+(global-set-key (kbd "C-c C-t") 'leetcode-try)
+
+(keymap-global-set "C-x C-t" 'leetcode-try)
+
 
 
 (provide 'init)
