@@ -2023,6 +2023,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (keymap-global-set "C-x C-t" 'leetcode-try)
 
 
+(use-package elixir-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
+  )
 
 (provide 'init)
 (custom-set-faces
