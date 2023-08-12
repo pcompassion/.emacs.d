@@ -1806,7 +1806,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; Change default prefix key; needs to be set before loading org-journal
   (setq org-journal-prefix-key "C-c j ")
   :config
-  (setq org-journal-dir "~/notes/journal/"
+  (setq org-journal-dir "~/notes/journals/"
         org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-carryover-items "TODO=\"Todo\"|TODO=\"Started\"")
 
