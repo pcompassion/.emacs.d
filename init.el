@@ -1803,8 +1803,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :defer t
   :init
+  (progn
+
   ;; Change default prefix key; needs to be set before loading org-journal
-  (setq org-journal-prefix-key "C-c j ")
+    (setq org-journal-prefix-key "C-c j ")
+
+
+  )
   :config
   (setq org-journal-dir "~/notes/journals/"
         org-journal-date-format "%A, %d %B %Y")
@@ -1870,6 +1875,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (when (org-journal-open-current-journal-file) (org-journal-new-entry nil)))
 
+(defun change-org-journal-file-type (ty)
+  "type?"
+  (interactive "sJournal type:")
+
+  (when (string= ty "w") (progn
+                           (setq org-journal-file-type 'weekly )
+                           (message "journal type set to weekly")
+                           ))
+
+  (when (string= ty "d")
+    (progn
+      (setq org-journal-file-type 'daily )
+      (message "journal type set to daily")
+
+      )
+    )
+
+  (org-journal-invalidate-cache)
+  )
 
 (df/ctrl-c
   "a" 'org-agenda
@@ -1882,6 +1906,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (df-local/ctrl-c-o
  "j" 'goto-journal
+ "w" 'change-org-journal-file-type
  )
 
 (df-local/ctrl-c-o
