@@ -1877,7 +1877,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun change-org-journal-file-type (ty)
   "type?"
-  (interactive "sJournal type:")
+  (interactive "sJournal type: ")
 
   (when (string= ty "w") (progn
                            (setq org-journal-file-type 'weekly )
