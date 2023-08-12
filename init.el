@@ -1816,6 +1816,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (setq org-journal-file-header 'org-journal-file-header-func)
 
     (setq org-journal-start-on-weekday 7)
+    (setq org-journal-enable-agenda-integration t)
   )
   :config
   (setq org-journal-dir "~/notes/journals/"
@@ -1852,7 +1853,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :after org
   :config
-  (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
+  ;; (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
   (setq org-gcal-fetch-file-alist '(("p.compassion@gmail.com" .  "~/notes/agendas/schedule.org")))
   (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
   (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
@@ -1884,36 +1885,37 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun change-org-journal-file-type (ty)
   "type?"
-  (interactive "sJournal type: ")
+  (interactive "cJournal type: ")
 
   (let (ty_s)
     (progn
     (cond
-     ((string= ty "w")
+     ((char-equal ty ?w)
       (progn
-        (setq org-journal-file-type 'weekly )
+        (setq org-journal-file-type 'weekly)
         (setq ty_s "weekly")
         (setq org-journal-file-format "%Y%m-w%V")
         ))
-     ((string= ty "d")
+     ((char-equal ty ?d)
       (progn
-        (setq org-journal-file-type 'daily )
+        (setq org-journal-file-type 'daily)
         (setq ty_s "daily")
         (setq org-journal-file-format "%Y%m%d")
         )
       )
-     ((string= ty "m")
+     ((char-equal ty ?m)
       (progn
-        (setq org-journal-file-type 'monthly )
-        (setq ty_s "montly")
+        (setq org-journal-file-type 'monthly)
+        (setq ty_s "monthly")
         (setq org-journal-file-format "%Y%m-%b")
         )
       )
      )
 
-    (message "journal type set to %s" ty_s)
+    ;; (message "journal type set to %s" ty_s)
 
     (org-journal-invalidate-cache)
+    (goto-journal)
     )
     )
   )
@@ -2060,21 +2062,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-(use-package leetcode
-  :ensure t
-  :after elpy
-
-  :config
-
-  (setq leetcode-prefer-language "python3")
-  (setq leetcode-prefer-sql "mysql")
-  (setq leetcode-save-solutions t)
-  (setq leetcode-directory "~/study/leetcode")
-
-(global-set-key (kbd "C-c C-t") 'leetcode-try)
-
-(keymap-global-set "C-x C-t" 'leetcode-try)
-
 
 (use-package elixir-mode
   :ensure t
@@ -2121,30 +2108,3 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (provide 'init)
-
-
-;; (defun my-org-read-date (orig-fn &rest args)
-;;   (progn
-
-;;   (apply orig-fn args)
-;;   (org-eval-in-calendar '(setq cursor-type 'bar) t)
-;;   (message "my-org-read-date")
-;;   )
-;;   )
-
-;; (advice-remove 'org-read-date  #'my-org-read-date)
-;; (advice-add 'org-read-date :around #'my-org-read-date)
-
-
-;; (defun my-cursor ()
-;;   (org-eval-in-calendar '(setq cursor-type 'bar) t)
-;;   )
-
-;; (defun my-cursor2 ()
-;;   (setq cursor-type 'bar)
-;;   )
-
-
-;; (add-hook 'calendar-mode-hook
-;;           (define-key calendar-mode-map (kbd "!") 'my-cursor2)
-;;           )
