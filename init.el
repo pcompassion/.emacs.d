@@ -1540,8 +1540,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
   (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
-  (python-shell-interpreter "ipython3")
-  (python-shell-interpreter-args "--simple-prompt -i")
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "-i --simple-prompt")
+
   :config
   (setq python-shell-virtualenv-root "~/virtualenvs")
   (setq py-force-py-shell-name-p t)
@@ -1577,6 +1578,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-hook 'elpy-mode-hook (lambda ()
                               (add-hook 'before-save-hook
                                         'elpy-black-fix-code nil t)))
+  (remove-hook 'elpy-modules 'elpy-module-flymake)
+  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
   )
 
 (use-package eglot
@@ -1667,7 +1670,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C--")   'undo-fu-only-undo)
   (global-set-key (kbd "C-=") 'undo-fu-only-redo))
-
 
 ;; (require 'dap-dlv-go)
 
@@ -2001,12 +2003,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   )
 
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t ( :background "#111111" : :weight light)))))
+
 
 
 (use-package leetcode
@@ -2034,16 +2037,23 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package leetcode
   :ensure t
+  :after elpy
   :config
   (setq leetcode-prefer-language "python3")
   (setq leetcode-prefer-sql "mysql")
   (setq leetcode-save-solutions t)
   (setq leetcode-directory "~/study/leetcode")
+  :init
+  (progn
+
+   (define-key leetcode-solution-mode-map (kbd "C-c C-t") 'leetcode-try)
+)
+
   )
 
 ;; mac specific
 
-(set-frame-font "Monaco-14" nil t)
+(set-frame-font "Monaco-15" nil t)
 
 (add-hook
      'c++-mode-hook
@@ -2052,6 +2062,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
       )
 
 
+(global-set-key (kbd "C-x C-t") 'leetcode-try)
 
-
+(global-so-long-mode 1)
+(setenv "WORKON_HOME" "/Users/eugenekim/virtualenvs")
 (provide 'init)
