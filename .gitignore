@@ -36,3 +36,5 @@ tags
 transient/
 url/cache/
 url/cookies
+persist/
+projects

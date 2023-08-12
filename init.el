@@ -1709,10 +1709,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :hook (org-mode . org-indent-mode)
   ;; https://orgmode.org/manual/Conflicts.html
   ;; Make windmove work in Org mode:
-  (org-shiftup-final . windmove-up)
-  (org-shiftleft-final-hook . windmove-left)
-  (org-shiftdown-final-hook . windmove-down)
-  (org-shiftright-final-hook . windmove-right)
 
   :bind* (
           :map org-mode-map
@@ -1808,7 +1804,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; Change default prefix key; needs to be set before loading org-journal
     (setq org-journal-prefix-key "C-c j ")
 
+    (defun org-journal-file-header-func (time)
+      "Custom function to create journal header."
+      (concat
+       (pcase org-journal-file-type
+         (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
+         (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
+         (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded")
+         (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded"))))
 
+    (setq org-journal-file-header 'org-journal-file-header-func)
+
+    (setq org-journal-start-on-weekday 7)
   )
   :config
   (setq org-journal-dir "~/notes/journals/"
@@ -1879,26 +1886,41 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   "type?"
   (interactive "sJournal type: ")
 
-  (when (string= ty "w") (progn
-                           (setq org-journal-file-type 'weekly )
-                           (message "journal type set to weekly")
-                           ))
-
-  (when (string= ty "d")
+  (let (ty_s)
     (progn
-      (setq org-journal-file-type 'daily )
-      (message "journal type set to daily")
-
+    (cond
+     ((string= ty "w")
+      (progn
+        (setq org-journal-file-type 'weekly )
+        (setq ty_s "weekly")
+        (setq org-journal-file-format "%Y%m-w%V")
+        ))
+     ((string= ty "d")
+      (progn
+        (setq org-journal-file-type 'daily )
+        (setq ty_s "daily")
+        (setq org-journal-file-format "%Y%m%d")
+        )
       )
-    )
+     ((string= ty "m")
+      (progn
+        (setq org-journal-file-type 'monthly )
+        (setq ty_s "montly")
+        (setq org-journal-file-format "%Y%m-%b")
+        )
+      )
+     )
 
-  (org-journal-invalidate-cache)
+    (message "journal type set to %s" ty_s)
+
+    (org-journal-invalidate-cache)
+    )
+    )
   )
 
 (df/ctrl-c
   "a" 'org-agenda
   "c" 'org-capture
-  "l" 'cfw:open-org-calendar
   )
 
 (general-create-definer df-local/ctrl-c-o
@@ -1906,7 +1928,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (df-local/ctrl-c-o
  "j" 'goto-journal
- "w" 'change-org-journal-file-type
+ "t" 'change-org-journal-file-type
+ "c" 'cfw:open-org-calendar
  )
 
 (df-local/ctrl-c-o
@@ -2021,19 +2044,19 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq system-time-locale "C")
 
 
-(add-to-list 'default-frame-alist '(background-color . "#111111"))
-(set-background-color "#111111")
+;; (add-to-list 'default-frame-alist '(background-color . "#111111"))
+;; (set-background-color "#111111")
 
 (use-package so-long
   :ensure t
   )
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t ( :background "#111111" : :weight light)))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t ( :background "#111111" : :weight light))))) ;
 
 
 
@@ -2072,7 +2095,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (progn
 
    (define-key leetcode-solution-mode-map (kbd "C-c C-t") 'leetcode-try)
-)
+   )
 
   )
 
@@ -2087,8 +2110,41 @@ This is the same as using \\[set-mark-command] with the prefix argument."
       )
 
 
-(global-set-key (kbd "C-x C-t") 'leetcode-try)
 
 (global-so-long-mode 1)
 (setenv "WORKON_HOME" "/Users/eugenekim/virtualenvs")
+
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+
 (provide 'init)
+
+
+;; (defun my-org-read-date (orig-fn &rest args)
+;;   (progn
+
+;;   (apply orig-fn args)
+;;   (org-eval-in-calendar '(setq cursor-type 'bar) t)
+;;   (message "my-org-read-date")
+;;   )
+;;   )
+
+;; (advice-remove 'org-read-date  #'my-org-read-date)
+;; (advice-add 'org-read-date :around #'my-org-read-date)
+
+
+;; (defun my-cursor ()
+;;   (org-eval-in-calendar '(setq cursor-type 'bar) t)
+;;   )
+
+;; (defun my-cursor2 ()
+;;   (setq cursor-type 'bar)
+;;   )
+
+
+;; (add-hook 'calendar-mode-hook
+;;           (define-key calendar-mode-map (kbd "!") 'my-cursor2)
+;;           )
