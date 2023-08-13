@@ -2121,8 +2121,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (
    :map ediff-mode-map
    (
-    ("[" . (lambda () (interactive) (setq-local ediff-merge-window-share (+  ediff-merge-window-share 0.10))))
-    ("]" . (lambda () (interactive) (setq-local ediff-merge-window-share (-  ediff-merge-window-share 0.10))))
      )
     )
    )
