@@ -17,7 +17,7 @@
 ;; ;; http://stackoverflow.com/a/1242760/433570
 ;; ;; <--tutorials
 
-;; ;; emacs mac
+;; ;; emacs mac 2
 ;; ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
 
 (require 'package)
@@ -2088,7 +2088,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; mac specific
 
-(set-frame-font "Monaco-15" nil t)
+(set-frame-font "Monaco-16" nil t)
 
 (add-hook
      'c++-mode-hook
