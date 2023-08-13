@@ -1,3 +1,4 @@
+
 ;;(setq spacemacs-start-directory "~/spacemacs/.emacs.d/")
 ;;(let ((spacemacs-setting (concat spacemacs-start-directory "init.el")))
 ;;  (when (file-exists-p spacemacs-setting)
@@ -39,7 +40,6 @@
 
 
 
-
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -55,6 +55,20 @@
 ;; fetch the list of packages available
 ;; (unless package-archive-contents
 ;;     (package-refresh-contents))
+
+
+;; for bookmark+
+(use-package quelpa
+  :ensure t
+  :init
+  (setq quelpa-self-upgrade-p nil))
+
+(use-package quelpa-use-package
+  :ensure t
+  :after (quelpa)
+  :config
+  (quelpa-use-package-activate-advice))
+
 
 
 (defconst home-dir
@@ -101,6 +115,10 @@
 ;;   (setq elpy-rpc-python-command "python3")
 ;;   (setq elpy-rpc-timeout 2)
 ;;  )
+
+  (setq-default indent-tabs-mode nil
+              tab-stop-list    ()
+              tab-width        2)
 
 
 
@@ -280,6 +298,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(byte-compile-warnings nil)
  '(custom-enabled-themes nil)
  '(dired-listing-switches "-alFh")
@@ -294,8 +313,6 @@
    '("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components"))
  '(grep-find-ignored-files
    '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js"))
- '(helm-boring-file-regexp-list
-   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$" "\\.min\\.css$" "jquery\\.js" "js-modules/" "djangojs/init.js"))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-file-path-style 'relative)
  '(helm-grep-ignored-directories
@@ -310,10 +327,12 @@
  '(js3-indent-on-enter-key t)
  '(magit-log-arguments '("--graph" "--decorate" "--follow"))
  '(network-security-level 'medium)
+ '(org-agenda-files
+   '("/Users/littlehome/notes/agendas" "/Users/littlehome/notes/journals/20230813"))
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(bookmark+ quelpa-use-package quelpa rg helm-rg python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
@@ -382,27 +401,7 @@
     (comment-indent)))
 ;; put two spaces before comment
 
-;; js3
-;; js3
 
-;; jedi
-;; http://tkf.github.io/emacs-jedi/latest/
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; jedi
-
-;; el-get
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-;; (unless (require 'el-get nil 'noerror)
-;;     (with-current-buffer
-;;          (url-retrieve-synchronously
-;;                "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;;        (let (el-get-master-branch)
-;;            (goto-char (point-max))
-;;                (eval-print-last-sexp))))
-
-;; (el-get 'sync)
-;; el-get
 
 ;; pymacs
 ;; http://www.yilmazhuseyin.com/blog/dev/emacs-setup-python-development/
@@ -447,14 +446,13 @@
 ;; http://kldp.org/node/110942
 (prefer-coding-system 'utf-8)
 
-(setq-default tab-width 2)
-
 
 (setq compilation-scroll-output t)
 
 
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(setq grep-find-ignored-files (cl-union grep-find-ignored-files '("*pbxproj" "*ignore")))
 
 ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
 ;; (defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
@@ -714,9 +712,50 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package
   helm-swoop
   :ensure t
-  :bind (
-         ("C-c h s" . helm-swoop)
-         )
+  :config
+
+  ;; Change the keybinds to whatever you like :)
+  (global-set-key (kbd "M-i") 'helm-swoop)
+  (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+  (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+  (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+
+  ;; When doing isearch, hand the word over to helm-swoop
+  (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+  ;; From helm-swoop to helm-multi-swoop-all
+  (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+  ;; When doing evil-search, hand the word over to helm-swoop
+  ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
+
+  ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
+  (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+
+  ;; Move up and down like isearch
+  (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+  (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+  (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+  (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+
+  ;; Save buffer when helm-multi-swoop-edit complete
+  (setq helm-multi-swoop-edit-save t)
+
+  ;; If this value is t, split window inside the current window
+  (setq helm-swoop-split-with-multiple-windows nil)
+
+  ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+  (setq helm-swoop-split-direction 'split-window-vertically)
+
+  ;; If nil, you can slightly boost invoke speed in exchange for text color
+  (setq helm-swoop-speed-or-color nil)
+  ;; ;; Go to the opposite side of line from the end or beginning of line
+  (setq helm-swoop-move-to-line-cycle t)
+
+  ;; Optional face for line numbers
+  ;; Face name is `helm-swoop-line-number-face`
+  (setq helm-swoop-use-line-number-face t)
+
+  ;; If you prefer fuzzy matching
+  (setq helm-swoop-use-fuzzy-match t)
   )
 
 (use-package
@@ -724,42 +763,60 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   )
 
+
+(global-unset-key (kbd "C-x c"))
+
 (use-package helm
   :ensure t
   :diminish helm-mode
+
+
+  :custom
+  (helm-boring-file-regexp-list
+   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js" "js-modules/") )
+  (helm-ff-skip-boring-files t)
+  (helm-buffer-max-length 40)
+  (helm-ff-history-max-length 500)
+
+  ;; From https://gist.github.com/antifuchs/9238468
+  ( helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
+    helm-input-idle-delay 0.01  ; this actually updates things
+                                        ; reeeelatively quickly.
+    helm-yas-display-key-on-candidate t
+    helm-quick-update t
+    helm-M-x-requires-pattern nil
+    helm-ff-skip-boring-files t)
+
+  ( helm-move-to-line-cycle-in-source nil)
+  ( helm-grep-truncate-lines nil)
+  ( helm-buffers-truncate-lines nil)
+  ( helm-ff-newfile-prompt-p nil)
+
+  (helm-split-window-in-side-p nil); open helm buffer inside current window, not occupy whole other window
+  (helm-ff-search-library-in-sexp        t) ; search for library in `require' and `declare-function' sexp.
+  (helm-scroll-amount                    8) ; scroll 8 lines other window using M-<next>/M-<prior>
+  (helm-ff-file-name-history-use-recentf t)
+  (helm-candidate-number-limit 9999)
+  (helm-echo-input-in-header-line t)
+  (helm-M-x-fuzzy-match t)
+  (helm-buffers-fuzzy-matching t)
+  (helm-recentf-fuzzy-match    t)
+  (helm-ag-insert-at-point 'symbol)
+  (helm-follow-mode-persistent  t)
+  (helm-ag-use-agignore t)
   :init
   (progn
     (require 'helm)
-    (require 'helm-swoop)
-    ;; (require 'helm-config)
-    (setq helm-boring-file-regexp-list
-          '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "bower_components/*" "static/saleor/js/*" "\\.min\\.js$"  "\\.min\\.css$" "jquery\\.js" "js-modules/"))
-    (global-set-key (kbd "C-c h") 'helm-command-prefix)
-    (global-unset-key (kbd "C-x c"))
-    (setq helm-ff-skip-boring-files t)
-    (setq helm-buffer-max-length 40)
-    (setq helm-ff-history-max-length 500)
 
-    (setq helm-candidate-number-limit 100)
-    ;; From https://gist.github.com/antifuchs/9238468
-    (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-          helm-input-idle-delay 0.01  ; this actually updates things
-                                        ; reeeelatively quickly.
-          helm-yas-display-key-on-candidate t
-          helm-quick-update t
-          helm-M-x-requires-pattern nil
-          helm-ff-skip-boring-files t)
+    (helm-define-key-with-subkeys global-map
+      (kbd "C-c n") ?n 'helm-cycle-resume
+      )
 
-    (setq helm-move-to-line-cycle-in-source nil)
-    (setq helm-grep-truncate-lines nil)
-    (setq helm-buffers-truncate-lines nil)
-    (setq helm-ff-newfile-prompt-p nil)
+    ;; (defun my-helm-grep-do-git-grep (not-all)
+    ;;   (interactive "P")
+    ;;   (helm-grep-git-1 default-directory (null not-all)))
 
-    (defun my-helm-grep-do-git-grep (not-all)
-      (interactive "P")
-      (helm-grep-git-1 default-directory (null not-all)))
-
-    (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
+    ;; (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
 
 
     (defun helm-git-grep-at-point-no-mark (arg)
@@ -781,23 +838,26 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ;; (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
     ;; (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
-    (setq helm-candidate-number-limit 9999)
-
 
     (helm-mode))
   :bind (
+         ("C-c h" . helm-command-prefix)
          ("C-h a" . helm-apropos)
+         ;; ("C-c g" . helm-projectile-rg)
+         ("C-c g" . helm-projectile-ag)
+         ;; ("C-c g" . helm-projectile-grep)
          ("C-h b" . helm-descbinds)
-         ("C-x b" . helm-buffers-list)
-         ("C-x C-b" . helm-mini)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-x b" . helm-mini)
          ("C-M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)
+
+
          ;; ("C-c h o" . helm-occur)
-         ("C-c h w" . helm-swoop)
-         ("C-c h W" . helm-multi-swoop-all)
+         ;; ("C-c h w" . helm-swoop)
+         ;; ("C-c h W" . helm-multi-swoop-all)
          ;; ("C-c h y" . helm-yas-complete)
          ;; ("C-c h Y" . helm-yas-create-snippet-on-region)
-         ;; ("C-c h b" . my/helm-do-grep-book-notes)
          ("C-x C-f" . helm-find-files)
          ("C-h C-SPC" . helm-all-mark-rings)
          ("C-h SPC" . helm-global-mark-ring)
@@ -811,8 +871,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
          :map helm-grep-mode-map
          ("M-n" . helm-gm-next-file)
          ("M-p" . helm-gm-precedent-file)
+         ;; :map helm-occur-mode-map
+         ;; (
          )
   )
+
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
 
 ;; (use-package
@@ -1147,15 +1210,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;    )
 ;; )
 
-;;  (use-package
-;; helm-projectile
-;;    :ensure t
-;;    :init
-;;    (progn
-;; (helm-projectile-on)
-;;    )
-;; )
-
 
 
 (use-package
@@ -1251,7 +1305,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; projectile
 
-(setq-default indent-tabs-mode nil)
 
 (setq tramp-default-method "ssh")
 (windmove-default-keybindings)
@@ -1305,19 +1358,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package jupyter :ensure t)
 
 
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '(
-;;    ;; (ipython . t)
-;;    (emacs-lisp . t)
-;;    ;; (julia . t)
-;;    (ipython . t)
-;;    (python . t)
-;;    (elasticsearch . t)
-;;    (shell . t)
-;;    ;; other languages..
-;;    (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
-;;    ))
 
 (show-paren-mode 1)
 (setq blink-matching-delay 0.3)
@@ -1347,14 +1387,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (push "HISTFILE" exec-path-from-shell-variables)
   (exec-path-from-shell-initialize))
 
+;; (use-package rg
+;;   :ensure t
+;;   :init
+;;     (rg-enable-default-bindings)
+;;     )
+
+;; (use-package helm-rg
+;;   :ensure t
+;;   )
+
 
 (use-package projectile
   :ensure t
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map
-   )
+  :defer t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ;; ("s-p" . projectile-command-map) ;; for mac
+              ("C-c p" . projectile-command-map))
   )
 
 (add-to-list 'image-types 'svg)
@@ -1394,31 +1445,20 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package helm-ag
   :ensure t
-  :config
-  (setq helm-ag-insert-at-point nil)
+  :custom
+  (helm-ag-use-grep-ignore-list t)
 
   )
 
 
 (use-package helm-projectile
   :ensure t
+  :after projectile
   :config
 
-  ;; (defun my-helm-grep-do-git-grep (arg)
-  ;; (interactive "P")
-  ;;   (setq helm-ag-insert-at-point nil)
-  ;;   (helm-projectile-ag arg)
-  ;;   )
-  ;; (global-set-key (kbd "C-c g") 'my-helm-grep-do-git-grep)
-
-  ;; (defun my-helm-grep-do-git-grep-at-point (arg)
-  ;; (interactive "P")
-  ;;   (setq helm-ag-insert-at-point 'symbol)
-  ;;   (helm-projectile-ag arg)
-  ;;   )
-  ;; (global-set-key (kbd "C-c k") 'my-helm-grep-do-git-grep-at-point)
-  (setq helm-ag-command-option " -U" )
-
+  ;; (setq helm-ag-command-option " -U" )
+  (helm-projectile-on)
+  (setq projectile-switch-project-action 'helm-projectile)
   (setq projectile-use-git-grep t)
 
   )
@@ -1525,8 +1565,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-hook 'python-mode-hook
             (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
 
-  ;; https://github.com/jorgenschaefer/elpy/issues/887#issuecomment-1664031740
-  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+
+
 
   )
 
@@ -1550,7 +1590,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package elpy
   :ensure t
   :defer t
-  :init
+  :after python-mode
+  :hook (elpy-mode . elpy-use-ipython)
+  :config
   (advice-add 'python-mode :before 'elpy-enable)
   (setq eldoc-idle-delay 1)  ;; in second
   (add-hook 'elpy-mode-hook (lambda ()
@@ -1558,6 +1600,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
                                         'elpy-black-fix-code nil t)))
   (remove-hook 'elpy-modules 'elpy-module-flymake)
   (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+
+  :init
+  (progn
+    )
   )
 
 (use-package eglot
@@ -1692,13 +1738,34 @@ This is the same as using \\[set-mark-command] with the prefix argument."
           ("C-c l" . org-store-link)
           )
 
-  :custom
+  :config
+  (setq org-babel-confirm-evaluate nil)
+
   (defun my-func (orig-fun &rest args)
     (when (equal (car args) '(setq cursor-type nil))
-      (setcar args '(setq cursor-type 'bar)))
+      (setcar args '(setq cursor-type t)))
     (apply orig-fun args))
 
-  (advice-add 'org-eval-in-calendar :around #'my-func)
+  (eval-after-load "org"
+    '(advice-add 'org-eval-in-calendar :around #'my-func))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (emacs-lisp . t)
+     (ipython . t)
+     (python . t)
+     (elasticsearch . t)
+     (shell . t)
+     ;; other languages..
+     (jupyter . t)                        ;jupyter should be added as the last element when loading languages since it depends on the values of variables such as org-src-lang-modes and org-babel-tangle-lang-exts
+     ))
+  (add-to-list 'org-modules 'org-tempo t)
+
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
   :init
   (progn
     (setq org-todo-keywords
@@ -1724,8 +1791,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
     (setq org-agenda-files '("~/notes/agendas"))
     (setq org-default-notes-file "~/notes/agendas/notes.org")
-    ;; (add-to-list 'org-structure-template-alist '("python" . "src python"))
-    ;; (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
 
     ;; ;; http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html
     ;; (setq org-confirm-babel-evaluate nil
@@ -2095,7 +2160,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (global-so-long-mode 1)
-(setenv "WORKON_HOME" "~/virtualenvs2")
+(setenv "WORKON_HOME" "~/virtualenvs")
 
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
@@ -2114,24 +2179,39 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; https://emacs.stackexchange.com/a/48896/12031
   (advice-add 'ediff-window-display-p :override #'ignore)
 
-;; ediff default split
-;; (setq ediff-split-window-function 'split-window-horizontally)
-;; (setq ediff-merge-split-window-function 'split-window-horizontally)
-;; ediff default split
+  ;; ediff default split
+  ;; (setq ediff-split-window-function 'split-window-horizontally)
+  ;; (setq ediff-merge-split-window-function 'split-window-horizontally)
+  ;; ediff default split
 
   :bind
   (
    :map ediff-mode-map
    (
-     )
+    ;; ("[" . (lambda () (interactive) (setq-local ediff-merge-window-share (+  ediff-merge-window-share 0.10))))
+    ;; ("]" . (lambda () (interactive) (setq-local ediff-merge-window-share (-  ediff-merge-window-share 0.10))))
+
     )
    )
+  )
 
-  (use-package helm-descbinds
-    :ensure t
-    :config
-    (helm-descbinds-mode)
-    )
+(use-package helm-descbinds
+  :ensure t
+  :config
+  (helm-descbinds-mode)
+  )
+
+(use-package bookmark+
+  :quelpa (bookmark+ :fetcher github :repo "emacsmirror/bookmark-plus")
+  :after bookmark ; I have generic bookmark customization I want loaded beforehand, you might not need this
+  ;; [...] your :init and :config
+  )
 
 
-  (provide 'init)
+(provide 'init)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -43,3 +43,5 @@ projectile-bookmarks.eld
 projectile.cache
 theme.el
 tramp
+bookmarks
+quelpa/
