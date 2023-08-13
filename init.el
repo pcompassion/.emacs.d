@@ -2095,7 +2095,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (global-so-long-mode 1)
-(setenv "WORKON_HOME" "~/virtualenvs")
+(setenv "WORKON_HOME" "~/virtualenvs2")
 
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
@@ -2111,6 +2111,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package ediff
   :custom
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  ;; https://emacs.stackexchange.com/a/48896/12031
+  (advice-add 'ediff-window-display-p :override #'ignore)
 
 ;; ediff default split
 ;; (setq ediff-split-window-function 'split-window-horizontally)
