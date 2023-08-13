@@ -1,15 +1,0 @@
-;; Emacs-W3 HTTP cookies file
-;; Automatically generated file!!! DO NOT EDIT!!!
-
-(setq url-cookie-storage
- '(("zibann.kr"
-  [url-cookie "username-zibann-kr-10089" "2|1:0|10:1599577237|24:username-zibann-kr-10089|44:NGUwMTc3NTA0NjliNDJmMDhhY2MyYTgzMTFmYjQxOTg=|5ca7c27e049adc44228113bedd122fc7f2d9b8f6fcd81b9eefe89a98d8a55abb" "Thu, 08 Oct 2020 15:00:37 GMT" "/" "zibann.kr" nil]
-  [url-cookie "username-zibann-kr-10088" "2|1:0|10:1598509226|24:username-zibann-kr-10088|44:NTYzOWIxZjBkMGM1NDQ5NDg2MzFjNGY1ZDlhNzdjMzk=|05e7db2e93ca8c670cf96eefa6aedb2ee76eac994f657068205d8fff3479e89e" "Sat, 26 Sep 2020 06:20:26 GMT" "/" "zibann.kr" nil]))
-)
-(setq url-cookie-secure-storage
- 'nil)
-
-;; Local Variables:
-;; version-control: never
-;; no-byte-compile: t
-;; End:

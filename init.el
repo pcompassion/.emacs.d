@@ -1548,8 +1548,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
   (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
-  (python-shell-interpreter "ipython3")
-  (python-shell-interpreter-args "--simple-prompt -i")
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "-i --simple-prompt")
+
   :config
   (setq python-shell-virtualenv-root "~/virtualenvs")
   (setq py-force-py-shell-name-p t)
@@ -1590,6 +1591,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-hook 'elpy-mode-hook (lambda ()
                               (add-hook 'before-save-hook
                                         'elpy-black-fix-code nil t)))
+  (remove-hook 'elpy-modules 'elpy-module-flymake)
+  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
   )
 
 (use-package eglot
@@ -1681,7 +1684,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (global-set-key (kbd "C--")   'undo-fu-only-undo)
   (global-set-key (kbd "C-=") 'undo-fu-only-redo))
 
-
 ;; (require 'dap-dlv-go)
 
 (set-buffer-multibyte 't)
@@ -1724,6 +1726,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
           ("C-c C-y" . org-todo)
           ("C-c l" . org-store-link)
           )
+
+  :custom
+(defun my-func (orig-fun &rest args)
+  (when (equal (car args) '(setq cursor-type nil))
+    (setcar args '(setq cursor-type 'bar)))
+  (apply orig-fun args))
+
+(advice-add 'org-eval-in-calendar :around #'my-func)
   :init
   (progn
     (setq org-todo-keywords
@@ -1820,8 +1830,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :defer t
   :init
+  (progn
+
   ;; Change default prefix key; needs to be set before loading org-journal
-  (setq org-journal-prefix-key "C-c j ")
+    (setq org-journal-prefix-key "C-c j ")
+
+    (defun org-journal-file-header-func (time)
+      "Custom function to create journal header."
+      (concat
+       (pcase org-journal-file-type
+         (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
+         (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
+         (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded")
+         (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded"))))
+
+    (setq org-journal-file-header 'org-journal-file-header-func)
+
+    (setq org-journal-start-on-weekday 7)
+    (setq org-journal-enable-agenda-integration t)
+  )
   :config
   (setq org-journal-dir "~/notes/journals/"
         org-journal-date-format "%A, %d %B %Y")
@@ -1857,7 +1884,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :after org
   :config
-  (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
+  ;; (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
   (setq org-gcal-fetch-file-alist '(("p.compassion@gmail.com" .  "~/notes/agendas/schedule.org")))
   (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
   (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
@@ -1887,11 +1914,46 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (when (org-journal-open-current-journal-file) (org-journal-new-entry nil)))
 
+(defun change-org-journal-file-type (ty)
+  "type?"
+  (interactive "cJournal type: ")
+
+  (let (ty_s)
+    (progn
+    (cond
+     ((char-equal ty ?w)
+      (progn
+        (setq org-journal-file-type 'weekly)
+        (setq ty_s "weekly")
+        (setq org-journal-file-format "%Y%m-w%V")
+        ))
+     ((char-equal ty ?d)
+      (progn
+        (setq org-journal-file-type 'daily)
+        (setq ty_s "daily")
+        (setq org-journal-file-format "%Y%m%d")
+        )
+      )
+     ((char-equal ty ?m)
+      (progn
+        (setq org-journal-file-type 'monthly)
+        (setq ty_s "monthly")
+        (setq org-journal-file-format "%Y%m-%b")
+        )
+      )
+     )
+
+    ;; (message "journal type set to %s" ty_s)
+
+    (org-journal-invalidate-cache)
+    (goto-journal)
+    )
+    )
+  )
 
 (df/ctrl-c
   "a" 'org-agenda
   "c" 'org-capture
-  "l" 'cfw:open-org-calendar
   )
 
 (general-create-definer df-local/ctrl-c-o
@@ -1899,6 +1961,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (df-local/ctrl-c-o
  "j" 'goto-journal
+ "t" 'change-org-journal-file-type
+ "c" 'cfw:open-org-calendar
  )
 
 (df-local/ctrl-c-o
@@ -1960,6 +2024,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     )
   )
 
+
 (if (not window-system)
     (progn
       (setq
@@ -1994,6 +2059,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
   ;; (setq browse-url-browser-function 'browse-url-default-browser)
 
+
 (use-package spacemacs-theme
   :ensure t
   :defer t
@@ -2011,8 +2077,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq system-time-locale "C")
 
 
-(add-to-list 'default-frame-alist '(background-color . "#111111"))
-(set-background-color "#111111")
+;; (add-to-list 'default-frame-alist '(background-color . "#111111"))
+;; (set-background-color "#111111")
 
 (use-package so-long
   :ensure t
@@ -2023,23 +2089,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
 ;;  ;; Your init file should contain only one such instance.
 ;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t (:inherit nil :extend nil :stipple nil :background "#111111" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal)))))
+;;  '(default ((t ( :background "#111111" : :weight light))))) ;
 
 
-(use-package leetcode
-  :ensure t
-  :after elpy
-
-  :config
-
-  (setq leetcode-prefer-language "python3")
-  (setq leetcode-prefer-sql "mysql")
-  (setq leetcode-save-solutions t)
-  (setq leetcode-directory "~/study/leetcode")
-
-(global-set-key (kbd "C-c C-t") 'leetcode-try)
-
-(keymap-global-set "C-x C-t" 'leetcode-try)
 
 
 (use-package elixir-mode
@@ -2048,15 +2100,67 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
   )
 
+
+(use-package leetcode
+  :ensure t
+  :after elpy
+  :config
+  (setq leetcode-prefer-language "python3")
+  (setq leetcode-prefer-sql "mysql")
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/study/leetcode")
+  :init
+  (progn
+
+   (define-key leetcode-solution-mode-map (kbd "C-c C-t") 'leetcode-try)
+   )
+
+  )
+
+;; mac specific
+
+(set-frame-font "Monaco-14" nil t)
+
+(add-hook
+     'c++-mode-hook
+      (lambda ()
+        (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
+      )
+
+
+
+(global-so-long-mode 1)
+(setenv "WORKON_HOME" "~/virtualenvs")
+
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+
 (use-package alchemist
   :ensure t
   )
 
 
+(use-package ediff
+  :custom
+  (setq ediff-window-setup-funtion 'ediff-setup-windows-plain)
+  :bind
+  (
+   :map ediff-mode-map
+        (
+         ("[" .
+         ;; ("c" . ediff-toggle-multiframe)
+         )
+  )
+  )
+
+  (use-package helm-descbinds
+    :ensure t
+    :config
+    (helm-descbinds-mode)
+    )
+
+
 (provide 'init)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
