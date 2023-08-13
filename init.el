@@ -17,8 +17,6 @@
 ;; ;; http://stackoverflow.com/a/1242760/433570
 ;; ;; <--tutorials
 
-;; ;; emacs mac
-;; ;; http://xor.lonnen.com/2013/01/04/emacs-on-osx.html
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -39,10 +37,6 @@
       ;;   ("MELPA"        . 10))
       )
 
-;; (add-to-list 'package-archives
-;;                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
-;; (add-to-list 'package-archives
-;;       '("melpa" . "http://melpa.org/packages/"))
 
 
 
@@ -61,11 +55,6 @@
 ;; fetch the list of packages available
 ;; (unless package-archive-contents
 ;;     (package-refresh-contents))
-
-;; install the missing packages
-;; (dolist (package package-list)
-;;     (unless (package-installed-p package)
-;;        (package-install package)))
 
 
 (defconst home-dir
@@ -91,11 +80,6 @@
 ;; (bash-completion-setup)
 ;; bash-completion
 
-;; elpy
-;; (package-initialize)
-;; (elpy-enable)
-;; elpy
-
 
 ;; (use-package elpy
 ;;   ;; :straight t
@@ -119,37 +103,22 @@
 ;;  )
 
 
-;; --> ac-helm
-;;(require 'auto-complete)
-
-;; (use-package
-;;     ac-helm
-;;   :ensure t
-;;   :bind (
-;;   ("C-;" . ac-complete-with-helm)
-;;   :map helm-map
-;;   ("C-;" . ac-complete-with-helm)
-;;   )
-;;   )
-
-;; <-- ac-helm
-
 
 (use-package
   magit
   :ensure t
+  :bind
+  ("C-x g" . magit-status)
+  ("C-x v k" . magit-log-buffer-file)
   )
 
 ;; magit-find-file
 ;; Magit rules!
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
+;; (global-set-key (kbd "C-x g") 'magit-status)
+;; (global-set-key (kbd "C-x v k") 'magit-log-buffer-file)
 
 ;; magit-find-file
 
-;; redo+
-;;(require 'redo+)
-;; redo+
 
 
 
@@ -180,10 +149,6 @@
 ;; wordwrap when vertically seperated buffer
 
 
-;; ediff default split
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-merge-split-window-function 'split-window-horizontally)
-;; ediff default split
 
 
 
@@ -2146,6 +2111,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package ediff
   :custom
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;; ediff default split
+;; (setq ediff-split-window-function 'split-window-horizontally)
+;; (setq ediff-merge-split-window-function 'split-window-horizontally)
+;; ediff default split
+
   :bind
   (
    :map ediff-mode-map
