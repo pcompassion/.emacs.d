@@ -1382,7 +1382,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (push "HISTFILE" exec-path-from-shell-variables)
   (exec-path-from-shell-initialize))
 
-(use-package projectile :ensure t)
+
+(use-package projectile
+  :ensure t
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :bind-keymap
+  ("C-c p" . projectile-command-map
+   )
+  )
 
 (add-to-list 'image-types 'svg)
 (use-package treemacs :ensure t)
@@ -1550,7 +1558,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq gud-pdb-command-name "python -m pdb ")
   (add-hook 'python-mode-hook
      (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
+
+  ;; https://github.com/jorgenschaefer/elpy/issues/887#issuecomment-1664031740
+  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+
   )
+
 
 (use-package pyvenv
   :ensure t
@@ -1705,12 +1718,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package org
   :ensure t
   :hook (org-mode . org-indent-mode)
-  ;; https://orgmode.org/manual/Conflicts.html
-  ;; Make windmove work in Org mode:
-  (org-shiftup-final . windmove-up)
-  (org-shiftleft-final-hook . windmove-left)
-  (org-shiftdown-final-hook . windmove-down)
-  (org-shiftright-final-hook . windmove-right)
 
   :bind* (
           :map org-mode-map
@@ -1750,51 +1757,63 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ;;       org-src-fontify-natively t
     ;;       org-src-tab-acts-natively t)
     ;; )
-  (setq org-log-done t)
-  (setq org-startup-folded nil)
-  (setq org-use-fast-todo-selection 'expert)
+    (setq org-log-done t)
+    (setq org-startup-folded nil)
+    (setq org-use-fast-todo-selection 'nil)
 
-  (setq org-refile-targets
-        `(
-                ;; ("~/notes/archives/tasks.org" :maxlevel . 1)
+    (setq org-refile-targets
+          `(
+            ;; ("~/notes/archives/tasks.org" :maxlevel . 1)
 
-          (,(directory-files-recursively "~/notes/archives/" "^[[:ascii:]]*.org$") :maxlevel . 2)
-          (org-agenda-files :maxlevel . 2)
-                ))
+            (,(directory-files-recursively "~/notes/archives/" "^[[:ascii:]]*.org$") :maxlevel . 2)
+            (org-agenda-files :maxlevel . 2)
+            ))
 
-  (setq org-refile-use-outline-path 'file)
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
+    (setq org-refile-use-outline-path 'file)
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-allow-creating-parent-nodes 'confirm)
 
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-
-
-  ;; https://github.com/bastibe/org-journal
-  (defun org-journal-find-location ()
-    ;; Open today's journal, but specify a non-nil prefix argument in order to
-    ;; inhibit inserting the heading; org-capture will insert the heading.
-    (org-journal-new-entry t)
-    (unless (eq org-journal-file-type 'daily)
-      (org-narrow-to-subtree))
-    (goto-char (point-max)))
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 
- (setq org-capture-templates
-    `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+headline "~/notes/agendas/inbox.org" "inbox")
-           "* Todo %?\n  %U\n  %a\n  %i" :empty-lines 1)
-      ("c" "Tickler")
-      ("cc" "Tickler" entry
-       (file+headline "~/notes/agendas/tickler.org" "Tickler")
-       "* %i%? \n %U")
-      ("j" "Journal entry" plain (function org-journal-find-location)
-       "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
-                               :jump-to-captured t :immediate-finish t)
-      ))
+
+    ;; https://github.com/bastibe/org-journal
+    (defun org-journal-find-location ()
+      ;; Open today's journal, but specify a non-nil prefix argument in order to
+      ;; inhibit inserting the heading; org-capture will insert the heading.
+      (org-journal-new-entry t)
+      (unless (eq org-journal-file-type 'daily)
+        (org-narrow-to-subtree))
+      (goto-char (point-max)))
 
 
- )
+    (setq org-capture-templates
+          `(("t" "Tasks / Projects")
+            ("tt" "Task" entry (file+headline "~/notes/agendas/inbox.org" "inbox")
+             "* Todo %?\n  %U\n  %a\n  %i" :empty-lines 1)
+            ("c" "Tickler")
+            ("cc" "Tickler" entry
+             (file+headline "~/notes/agendas/tickler.org" "Tickler")
+             "* %i%? \n %U")
+            ("j" "Journal entry" plain (function org-journal-find-location)
+             "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+             :jump-to-captured t :immediate-finish t)
+            ))
+
+    ;; https://orgmode.org/manual/Conflicts.html
+    ;; Make windmove work in Org mode:
+    (add-hook 'org-shiftup-final-hook 'windmove-up)
+    (add-hook 'org-shiftleft-final-hook 'windmove-left)
+    (add-hook 'org-shiftdown-final-hook 'windmove-down)
+    (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+
+    (setq org-tag-alist '((:startgroup . nil)
+                          ("@fast-m" . ?f) ("@auto-m" . ?a)
+                          ("@family" . ?y)
+                          (:endgroup . nil)
+                          ("idea" . ?i) ("study" . ?s)))
+    )
   )
 
 (use-package org-journal
@@ -1804,7 +1823,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; Change default prefix key; needs to be set before loading org-journal
   (setq org-journal-prefix-key "C-c j ")
   :config
-  (setq org-journal-dir "~/notes/journal/"
+  (setq org-journal-dir "~/notes/journals/"
         org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-carryover-items "TODO=\"Todo\"|TODO=\"Started\"")
 
@@ -2028,6 +2047,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :config
   (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
   )
+
+(use-package alchemist
+  :ensure t
+  )
+
 
 (provide 'init)
 (custom-set-faces
