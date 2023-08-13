@@ -312,7 +312,7 @@
  '(grep-find-ignored-directories
    '("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "migrations" "bower_components" "node_modules" "bower_components"))
  '(grep-find-ignored-files
-   '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js"))
+   '("*pbxproj" "*ignore" ".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "uploadDSYM" "jquery.js" "plugins.js"))
  '(helm-ff-transformer-show-only-basename nil)
  '(helm-grep-file-path-style 'relative)
  '(helm-grep-ignored-directories
@@ -452,7 +452,7 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(setq grep-find-ignored-files (cl-union grep-find-ignored-files '("*pbxproj" "*ignore")))
+;;(setq grep-find-ignored-files (cl-union grep-find-ignored-files '("*pbxproj" "*ignore")))
 
 ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/ZGu2MNkJGrI
 ;; (defadvice terminal-init-xterm (after map-S-up-escape-sequence activate)
@@ -838,7 +838,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ;; (setq helm-grep-ignored-files (append helm-grep-ignored-files grep-find-ignored-files))
     ;; (setq helm-grep-ignored-directories (append helm-grep-ignored-directories grep-find-ignored-directories))
 
-
     (helm-mode))
   :bind (
          ("C-c h" . helm-command-prefix)
@@ -851,7 +850,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
          ("C-x b" . helm-mini)
          ("C-M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)
-
+         ("C-c h r" . helm-register)
+         ("C-c h x" . helm-regexp)
+         ("C-c C-h" . helm-resume)
 
          ;; ("C-c h o" . helm-occur)
          ;; ("C-c h w" . helm-swoop)
@@ -873,6 +874,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
          ("M-p" . helm-gm-precedent-file)
          ;; :map helm-occur-mode-map
          ;; (
+         :map minibuffer-local-map
+         ("C-c C-l" . helm-minibuffer-history)
+
          )
   )
 
@@ -1210,6 +1214,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;    )
 ;; )
 
+(setq venv-location "~/virtualenvs/")   ;need it for org
 
 
 (use-package
@@ -1570,6 +1575,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   )
 
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (venv-initialize-interactive-shells) ;; if you want interactive shell support
+  (venv-initialize-eshell) ;; if you want eshell support
+  (setq venv-location "~/virtualenvs/")
+)
 
 (use-package pyvenv
   :ensure t
@@ -1577,6 +1589,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (pyvenv-mode t)
 
   ;; Set correct Python interpreter
+  :init
+  (progn
   (setq pyvenv-post-activate-hooks
         (list (lambda ()
                 (setq py-shell-name (concat pyvenv-virtual-env "bin/python3"))
@@ -1584,7 +1598,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
                 )))
   (setq pyvenv-post-deactivate-hooks
         (list (lambda ()
-                (setq py-shell-name "python3")))))
+                (setq py-shell-name "python3"))))
+  )
+  )
 
 
 (use-package elpy
@@ -1739,7 +1755,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
           )
 
   :config
-  (setq org-babel-confirm-evaluate nil)
+  (setq org-confirm-babel-evaluate nil)
 
   (defun my-func (orig-fun &rest args)
     (when (equal (car args) '(setq cursor-type nil))
@@ -2001,58 +2017,58 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
-(use-package
-  org-roam
-  :ensure t
-  :hook ((after-init . org-roam-setup)
-         (org-roam-backlinks-mode . visual-line-mode))
-  :custom
-  (org-roam-directory "~/notes/roam/")
-  :bind
-  (:map org-roam-mode-map
-        (
-         ("C-c n f"   . org-roam-node-find)
-         )
-        :map org-mode-map
-        (("C-c n i" . org-roam-node-insert)
-         ("C-c n I" . org-roam-insert-immediate)
-         ("C-c n o" . org-id-get-create)
-         ("C-c n t" . org-roam-tag-add)
-         ("C-c n a" . org-roam-alias-add)
-         ("C-c n l" . org-roam-buffer-toggle)
+;; (use-package
+;;   org-roam
+;;   :ensure t
+;;   :hook ((after-init . org-roam-setup)
+;;          (org-roam-backlinks-mode . visual-line-mode))
+;;   :custom
+;;   (org-roam-directory "~/notes/roam/")
+;;   :bind
+;;   (:map org-roam-mode-map
+;;         (
+;;          ("C-c n f"   . org-roam-node-find)
+;;          )
+;;         :map org-mode-map
+;;         (("C-c n i" . org-roam-node-insert)
+;;          ("C-c n I" . org-roam-insert-immediate)
+;;          ("C-c n o" . org-id-get-create)
+;;          ("C-c n t" . org-roam-tag-add)
+;;          ("C-c n a" . org-roam-alias-add)
+;;          ("C-c n l" . org-roam-buffer-toggle)
 
-         ))
+;;          ))
 
-  :config
-  (org-roam-db-autosync-mode)
-  :init
-  (progn
-    (setq org-roam-capture-templates
-          (quote (("m" "main" plain
-                   "%?"
-                   :if-new (file+head "main/${slug}.org"
-                                      "#+title: ${title}\n")
-                   :immediate-finish t
-                   :unnarrowed t)
-                  ("r" "reference" plain "%?"
-                   :if-new
-                   (file+head "reference/${title}.org" "#+title: ${title}\n")
-                   :immediate-finish t
-                   :unnarrowed t)
-                  ("a" "article" plain "%?"
-                   :if-new
-                   (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
-                   :immediate-finish t
-                   :unnarrowed t)
-                  ("d" "Default" plain "%?"
-                   :if-new (file+head
-                            "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}.org\" (current-time) t)"
-                            "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d>\n\n")
-                   :unnarrowed t)
-                  )))
+;;   :config
+;;   (org-roam-db-autosync-mode)
+;;   :init
+;;   (progn
+;;     (setq org-roam-capture-templates
+;;           (quote (("m" "main" plain
+;;                    "%?"
+;;                    :if-new (file+head "main/${slug}.org"
+;;                                       "#+title: ${title}\n")
+;;                    :immediate-finish t
+;;                    :unnarrowed t)
+;;                   ("r" "reference" plain "%?"
+;;                    :if-new
+;;                    (file+head "reference/${title}.org" "#+title: ${title}\n")
+;;                    :immediate-finish t
+;;                    :unnarrowed t)
+;;                   ("a" "article" plain "%?"
+;;                    :if-new
+;;                    (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+;;                    :immediate-finish t
+;;                    :unnarrowed t)
+;;                   ("d" "Default" plain "%?"
+;;                    :if-new (file+head
+;;                             "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}.org\" (current-time) t)"
+;;                             "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d>\n\n")
+;;                    :unnarrowed t)
+;;                   )))
 
-    )
-  )
+;;     )
+;;   )
 
 
 (if (not window-system)
@@ -2205,6 +2221,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :quelpa (bookmark+ :fetcher github :repo "emacsmirror/bookmark-plus")
   :after bookmark ; I have generic bookmark customization I want loaded beforehand, you might not need this
   ;; [...] your :init and :config
+  ;; c-x x m create
+  ;; c-x x e list
+  ;; c-x x j jump
+
   )
 
 
@@ -2215,3 +2235,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; https://emacsdocs.org/docs/emacs/Find-Identifiers
+;; https://docs.projectile.mx/projectile/usage.html
+;; http://xahlee.info/emacs/emacs/emacs_outline.html
+;; http://tuhdo.github.io/helm-intro.html#sec-7
