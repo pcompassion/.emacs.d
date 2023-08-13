@@ -38,3 +38,8 @@ url/cache/
 url/cookies
 persist/
 projects
+elpa2/
+projectile-bookmarks.eld
+projectile.cache
+theme.el
+tramp

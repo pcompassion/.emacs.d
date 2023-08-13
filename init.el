@@ -8,7 +8,7 @@
 
 (setq mac-option-modifier 'meta
       mac-command-modifier 'super
-)
+      )
 
 
 ;; /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
@@ -1558,7 +1558,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq-default py-keep-windows-configuration 'force)
   (setq gud-pdb-command-name "python -m pdb ")
   (add-hook 'python-mode-hook
-     (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
+            (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
 
   ;; https://github.com/jorgenschaefer/elpy/issues/887#issuecomment-1664031740
   (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
@@ -1728,12 +1728,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
           )
 
   :custom
-(defun my-func (orig-fun &rest args)
-  (when (equal (car args) '(setq cursor-type nil))
-    (setcar args '(setq cursor-type 'bar)))
-  (apply orig-fun args))
+  (defun my-func (orig-fun &rest args)
+    (when (equal (car args) '(setq cursor-type nil))
+      (setcar args '(setq cursor-type 'bar)))
+    (apply orig-fun args))
 
-(advice-add 'org-eval-in-calendar :around #'my-func)
+  (advice-add 'org-eval-in-calendar :around #'my-func)
   :init
   (progn
     (setq org-todo-keywords
@@ -1832,7 +1832,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 
-  ;; Change default prefix key; needs to be set before loading org-journal
+    ;; Change default prefix key; needs to be set before loading org-journal
     (setq org-journal-prefix-key "C-c j ")
 
     (defun org-journal-file-header-func (time)
@@ -1848,7 +1848,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
     (setq org-journal-start-on-weekday 7)
     (setq org-journal-enable-agenda-integration t)
-  )
+    )
   :config
   (setq org-journal-dir "~/notes/journals/"
         org-journal-date-format "%A, %d %B %Y")
@@ -1869,7 +1869,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :ensure t
   :config
   (setq cfw:org-overwrite-default-keybinding t)
-)
+  )
 
 (use-package plstore
   :ensure t
@@ -1880,22 +1880,22 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (when window-system
-(use-package org-gcal
-  :ensure t
-  :after org
-  :config
-  ;; (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
-  (setq org-gcal-fetch-file-alist '(("p.compassion@gmail.com" .  "~/notes/agendas/schedule.org")))
-  (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-  (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
+  (use-package org-gcal
+    :ensure t
+    :after org
+    :config
+    ;; (setq org-gcal-client-id "596462348804-e8p9i318ov74du0hp2i6sg07tki6hi9m.apps.googleusercontent.com")
+    (setq org-gcal-fetch-file-alist '(("p.compassion@gmail.com" .  "~/notes/agendas/schedule.org")))
+    (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+    (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch)
+    )
   )
-)
 
 
 
 (use-package calfw-ical
   :ensure t
-)
+  )
 
 
 
@@ -1904,11 +1904,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :after which-key
   :config
   (general-override-mode 1)
-)
+  )
 
 (general-create-definer df/ctrl-c
-;; :keymaps '(normal insert visual emacs)
-:prefix "C-c")
+  ;; :keymaps '(normal insert visual emacs)
+  :prefix "C-c")
 
 (defun goto-journal()
   (interactive)
@@ -1920,34 +1920,34 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
   (let (ty_s)
     (progn
-    (cond
-     ((char-equal ty ?w)
-      (progn
-        (setq org-journal-file-type 'weekly)
-        (setq ty_s "weekly")
-        (setq org-journal-file-format "%Y%m-w%V")
-        ))
-     ((char-equal ty ?d)
-      (progn
-        (setq org-journal-file-type 'daily)
-        (setq ty_s "daily")
-        (setq org-journal-file-format "%Y%m%d")
+      (cond
+       ((char-equal ty ?w)
+        (progn
+          (setq org-journal-file-type 'weekly)
+          (setq ty_s "weekly")
+          (setq org-journal-file-format "%Y%m-w%V")
+          ))
+       ((char-equal ty ?d)
+        (progn
+          (setq org-journal-file-type 'daily)
+          (setq ty_s "daily")
+          (setq org-journal-file-format "%Y%m%d")
+          )
         )
-      )
-     ((char-equal ty ?m)
-      (progn
-        (setq org-journal-file-type 'monthly)
-        (setq ty_s "monthly")
-        (setq org-journal-file-format "%Y%m-%b")
+       ((char-equal ty ?m)
+        (progn
+          (setq org-journal-file-type 'monthly)
+          (setq ty_s "monthly")
+          (setq org-journal-file-format "%Y%m-%b")
+          )
         )
+       )
+
+      ;; (message "journal type set to %s" ty_s)
+
+      (org-journal-invalidate-cache)
+      (goto-journal)
       )
-     )
-
-    ;; (message "journal type set to %s" ty_s)
-
-    (org-journal-invalidate-cache)
-    (goto-journal)
-    )
     )
   )
 
@@ -1957,18 +1957,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (general-create-definer df-local/ctrl-c-o
-:prefix "C-c o")
+  :prefix "C-c o")
 
 (df-local/ctrl-c-o
- "j" 'goto-journal
- "t" 'change-org-journal-file-type
- "c" 'cfw:open-org-calendar
- )
+  "j" 'goto-journal
+  "t" 'change-org-journal-file-type
+  "c" 'cfw:open-org-calendar
+  )
 
 (df-local/ctrl-c-o
- :keymaps 'org-mode-map
- "m" 'org-insert-todo-heading
- )
+  :keymaps 'org-mode-map
+  "m" 'org-insert-todo-heading
+  )
 
 
 (use-package
@@ -1985,13 +1985,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
          )
         :map org-mode-map
         (("C-c n i" . org-roam-node-insert)
-        ("C-c n I" . org-roam-insert-immediate)
-                  ("C-c n o" . org-id-get-create)
-                  ("C-c n t" . org-roam-tag-add)
-                  ("C-c n a" . org-roam-alias-add)
-                  ("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n I" . org-roam-insert-immediate)
+         ("C-c n o" . org-id-get-create)
+         ("C-c n t" . org-roam-tag-add)
+         ("C-c n a" . org-roam-alias-add)
+         ("C-c n l" . org-roam-buffer-toggle)
 
-        ))
+         ))
 
   :config
   (org-roam-db-autosync-mode)
@@ -2057,7 +2057,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
   )
-  ;; (setq browse-url-browser-function 'browse-url-default-browser)
+;; (setq browse-url-browser-function 'browse-url-default-browser)
 
 
 (use-package spacemacs-theme
@@ -2067,10 +2067,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   ;; Global settings (defaults)
   :init
   (progn
-  (load-theme 'spacemacs-dark t)
+    (load-theme 'spacemacs-dark t)
 
     (setq spacemacs-theme-comment-bg nil)
-)
+    )
   )
 
 
@@ -2112,8 +2112,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :init
   (progn
 
-   (define-key leetcode-solution-mode-map (kbd "C-c C-t") 'leetcode-try)
-   )
+    (define-key leetcode-solution-mode-map (kbd "C-c C-t") 'leetcode-try)
+    )
 
   )
 
@@ -2122,10 +2122,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (set-frame-font "Monaco-14" nil t)
 
 (add-hook
-     'c++-mode-hook
-      (lambda ()
-        (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
-      )
+ 'c++-mode-hook
+ (lambda ()
+   (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
+ )
 
 
 
@@ -2145,16 +2145,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package ediff
   :custom
-  (setq ediff-window-setup-funtion 'ediff-setup-windows-plain)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
   :bind
   (
    :map ediff-mode-map
-        (
-         ("[" .
-         ;; ("c" . ediff-toggle-multiframe)
-         )
-  )
-  )
+   (
+    ("[" . (lambda () (interactive) (setq-local ediff-merge-window-share (+  ediff-merge-window-share 0.10))))
+    ("]" . (lambda () (interactive) (setq-local ediff-merge-window-share (-  ediff-merge-window-share 0.10))))
+     )
+    )
+   )
 
   (use-package helm-descbinds
     :ensure t
@@ -2163,4 +2163,4 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     )
 
 
-(provide 'init)
+  (provide 'init)
