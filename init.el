@@ -2099,7 +2099,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (global-so-long-mode 1)
-(setenv "WORKON_HOME" "/Users/eugenekim/virtualenvs")
+(setenv "WORKON_HOME" "~/virtualenvs")
 
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
