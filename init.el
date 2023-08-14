@@ -48,14 +48,6 @@
 (require 'use-package)
 
 
-;; http://stackoverflow.com/a/10093312/433570
-
-;; list the packages you want
-;; (setq package-list '(package1 package2))
-;; fetch the list of packages available
-;; (unless package-archive-contents
-;;     (package-refresh-contents))
-
 
 ;; for bookmark+
 (use-package quelpa
@@ -90,36 +82,18 @@
 
 
 
-;; bash-completion
-;; (bash-completion-setup)
-;; bash-completion
 
-
-;; (use-package elpy
-;;   ;; :straight t
-;;   :bind
-;;   (:map elpy-mode-map
-;;         ("C-M-n" . elpy-nav-forward-block)
-;;         ("C-M-p" . elpy-nav-backward-block))
-;;   :hook ((elpy-mode . flycheck-mode)
-;;           (elpy-mode . (lambda ()
-;;                          (set (make-local-variable 'company-backends)
-;;                               '((elpy-company-backend :with company-yasnippet)))))
-;; 				 )
-;;   :init
-;;   (elpy-enable)
-;;   :config
-;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;; 																				; fix for MacOS, see https://github.com/jorgenschaefer/elpy/issues/1550
-;;   (setq elpy-shell-echo-output nil)
-;;   (setq elpy-rpc-python-command "python3")
-;;   (setq elpy-rpc-timeout 2)
-;;  )
-
-  (setq-default indent-tabs-mode nil
+(setq-default indent-tabs-mode nil
               tab-stop-list    ()
               tab-width        2)
 
+
+(use-package general
+  :ensure t
+  :after which-key
+  :config
+  (general-override-mode 1)
+  )
 
 
 (use-package
@@ -332,7 +306,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(move-border pretty-hydra with-venv bookmark+ quelpa-use-package quelpa rg helm-rg python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(ob-ipython spacemacs-theme alchemist elixir-mode general undo-fu dap-mode move-border pretty-hydra with-venv bookmark+ quelpa-use-package quelpa rg helm-rg python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
@@ -1300,7 +1274,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 (setq tramp-default-method "ssh")
-(windmove-default-keybindings)
+
 
 ;; (require 'ethan-wspace)
 ;; (global-ethan-wspace-mode 1)
@@ -1328,13 +1302,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq py-use-current-dir-when-execute-p t)
 
 
-;; (use-package
-;;   ob-ipython
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     )
-;;   )
+(use-package
+  ob-ipython
+  :ensure t
+  :init
+  (progn
+    )
+  )
 
 
 (use-package
@@ -1550,39 +1524,169 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq gud-pdb-command-name "python -m pdb ")
   (add-hook 'python-mode-hook
             (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
+
   )
 
 (use-package with-venv
   :ensure t
   )
 
+
+
 (use-package dap-mode
-  :after (eglot hydra)
-  :commands dap-debug
-  :hook ((python-mode . dap-ui-mode) (python-mode . dap-mode))
-  :custom
-  (dap-auto-configure-features '(locals controls))
-  (dap-python-debugger 'debugpy)
+  :hook
+  (
+   (dap-terminated . lc/hide-debug-windows)
+   (dap-session-created . (lambda (_arg) (projectile-save-project-buffers)))
+   (dap-ui-repl-mode . (lambda () (setq-local truncate-lines t))))
+  :after projectile
+  :pretty-hydra
+  (run-hydra (:color pink :quit-key "q")
+   ("run"
+     (
+      ;; ("dd" dap-debug-last  "debug last" :column run)
+      ;; ("dl" dap-debug )
+      ;; ("q" dap-disconnect  "quit")
 
-  :config
-  (require 'dap-python)
-  ;; (defun dap-python--pyenv-executable-find (command)
-  ;;   (with-venv (executable-find "python")))
+      ("n" dap-next  "next" :column "step")
+      ("i" dap-step-in  "step in" )
+      ("i" dap-step-out  "step out")
+      ("c" dap-continue "continue")
+      ("u" dap-up-stack-frame)
+      ("d" dap-down-stack-frame)
+      ("e" dap-eval-thing-at-point "eval")
 
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra)))
-  (dap-ui-mode 1)
-
-  (defhydra+ dap-hydra ()
-    ("se" dap-ui-repl)
-    )
+      ("bb" dap-breakpoint-toggle "breakpoint toggle" :column "breakpoint")
+      ("bc" dap-breakpoint-condition)
+      ("bh" dap-breakpoint-hit-condition)
+      ("bl" dap-breakpoint-log-message)
 
 
+      ("r" dap-ui-repl  "repl" :column "ui")
+      ("o" dap-go-to-output-buffer "output")
+      ("h" dap-hydra  "hydra")
+
+      ("x" read-only-mode "read-only")
+      ))
+   )
+  (debug-hydra (:color amaranth :quit-key "q")
+   ("debug"
+     (
+      ("dd" dap-debug-last  "debug last" :column run)
+      ("dl" dap-debug )
+      ("q" dap-disconnect  "quit")
+
+      ("sb" dap-ui-breakpoints-list  "breakpoint list" :column ui)
+      ("hb" (ek/kill-dap-window dap-ui--breakpoints-buffer) "h break")
+      ("sl" dap-ui-locals "locals")
+      ("hl" (ek/kill-dap-window dap-ui--locals-buffer) "h locals")
+      ("sw" dap-ui-expressions-add "watches")
+      ("hw" (ek/kill-dap-window dap-ui--expressions-buffer) "h watchs")
+
+      )))
+
+  ;; :general
+  ;; (df/ctrl-c
+  ;;   :keymaps '(python-mode-map dap-ui-repl-mode-map)
+  ;;   "d" '(dap-mode-hydra/body :wk "debug")
+  ;;   )
   :bind
   (
-   :map python-mode-map ("C-c d" . dap-hydra)
+   :map python-mode-map ("C-c d" . run-hydra/body) ("C-c C-d" . debug-hydra/body)
+   :map dap-ui-repl-mode-map ("C-c d" . debug-hydra/body)
   )
-)
+
+
+  ;; (:keymaps 'dap-ui-repl-mode-map
+  ;;           "<backtab>" 'dabbrev-completion
+  ;;           "TAB" 'lc/py-indent-or-complete)
+  :init
+  ;; (setq dap-auto-configure-features '(locals repl))
+  (setq dap-auto-configure-features '(sessions repl))
+  (setq dap-python-debugger 'debugpy)
+  ;; show stdout
+  (setq dap-auto-show-output t)
+  (setq dap-output-window-min-height 10)
+  (setq dap-output-window-max-height 200)
+  (setq dap-overlays-use-overlays nil)
+  ;; hide stdout window  when done
+
+  (defun ek/kill-dap-window (buffer_name)
+    (when-let (window (get-buffer-window buffer_name))
+        (delete-window window))
+    )
+  (defun lc/hide-debug-windows (session)
+    "Hide debug windows when all debug sessions are dead."
+    (unless (-filter 'dap--session-running (dap--get-sessions))
+      ;; delete output buffer
+      (when-let (window (get-buffer-window (dap--debug-session-output-buffer (dap--cur-session-or-die))))
+        (delete-window window))
+      ;; ui locals
+      (when-let (window (get-buffer-window (dap--ui-locals-buffer (dap--cur-session-or-die))))
+        (delete-window window))
+
+      ;; delete dataframe inspector window
+      ;; (when-let
+      ;;     (window (get-buffer-window (get-file-buffer lc/dap-temp-dataframe-path)))
+      ;;   (delete-window window))
+      )
+    )
+  :config
+  ;; configure windows
+  (require 'dap-python)
+  (dap-ui-mode 1)
+
+  (setq dap-ui-buffer-configurations
+        '(("*dap-ui-sessions*"
+           (side . bottom)
+           (slot . 1)
+           (window-height . 0.33))
+          ("*debug-window*"
+           (side . bottom)
+           (slot . 2)
+           (window-height . 0.33))
+          ("*dap-ui-repl*"
+           (side . bottom)
+           (slot . 3)
+           (window-height . 0.33))))
+  (dap-ui-mode 1)
+  ;; python virtualenv
+  ;; debug templates
+  (defun ek/dap-python--pyenv-executable-find (orig-fn &rest args)
+    (with-venv (executable-find "python")))
+
+
+  ;; (add-hook 'dap-stopped-hook
+  ;;           (lambda (arg) (call-interactively #'dap-hydra)))
+
+  ;; (defhydra+ dap-hydra ()
+  ;;   ("se" dap-ui-repl)
+  ;;   )
+
+  (advice-remove #'dap-python--pyenv-executable-find #'ek/dap-python--pyenv-executable-find)
+  (advice-add 'dap-python--pyenv-executable-find :around #'ek/dap-python--pyenv-executable-find)
+
+  (advice-remove #'dap-variables-project-root  #'projectile-project-root)
+  (advice-add 'dap-variables-project-root :override #'projectile-project-root)
+
+ (defvar dap-django-test2 (list :type "python"
+                                :args ["test"]
+                                :cwd "${workspaceFolder}"
+                                :request "launch"
+                                :program "${workspaceFolder}/manage.py"
+                                :debugger 'debugpy
+                                :name "django test2"))
+
+ (dap-register-debug-template "django test2" dap-django-test2)
+
+
+  ;; bind the templates
+  ;; (lc/local-leader-keys
+  ;;   :keymaps 'python-mode-map
+  ;;   "d j" '((lambda () (interactive) (dap-debug dap-django-test)) :wk "test")
+  ;;   )
+
+  )
 
 
 
@@ -1614,7 +1718,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package elpy
   :ensure t
   :defer t
-  :after python-mode
   :hook (elpy-mode . elpy-use-ipython)
   :config
   (advice-add 'python-mode :before 'elpy-enable)
@@ -1752,10 +1855,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; org
 
+
 (use-package org
   :ensure t
   :hook (org-mode . org-indent-mode)
-
   :bind* (
           :map org-mode-map
           ("C-c C-y" . org-todo)
@@ -1765,13 +1868,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   :config
   (setq org-confirm-babel-evaluate nil)
 
-  (defun my-func (orig-fun &rest args)
-    (when (equal (car args) '(setq cursor-type nil))
-      (setcar args '(setq cursor-type t)))
-    (apply orig-fun args))
+    (advice-remove #'org-eval-in-calendar #'my-func)
 
-  (eval-after-load "org"
-    '(advice-add 'org-eval-in-calendar :around #'my-func))
+  ;; (defun my-func (orig-fun &rest args)
+  ;;   (when (equal (car args) '(setq cursor-type nil))
+  ;;     (setcar args '(setq cursor-type t)))
+  ;;   (apply orig-fun args))
+
+  ;; (eval-after-load "org"
+  ;;   '(advice-add 'org-eval-in-calendar :around #'my-func))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1954,12 +2059,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 
 
-(use-package general
-  :ensure t
-  :after which-key
-  :config
-  (general-override-mode 1)
-  )
 
 (general-create-definer df/ctrl-c
   ;; :keymaps '(normal insert visual emacs)
@@ -2067,7 +2166,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (pretty-hydra-define ek-window
   (:color amaranth :quit-key "q")
   ("window"
-   (("d" duplicate-windows)
+   (("d" duplicate-windows :color blue)
     ("s" ace-swap-window "swap")
     ("o" delete-other-windows "one" :color blue)
     ("TAB" other-window "switch")
@@ -2089,58 +2188,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 
-;; (use-package
-;;   org-roam
-;;   :ensure t
-;;   :hook ((after-init . org-roam-setup)
-;;          (org-roam-backlinks-mode . visual-line-mode))
-;;   :custom
-;;   (org-roam-directory "~/notes/roam/")
-;;   :bind
-;;   (:map org-roam-mode-map
-;;         (
-;;          ("C-c n f"   . org-roam-node-find)
-;;          )
-;;         :map org-mode-map
-;;         (("C-c n i" . org-roam-node-insert)
-;;          ("C-c n I" . org-roam-insert-immediate)
-;;          ("C-c n o" . org-id-get-create)
-;;          ("C-c n t" . org-roam-tag-add)
-;;          ("C-c n a" . org-roam-alias-add)
-;;          ("C-c n l" . org-roam-buffer-toggle)
 
-;;          ))
 
-;;   :config
-;;   (org-roam-db-autosync-mode)
-;;   :init
-;;   (progn
-;;     (setq org-roam-capture-templates
-;;           (quote (("m" "main" plain
-;;                    "%?"
-;;                    :if-new (file+head "main/${slug}.org"
-;;                                       "#+title: ${title}\n")
-;;                    :immediate-finish t
-;;                    :unnarrowed t)
-;;                   ("r" "reference" plain "%?"
-;;                    :if-new
-;;                    (file+head "reference/${title}.org" "#+title: ${title}\n")
-;;                    :immediate-finish t
-;;                    :unnarrowed t)
-;;                   ("a" "article" plain "%?"
-;;                    :if-new
-;;                    (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
-;;                    :immediate-finish t
-;;                    :unnarrowed t)
-;;                   ("d" "Default" plain "%?"
-;;                    :if-new (file+head
-;;                             "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}.org\" (current-time) t)"
-;;                             "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d>\n\n")
-;;                    :unnarrowed t)
-;;                   )))
 
-;;     )
-;;   )
+  ;; (global-unset-key (kbd "C-c d"))
+
+
 
 
 (if (not window-system)
@@ -2180,7 +2233,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (use-package spacemacs-theme
   :ensure t
-  :defer t
   :config
   ;; Global settings (defaults)
   :init
@@ -2201,13 +2253,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package so-long
   :ensure t
   )
-
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t ( :background "#111111" : :weight light))))) ;
 
 
 
@@ -2239,21 +2284,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (set-frame-font "Monaco-14" nil t)
 
-;; (add-hook
-;;  'c++-mode-hook
-;;  (lambda ()
-;;    (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
-;;  )
 
 
 
 (global-so-long-mode 1)
 (setenv "WORKON_HOME" "~/virtualenvs")
-
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 
 (use-package alchemist
@@ -2276,9 +2311,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (
    :map ediff-mode-map
    (
-    ;; ("[" . (lambda () (interactive) (setq-local ediff-merge-window-share (+  ediff-merge-window-share 0.10))))
-    ;; ("]" . (lambda () (interactive) (setq-local ediff-merge-window-share (-  ediff-merge-window-share 0.10))))
-
     )
    )
   )
@@ -2312,3 +2344,4 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; https://docs.projectile.mx/projectile/usage.html
 ;; http://xahlee.info/emacs/emacs/emacs_outline.html
 ;; http://tuhdo.github.io/helm-intro.html#sec-7
+ ;; 10.110.121.150
