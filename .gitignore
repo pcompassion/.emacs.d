@@ -45,3 +45,4 @@ theme.el
 tramp
 bookmarks
 quelpa/
+dap-ui-repl-python-history

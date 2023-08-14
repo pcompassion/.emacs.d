@@ -332,7 +332,7 @@
  '(org-link-file-path-type 'relative)
  '(org-startup-truncated nil)
  '(package-selected-packages
-   '(bookmark+ quelpa-use-package quelpa rg helm-rg python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
+   '(move-border pretty-hydra with-venv bookmark+ quelpa-use-package quelpa rg helm-rg python-black leetcode org-gcal calfw-ical calfw-org calfw calfw-cal org-journal org-roam spacemacs-themes transpose-frame doom-themes nordic-night-theme nordless-theme nord-theme undo-tree eglot xref company-box company which-key go-mode logview csv-mode pyvenv xcode-mode guide-key free-keys jupyter julia-mode julia-repl typescript-mode helm xclip tern-django xref-js2 helm-git helm-git-files docker docker-compose-mode dockerfile-mode magit yasnippet vcl-mode logstash-conf helm-lsp lsp-ui company-lsp projectile lsp-java es-mode ng2-mode org tern anaconda-mode wgrep wgrep-helm prettier-js rjsx-mode ethan-wspace rjsx exec-path-from-shell swift-mode ivy swift3-mode sql-indent git-blamed auto-complete helm-projectile flx-ido geben cl-lib cl-lib-highlight php-mode ztree xcscope web-mode web-beautify visible-mark virtualenvwrapper virtualenv use-package test-simple sudo-ext smartscan smartparens redo+ python-mode py-import-check pg nodejs-repl mo-git-blame magit-gitflow magit-gh-pulls magit-find-file magit-filenotify loc-changes load-relative less-css-mode json-mode jinja2-mode imenu+ image-dired+ image+ iedit idomenu highlight helm-swoop helm-ls-hg helm-ls-git helm-hatena-bookmark helm-git-grep helm-flycheck helm-descbinds helm-dash helm-backup helm-ag handlebars-sgml-mode gradle-mode git-gutter git-gutter+ git-blame fuzzy find-file-in-repository f expand-region evil-leader elpy dummy-h-mode color-theme-solarized color-theme-sanityinc-solarized buffer-move bash-completion back-button auto-compile anything-git-grep ag))
  '(py-keep-windows-configuration 'force)
  '(request-curl-options '("-k"))
  '(safe-local-variable-values
@@ -1215,21 +1215,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;; )
 
 (setq venv-location "~/virtualenvs/")   ;need it for org
+(setq python-shell-virtualenv-root venv-location)
 
 
-(use-package
-  virtualenvwrapper
-  :ensure t
-  :init
-  (progn
-
-
-    (venv-initialize-interactive-shells) ;; if you want interactive shell support
-    (venv-initialize-eshell) ;; if you want eshell support
-    (setq venv-location "~/virtualenvs/")
-
-    )
-  )
 
 
 ;; (defadvice virtualenv-activate (after virtual-pdb)
@@ -1274,7 +1262,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
         (select-window (selected-window)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 
-(global-set-key (kbd "C-c d") 'duplicate-windows)
+;; (global-unset-key (kbd "C-c d"))
 
 (setq global-mark-ring-max 30)
 
@@ -1418,6 +1406,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (use-package yasnippet :ensure t)
 ;; (use-package lsp-mode :ensure t)
 (use-package hydra :ensure t)
+(use-package pretty-hydra :after hydra :ensure t)
 ;; (use-package company-lsp :ensure t)
 ;; (use-package lsp-ui :ensure t)
 ;; (use-package lsp-java :ensure t :after lsp
@@ -1537,18 +1526,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;; (setq x-select-enable-clipboard t)
 ;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-(use-package dap-mode
-  :ensure t
-  :custom
-  (lsp-enable-dap-auto-configure nil)
-  :config
-  (dap-ui-mode 1)
-  (dap-tooltip-mode 1)
-  (require 'dap-python)
-  )
 
 (use-package python
   :defer t)
+
+
 
 
 (use-package python-mode
@@ -1562,35 +1544,64 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (python-shell-interpreter-args "-i --simple-prompt")
 
   :config
-  (setq python-shell-virtualenv-root "~/virtualenvs")
   (setq py-force-py-shell-name-p t)
   (setq-default py-split-windows-on-execute-function 'split-window-horizontally)
   (setq-default py-keep-windows-configuration 'force)
   (setq gud-pdb-command-name "python -m pdb ")
   (add-hook 'python-mode-hook
             (lambda () (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
-
-
-
-
   )
+
+(use-package with-venv
+  :ensure t
+  )
+
+(use-package dap-mode
+  :after eglot
+  :commands dap-debug
+  :hook ((python-mode . dap-ui-mode) (python-mode . dap-mode))
+  :custom
+  (dap-auto-configure-features '(locals controls))
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python)
+  ;; (defun dap-python--pyenv-executable-find (command)
+  ;;   (with-venv (executable-find "python")))
+
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+  (dap-ui-mode 1)
+
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("debug"
+    (("d" dap-debug)
+     ("l" dap-debug-last)
+     ("h" dap-hydra)
+     ("e" dap-ui-repl))
+    ))
+
+  :bind
+  (
+   :map python-mode-map ("C-c d" . dap-mode-hydra/body))
+  )
+
+
 
 (use-package virtualenvwrapper
   :ensure t
   :config
   (venv-initialize-interactive-shells) ;; if you want interactive shell support
   (venv-initialize-eshell) ;; if you want eshell support
-  (setq venv-location "~/virtualenvs/")
 )
 
 (use-package pyvenv
   :ensure t
   :config
   (pyvenv-mode t)
-
+  (pyvenv-tracking-mode t)
   ;; Set correct Python interpreter
-  :init
-  (progn
+
   (setq pyvenv-post-activate-hooks
         (list (lambda ()
                 (setq py-shell-name (concat pyvenv-virtual-env "bin/python3"))
@@ -1599,7 +1610,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (setq pyvenv-post-deactivate-hooks
         (list (lambda ()
                 (setq py-shell-name "python3"))))
-  )
   )
 
 
@@ -1925,7 +1935,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (add-to-list 'plstore-encrypt-to '("F2AAD2543A0AC3BD"))
   )
 
-(when window-system
+;; (when window-system
+(when nil
   (use-package org-gcal
     :ensure t
     :after org
@@ -2002,18 +2013,80 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   "c" 'org-capture
   )
 
-(general-create-definer df-local/ctrl-c-o
+(general-create-definer df-global/ctrl-c-o
   :prefix "C-c o")
 
-(df-local/ctrl-c-o
+(df-global/ctrl-c-o
   "j" 'goto-journal
   "t" 'change-org-journal-file-type
   "c" 'cfw:open-org-calendar
   )
 
-(df-local/ctrl-c-o
+(df-global/ctrl-c-o
   :keymaps 'org-mode-map
   "m" 'org-insert-todo-heading
+  )
+
+
+;; (pretty-hydra-define jp-toggles
+;;   (:color amaranth :quit-key "q" :title jp-toggles--title)
+;;   ("Basic"
+;;    (("n" linum-mode "line number" :toggle t)
+;;     ("w" whitespace-mode "whitespace" :toggle t)
+;;     ("W" whitespace-cleanup-mode "whitespace cleanup" :toggle t)
+;;     ("r" rainbow-mode "rainbow" :toggle t)
+;;     ("L" page-break-lines-mode "page break lines" :toggle t))
+;;    "Highlight"
+;;    (("s" symbol-overlay-mode "symbol" :toggle t)
+;;     ("l" hl-line-mode "line" :toggle t)
+;;     ("x" highlight-sexp-mode "sexp" :toggle t)
+;;     ("t" hl-todo-mode "todo" :toggle t))
+;;    "UI"
+;;    (("d" jp-themes-toggle-light-dark "dark theme" :toggle jp-current-theme-dark-p))
+;;    "Coding"
+;;    (("p" smartparens-mode "smartparens" :toggle t)
+;;     ("P" smartparens-strict-mode "smartparens strict" :toggle t)
+;;     ("S" show-smartparens-mode "show smartparens" :toggle t)
+;;     ("f" flycheck-mode "flycheck" :toggle t))
+;;    "Emacs"
+;;    (("D" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
+;;     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
+
+
+
+(use-package
+  ace-window
+  :ensure t
+  )
+
+
+(use-package move-border
+  :quelpa (move-border :fetcher github :repo "ramnes/move-border")
+  :ensure t
+  )
+
+
+(pretty-hydra-define ek-window
+  (:color amaranth :quit-key "q")
+  ("window"
+   (("d" duplicate-windows)
+    ("s" ace-swap-window "swap")
+    ("o" delete-other-windows "one" :color blue)
+    ("TAB" other-window "switch")
+    ("x" ace-delete-window "delete")
+    ("m" ace-delete-other-windows "maximize" :color blue)
+    ("a" ace-select-window "select"))
+   "Resize"
+   (("b" move-border-left "←")
+    ("n" move-border-down "↓")
+    ("p" move-border-up "↑")
+    ("f" move-border-right "→")
+    ("n" balance-windows "balance")
+   )
+  )
+
+(df/ctrl-c
+  "w" 'ek-window/body
   )
 
 
@@ -2167,11 +2240,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (set-frame-font "Monaco-14" nil t)
 
-(add-hook
- 'c++-mode-hook
- (lambda ()
-   (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
- )
+;; (add-hook
+;;  'c++-mode-hook
+;;  (lambda ()
+;;    (local-set-key (kbd "C-c C-t")  (lambda () (interactive)(compile "make"))))
+;;  )
 
 
 
