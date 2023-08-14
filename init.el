@@ -1557,12 +1557,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   )
 
 (use-package dap-mode
-  :after eglot
+  :after (eglot hydra)
   :commands dap-debug
   :hook ((python-mode . dap-ui-mode) (python-mode . dap-mode))
   :custom
   (dap-auto-configure-features '(locals controls))
   (dap-python-debugger 'debugpy)
+
   :config
   (require 'dap-python)
   ;; (defun dap-python--pyenv-executable-find (command)
@@ -1572,19 +1573,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
             (lambda (arg) (call-interactively #'dap-hydra)))
   (dap-ui-mode 1)
 
-  :pretty-hydra
-  ((:color teal :quit-key "q")
-   ("debug"
-    (("d" dap-debug)
-     ("l" dap-debug-last)
-     ("h" dap-hydra)
-     ("e" dap-ui-repl))
-    ))
+  (defhydra+ dap-hydra ()
+    ("se" dap-ui-repl)
+    )
+
 
   :bind
   (
-   :map python-mode-map ("C-c d" . dap-mode-hydra/body))
+   :map python-mode-map ("C-c d" . dap-hydra)
   )
+)
 
 
 
@@ -2083,6 +2081,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     ("f" move-border-right "→")
     ("n" balance-windows "balance")
    )
+  )
   )
 
 (df/ctrl-c
